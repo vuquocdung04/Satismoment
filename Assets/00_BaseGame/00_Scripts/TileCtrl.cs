@@ -8,6 +8,7 @@ public class TileCtrl : Singleton<TileCtrl>
     public Tile tilePrefab;
     public Canvas canvas;
     public LevelDesign levelDesign;
+    public int level;
     public bool isWin;
     [Space(10)]
     public Tile selectTile1;
@@ -23,8 +24,8 @@ public class TileCtrl : Singleton<TileCtrl>
 
     void GenarateTile()
     {
-        var matrix = levelDesign.lsLevelDesigns[0].GetMatrix();
-        int size = levelDesign.lsLevelDesigns[0].size;
+        var matrix = levelDesign.lsLevelDesigns[level].GetMatrix();
+        int size = levelDesign.lsLevelDesigns[level].size;
         for(int i = 0; i < size; i++)
         {
             for(int j = 0; j < size; j++)
@@ -39,8 +40,6 @@ public class TileCtrl : Singleton<TileCtrl>
                 tile.text.text = value == 0 ? "" : value.ToString();
             }
         }
-
-        foreach(var tile in this.lsTiles) tile.SetNeighBorTile();
     }
 
     private void Update()
@@ -119,8 +118,8 @@ public class TileCtrl : Singleton<TileCtrl>
     public Tile GetTile(Vector2Int posTile)
     {
         if (posTile.x < 0 || posTile.y < 0) return null;
-        if(posTile.x >= levelDesign.lsLevelDesigns[0].size ||
-            posTile.y >= levelDesign.lsLevelDesigns[0].size)
+        if(posTile.x >= levelDesign.lsLevelDesigns[level].size ||
+            posTile.y >= levelDesign.lsLevelDesigns[level].size)
         {
             Debug.LogError("Check");
             return null;
@@ -134,7 +133,7 @@ public class TileCtrl : Singleton<TileCtrl>
 
     public void CheckWin()
     {
-        var winPattern = levelDesign.lsLevelDesigns[0].checkWin.lsVector2;
+        var winPattern = levelDesign.lsLevelDesigns[level].checkWin.lsVector2;
 
         for (int i = 0; i < lsTiles.Count; i++)
         {
