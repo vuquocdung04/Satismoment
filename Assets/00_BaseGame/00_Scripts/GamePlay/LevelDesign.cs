@@ -12,8 +12,8 @@ public class LevelDesign : ScriptableObject
 [System.Serializable]
 public class LevelDesign_Tile
 {
-    public int level;
     public int size = 3;
+    public int level;
     public int[] flatBoard;
 
     [Button("Setup",ButtonSizes.Large)]

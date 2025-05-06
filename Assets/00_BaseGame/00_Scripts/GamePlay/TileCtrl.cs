@@ -19,13 +19,14 @@ public class TileCtrl : Singleton<TileCtrl>
 
     private void Start()
     {
+        this.level = GameController.Instance.levelGame;
         this.GenarateTile();
     }
 
     void GenarateTile()
     {
-        var matrix = levelDesign.lsLevelDesigns[level].GetMatrix();
-        int size = levelDesign.lsLevelDesigns[level].size;
+        var matrix = levelDesign.lsLevelDesigns[level - 1].GetMatrix();
+        int size = levelDesign.lsLevelDesigns[level - 1].size;
         for(int i = 0; i < size; i++)
         {
             for(int j = 0; j < size; j++)
@@ -133,8 +134,7 @@ public class TileCtrl : Singleton<TileCtrl>
 
     public void CheckWin()
     {
-        var winPattern = levelDesign.lsLevelDesigns[level].checkWin.lsVector2;
-
+        var winPattern = levelDesign.lsLevelDesigns[level - 1].checkWin.lsVector2;
         for (int i = 0; i < lsTiles.Count; i++)
         {
             var tile = lsTiles[i];
