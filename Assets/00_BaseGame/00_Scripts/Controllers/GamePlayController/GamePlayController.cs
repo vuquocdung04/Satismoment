@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePlayController : MonoBehaviour
+public class GamePlayController : Singleton<GamePlayController>
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameScene gameScene;
+    public TileCtrl  tileCtrl;
+
+    protected override void OnAwake()
     {
-        
+        base.OnAwake();
+        m_DontDestroyOnLoad = false;
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Init()
     {
-        
+        gameScene.Init();
+        tileCtrl.Init();
     }
 }

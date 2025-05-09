@@ -3246,7 +3246,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9181160234110501529}
-  - component: {fileID: 5021801487657402210}
   - component: {fileID: 8121859170510420743}
   - component: {fileID: 8720138662308720602}
   m_Layer: 5
@@ -3290,34 +3289,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.0005803096}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &5021801487657402210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4832348742013817824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9f191106186ae43b77c8e4e05e812a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lsSlots:
-  - {fileID: 2851358533780273932}
-  - {fileID: 2429821313911473860}
-  - {fileID: 9210214056375115940}
-  - {fileID: 913515876624651791}
-  - {fileID: 5020046053242293158}
-  - {fileID: 7662369678891822072}
-  - {fileID: 998880293463202670}
-  - {fileID: 45806419293337812}
-  - {fileID: 9055194226330457315}
-  - {fileID: 5253245821237084561}
-  - {fileID: 1599358812662086675}
-  - {fileID: 1636822366742874170}
-  - {fileID: 5600509017298914719}
-  - {fileID: 4386154417758802140}
-  - {fileID: 4694571722644517692}
 --- !u!114 &8121859170510420743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4586,6 +4557,22 @@ MonoBehaviour:
   mainPanel: {fileID: 4284013268945521971}
   isAnim: 1
   btnClose: {fileID: 7930754092094134446}
+  lsSlots:
+  - {fileID: 2851358533780273932}
+  - {fileID: 2429821313911473860}
+  - {fileID: 9210214056375115940}
+  - {fileID: 913515876624651791}
+  - {fileID: 5020046053242293158}
+  - {fileID: 7662369678891822072}
+  - {fileID: 998880293463202670}
+  - {fileID: 45806419293337812}
+  - {fileID: 9055194226330457315}
+  - {fileID: 5253245821237084561}
+  - {fileID: 1599358812662086675}
+  - {fileID: 1636822366742874170}
+  - {fileID: 5600509017298914719}
+  - {fileID: 4386154417758802140}
+  - {fileID: 4694571722644517692}
 --- !u!223 &1951410305357503177
 Canvas:
   m_ObjectHideFlags: 0

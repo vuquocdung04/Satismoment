@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class UseProfile : MonoBehaviour
 {
-    public static int CurrentLevel
+    public static int MaxUnlockedLevel
     {
         get
         {
-            return PlayerPrefs.GetInt(StringHelper.CURRENT_LEVEL,1);
+            return PlayerPrefs.GetInt(StringHelper.MAX_UNLOCK_LEVEL,1);
         }
         set
         {
-            PlayerPrefs.SetInt(StringHelper.CURRENT_LEVEL, value);
+            PlayerPrefs.SetInt(StringHelper.MAX_UNLOCK_LEVEL, value);
+            PlayerPrefs.Save();
+        }
+    }
+    
+    public static int SelectedLevel
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(StringHelper.SELECTED_LEVEL, 1);
+        }
+        set
+        {
+            PlayerPrefs.SetInt (StringHelper.SELECTED_LEVEL, value);
             PlayerPrefs.Save();
         }
     }

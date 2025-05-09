@@ -20,10 +20,25 @@ public class MenuBox : BaseBox
     public Button btnClose;
     void Init()
     {
-        btnClose.onClick.AddListener(Close);
+        btnClose.onClick.AddListener(delegate
+        {
+            Close();
+            GameController.Instance.musicManager.PlayClickSound();
+        });
+
+        this.HandleStateSlot();
     }
     void InitState()
     {
 
+    }
+
+    public List<Slot_MenuBox> lsSlots;
+    public void HandleStateSlot()
+    {
+        for (int i = 0; i < UseProfile.MaxUnlockedLevel; i++)
+        {
+            this.lsSlots[i].SetStatePanel();
+        }
     }
 }

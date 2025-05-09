@@ -37,14 +37,13 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(this);
     }
-
-    public int levelGame = 1;
     public StartLoading startLoading;
     public UseProfile useProfile;
     public DataContain dataContain;
     public MusicManagerBase musicManager;
     void Init()
     {
+        musicManager.Init();
         startLoading.Init();
     }
 

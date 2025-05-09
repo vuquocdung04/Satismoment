@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class StringHelper
 {
-    public const string CURRENT_LEVEL = "CURRENT_LEVEL";
+    public const string MAX_UNLOCK_LEVEL = "MAX_UNLOCK_LEVEL";
+    public const string SELECTED_LEVEL = "SELECTED_LEVEL";
     public const string ONOFF_MUSIC = "ONOFF_MUSIC";
     public const string ONOFF_SOUND = "ONOFF_SOUND";
 }
@@ -17,4 +18,6 @@ public class SceneName
 public class PathPrefabs
 {
     public const string MENU_BOX = "UI/Popups/MenuBox";
+    public const string WIN_BOX = "UI/Popups/WinBox";
+    public const string SETTING_BOX = "UI/Popups/SettingBox";
 }

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class TileCtrl : Singleton<TileCtrl>
+public class TileCtrl : MonoBehaviour
 {
     public Tile tilePrefab;
-    public Canvas canvas;
-    public LevelDesign levelDesign;
-    public int level;
     public bool isWin;
     [Space(10)]
     public Tile selectTile1;
@@ -17,30 +14,33 @@ public class TileCtrl : Singleton<TileCtrl>
 
     public List<Tile> lsTiles;
 
-    private void Start()
+    public void Init()
     {
-        this.level = GameController.Instance.levelGame;
         this.GenarateTile();
     }
 
     void GenarateTile()
     {
-        var matrix = levelDesign.lsLevelDesigns[level - 1].GetMatrix();
-        int size = levelDesign.lsLevelDesigns[level - 1].size;
+        var levelDesign = GameController.Instance.dataContain.levelDesign;
+        var matrix = levelDesign.lsLevelDesigns[UseProfile.SelectedLevel - 1].GetMatrix();
+        int size = levelDesign.lsLevelDesigns[UseProfile.SelectedLevel - 1].size;
+        int value;
         for(int i = 0; i < size; i++)
         {
             for(int j = 0; j < size; j++)
             {
-                int value = matrix[i, j];
+                value = matrix[i, j];
 
                 var tile = Instantiate(tilePrefab, new Vector2(j,-i), Quaternion.identity);
                 tile.posTile = new Vector2Int(j, i);
                 lsTiles.Add(tile);
                 tile.name = $"Tile_{j}_{i}";
                 tile.tileType = value == 0 ? TileType.None : TileType.Type1;
+                tile.spriteRenderer.sortingOrder = value == 0 ? 0 : 2;
                 tile.text.text = value == 0 ? "" : value.ToString();
             }
         }
+
     }
 
     private void Update()
@@ -118,9 +118,10 @@ public class TileCtrl : Singleton<TileCtrl>
     
     public Tile GetTile(Vector2Int posTile)
     {
+        var levelDesign = GameController.Instance.dataContain.levelDesign;
         if (posTile.x < 0 || posTile.y < 0) return null;
-        if(posTile.x >= levelDesign.lsLevelDesigns[level].size ||
-            posTile.y >= levelDesign.lsLevelDesigns[level].size)
+        if(posTile.x >= levelDesign.lsLevelDesigns[UseProfile.SelectedLevel].size ||
+            posTile.y >= levelDesign.lsLevelDesigns[UseProfile.SelectedLevel].size)
         {
             Debug.LogError("Check");
             return null;
@@ -134,7 +135,8 @@ public class TileCtrl : Singleton<TileCtrl>
 
     public void CheckWin()
     {
-        var winPattern = levelDesign.lsLevelDesigns[level - 1].checkWin.lsVector2;
+        var levelDesign = GameController.Instance.dataContain.levelDesign;
+        var winPattern = levelDesign.lsLevelDesigns[UseProfile.SelectedLevel - 1].checkWin.lsVector2;
         for (int i = 0; i < lsTiles.Count; i++)
         {
             var tile = lsTiles[i];
@@ -152,7 +154,11 @@ public class TileCtrl : Singleton<TileCtrl>
         }
 
         isWin = true;
-        canvas.gameObject.SetActive(true);
+        if (isWin)
+        {
+            WinBox.SetUp().Show();
+            GameController.Instance.musicManager.PlayWinLevelSound();
+        }
     }
 
 }

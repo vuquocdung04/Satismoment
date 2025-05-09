@@ -372,7 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f05945366398e43b97be118ed42aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGame: 5
   startLoading: {fileID: 1655947643}
   useProfile: {fileID: 1254589777}
   dataContain: {fileID: 2082978275}
@@ -437,6 +436,7 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: c835ba5b1c4ad0845ba0f67d75663a06, type: 3}
   BGMusic: {fileID: 8300000, guid: 019defc06a5f3af48b755378852d2303, type: 3}
   winMusic: {fileID: 8300000, guid: 6e2f5bcbf6fae8e408e9cf1100f30d76, type: 3}
+  startLevel: {fileID: 8300000, guid: 3395374039055404eaba18b7db8c8739, type: 3}
 --- !u!1 &1018704413
 GameObject:
   m_ObjectHideFlags: 0

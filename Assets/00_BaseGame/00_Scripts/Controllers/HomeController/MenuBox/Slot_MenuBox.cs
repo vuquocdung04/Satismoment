@@ -13,8 +13,11 @@ public class Slot_MenuBox : LoadAutoComponents
 
     private void Start()
     {
-        if (GameController.Instance.levelGame < iD) return;
-        btnPlay.onClick.AddListener(this.StartGame);
+        if (UseProfile.MaxUnlockedLevel < iD) return;
+        btnPlay.onClick.AddListener(delegate{
+            UseProfile.SelectedLevel = iD;
+            this.StartGame();
+        });
     }
 
     private void StartGame()

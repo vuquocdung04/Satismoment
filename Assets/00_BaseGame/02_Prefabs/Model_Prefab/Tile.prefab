@@ -75,8 +75,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 683712721
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1253963456395506555
@@ -246,7 +246,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -270,12 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab375871e8c9c6419aed723ac3f0b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 0
   posTile: {x: 0, y: 0}
   text: {fileID: 1253963456395506555}
-  neighBorLeft: {fileID: 0}
-  neighBorRight: {fileID: 0}
-  neighBorUp: {fileID: 0}
-  neighBorDown: {fileID: 0}
+  spriteRenderer: {fileID: 2787837702751344323}
 --- !u!61 &1319811651555675668
 BoxCollider2D:
   m_ObjectHideFlags: 0
