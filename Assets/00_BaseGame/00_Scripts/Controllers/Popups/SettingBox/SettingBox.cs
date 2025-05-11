@@ -17,7 +17,21 @@ public class SettingBox : BaseBox
         return instance;
     }
     public Button btnClose;
-    public Button btnGoHome;
+    public Button btnSound;
+    public Button btnMusic;
+    public Button btnVib;
+
+    [Space(10)]
+    public Image imgSound;
+    public Image imgMusic;
+    public Image imgVib;
+    [Space(10)]
+    public Sprite imgSoundOn;
+    public Sprite imgSoundOff;
+    public Sprite imgMusicOn;
+    public Sprite imgMusicOff;
+    public Sprite imgVibOn;
+    public Sprite imgVibOff;
     void Init()
     {
         btnClose.onClick.AddListener(delegate
@@ -25,10 +39,15 @@ public class SettingBox : BaseBox
             GameController.Instance.musicManager.PlayClickSound();
             Close();
         });
-        btnGoHome.onClick.AddListener(delegate
+        btnSound.onClick.AddListener(delegate
         {
             GameController.Instance.musicManager.PlayClickSound();
-            OnClickGoHome();
+            OnClickSound();
+        });
+        btnMusic.onClick.AddListener(delegate
+        {
+            GameController.Instance.musicManager.PlayClickSound();
+            OnMusicSound();
         });
     }
 
@@ -37,8 +56,31 @@ public class SettingBox : BaseBox
 
     }
 
-    void OnClickGoHome()
+    void OnClickSound()
     {
-        Initiate.Fade(SceneName.HOME_SCENE,Color.black,1f);
+        if(GameController.Instance.useProfile.OnSound)
+        {
+            imgSound.sprite = imgSoundOff;
+            GameController.Instance.useProfile.OnSound = false;
+        }
+        else
+        {
+            imgSound.sprite = imgSoundOn;
+            GameController.Instance.useProfile.OnSound = true;
+        }
+    }
+
+    void OnMusicSound()
+    {
+        if (GameController.Instance.useProfile.OnMusic)
+        {
+            imgMusic.sprite = imgMusicOff;
+            GameController.Instance.useProfile.OnMusic = false;
+        }
+        else
+        {
+            imgMusic.sprite = imgMusicOn;
+            GameController.Instance.useProfile.OnMusic = true;
+        }
     }
 }

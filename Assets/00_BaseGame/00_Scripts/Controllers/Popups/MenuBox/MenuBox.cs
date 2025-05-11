@@ -26,19 +26,9 @@ public class MenuBox : BaseBox
             GameController.Instance.musicManager.PlayClickSound();
         });
 
-        this.HandleStateSlot();
     }
     void InitState()
     {
 
-    }
-
-    public List<Slot_MenuBox> lsSlots;
-    public void HandleStateSlot()
-    {
-        for (int i = 0; i < UseProfile.MaxUnlockedLevel; i++)
-        {
-            this.lsSlots[i].SetStatePanel();
-        }
     }
 }
