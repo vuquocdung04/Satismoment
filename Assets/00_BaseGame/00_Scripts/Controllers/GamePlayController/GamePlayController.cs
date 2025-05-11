@@ -6,7 +6,7 @@ public class GamePlayController : Singleton<GamePlayController>
 {
     public GameScene gameScene;
     public TileCtrl  tileCtrl;
-
+    public CameraCtrl cameraCtrl;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -18,5 +18,6 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         gameScene.Init();
         tileCtrl.Init();
+        cameraCtrl.Init();
     }
 }

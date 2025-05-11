@@ -477,6 +477,7 @@ MonoBehaviour:
   m_DontDestroyOnLoad: 0
   gameScene: {fileID: 110627007}
   tileCtrl: {fileID: 292024552}
+  cameraCtrl: {fileID: 1751188379}
 --- !u!1 &884342970
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +914,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1751188378}
+  - component: {fileID: 1751188379}
   m_Layer: 0
   m_Name: CameraScale
   m_TagString: Untagged
@@ -935,6 +937,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 739296901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1751188379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751188377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0eb3f8208aeaa8409eb5ea8a762bc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 1981740328}
 --- !u!1 &1787621913
 GameObject:
   m_ObjectHideFlags: 0
