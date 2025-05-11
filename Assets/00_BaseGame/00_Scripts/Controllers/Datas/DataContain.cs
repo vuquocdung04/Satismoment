@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class DataContain : MonoBehaviour
 {
-    public LevelDesign levelDesign;
+    
 }
