@@ -7,49 +7,32 @@ using UnityEngine.UI;
 
 public class GameScene : MonoBehaviour
 {
-    public Button btnRetry;
-    public Button btnPauseMenu;
-    public Button btnNextLevel;
-
-    [Space(10)]
-    public TextMeshProUGUI txtLevel;
+    public Button btnSetting;
+    public Button btnSkip;
     public void Init()
     {
-        txtLevel.text = UseProfile.SelectedLevel.ToString();
 
-        btnRetry.onClick.AddListener(delegate
+        btnSetting.onClick.AddListener(delegate
         {
             GameController.Instance.musicManager.PlayClickSound();
-            OnClickRetry();
+            OnClickSetting();
         });
 
-        btnPauseMenu.onClick.AddListener(delegate
+        btnSkip.onClick.AddListener(delegate
         {
             GameController.Instance.musicManager.PlayClickSound();
-            OnClickMenuPause();
-        });
-
-        btnNextLevel.onClick.AddListener(delegate
-        {
-            GameController.Instance.musicManager.PlayClickSound();
-            HandleNextLevelBtn();
+            HandleSkipButton();
         });
 
     }
 
-    public void HandleNextLevelBtn()
+    public void HandleSkipButton()
     {
         WinBox.SetUp().Show();
     }
-
-    public void OnClickRetry()
+    public void OnClickSetting()
     {
-        Initiate.Fade(SceneName.GAME_PLAY,Color.black,1f);
-    }
-
-    public void OnClickMenuPause()
-    {
-        SettingBox.SetUp().Show();
+        SettingGameBox.SetUp().Show();
     }
 
 

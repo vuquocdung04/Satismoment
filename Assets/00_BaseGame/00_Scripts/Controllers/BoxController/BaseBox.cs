@@ -24,7 +24,7 @@ public abstract class BaseBox : MonoBehaviour
         if (mainPanel == null) return;
 
         mainPanel.localScale = Vector3.zero;
-        mainPanel.DOScale(1, 0.5f).SetUpdate(true).SetEase(Ease.OutBack);
+        mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack);
     }
 
     protected virtual void OnStart()

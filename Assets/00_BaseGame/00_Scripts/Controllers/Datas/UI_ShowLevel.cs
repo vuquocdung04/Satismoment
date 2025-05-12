@@ -36,4 +36,5 @@ public class UI_ShowZoneItem
     public int level;
     [PreviewField(50)]
     public Sprite iconLevel;
+    public GameObject levelGame;
 }

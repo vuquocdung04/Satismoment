@@ -21,7 +21,13 @@ public class ZoneItem : LoadAutoComponents
     void OnClickPlay()
     {
         UseProfile.SelectedLevel = idLevel;
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 0.5f);
+        if (idLevel <= UseProfile.MaxUnlockedLevel)
+            Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
+        else if(idLevel == UseProfile.MaxUnlockedLevel + 1)
+        {
+            AdsUnlockBox.SetUp().Show();
+        }
+
     }
 
 

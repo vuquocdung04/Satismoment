@@ -38,7 +38,7 @@ public class WinBox : BaseBox
             UseProfile.MaxUnlockedLevel++;
             UseProfile.SelectedLevel++;
             GameController.Instance.musicManager.PlayClickSound();
-            Initiate.Fade(SceneName.GAME_PLAY,Color.black,1f);
+            Initiate.Fade(SceneName.GAME_PLAY,Color.black,2f);
         }
     }
 }

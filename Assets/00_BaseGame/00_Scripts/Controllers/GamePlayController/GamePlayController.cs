@@ -5,6 +5,7 @@ using UnityEngine;
 public class GamePlayController : Singleton<GamePlayController>
 {
     public GameScene gameScene;
+    public LevelGameCtrl levelGameCtrl;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -15,5 +16,6 @@ public class GamePlayController : Singleton<GamePlayController>
     void Init()
     {
         gameScene.Init();
+        levelGameCtrl.Init();
     }
 }
