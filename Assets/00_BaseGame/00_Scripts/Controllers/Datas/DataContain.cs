@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class DataContain : MonoBehaviour
 {
-    
+    public UI_ShowLevel dataLevel;
+
+    public void Init()
+    {
+
+    }
 }

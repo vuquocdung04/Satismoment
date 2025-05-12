@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef06f5ed8f52e334594cae5d4d03375d, type: 3}
+  m_Name: New UI_Show Level
+  m_EditorClassIdentifier: 
+  frameLock: {fileID: 21300000, guid: a000c28543a14724096465ddb8f9e9ff, type: 3}
+  iconLv_Lock: {fileID: 21300000, guid: 652e84c5f90628a43bf11bbd7e40644f, type: 3}
+  lsZones:
+  - lsItems:
+    - level: 1
+      iconLevel: {fileID: 21300000, guid: 0654ee945792e484fa33281428b1aa7c, type: 3}
+    - level: 2
+      iconLevel: {fileID: 21300000, guid: 875c7504fe45be54ea2be118bae52b92, type: 3}
+    - level: 3
+      iconLevel: {fileID: 21300000, guid: 33129302182809b439bce2acaba0a8c2, type: 3}
+    - level: 4
+      iconLevel: {fileID: 21300000, guid: 16646087f2b11c840919d37317adc00f, type: 3}
+    - level: 5
+      iconLevel: {fileID: 21300000, guid: 22c5e50f585f38545aba24c89b065ed6, type: 3}
+    - level: 6
+      iconLevel: {fileID: 21300000, guid: b2ec6c8fdd870124894f0d219586d45e, type: 3}
+    - level: 7
+      iconLevel: {fileID: 21300000, guid: 2b6a7fec6d0c5ec438c850c357b15dd5, type: 3}
+    - level: 8
+      iconLevel: {fileID: 21300000, guid: 848af03a4d97abe4cbd2ba6bd1f1e925, type: 3}
+    - level: 9
+      iconLevel: {fileID: 21300000, guid: a568a3364ed70db41b6307d7e4cceccb, type: 3}
+    - level: 10
+      iconLevel: {fileID: 21300000, guid: f3fad1ab9798f8f439ab84d26a74b1b3, type: 3}
+  - lsItems:
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}
+    - level: 0
+      iconLevel: {fileID: 0}

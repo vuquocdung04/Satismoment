@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
     void Init()
     {
         musicManager.Init();
+        dataContain.Init();
         startLoading.Init();
     }
 
