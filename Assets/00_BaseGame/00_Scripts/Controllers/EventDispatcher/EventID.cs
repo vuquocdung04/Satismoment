@@ -21,4 +21,8 @@
     ScrollEndChange = 100,
     CHANGE_COIN = 101,
 
+
+    //Level
+    L2_WIN = 200,
+
 }

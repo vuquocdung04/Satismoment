@@ -17,8 +17,8 @@ public class Level_1Ctrl : MonoBehaviour
         btnSwitch.onClick.AddListener(delegate
         {
             imgSwitch.sprite = iconSwitchOn;
-            HandleLight();
             GameController.Instance.musicManager.PlayClickSound();
+            HandleLight();
         });
     }
 
@@ -27,6 +27,11 @@ public class Level_1Ctrl : MonoBehaviour
         transLight.DOAnchorPos(new Vector3(0, 700f), 0.4f).OnComplete(delegate
         {
             imgBG.color = new Color32(243, 213, 148, 255);
+
+            DOVirtual.DelayedCall(0.5f, delegate
+            {
+                WinBox.SetUp().Show();
+            });
         });
     }
 

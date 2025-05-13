@@ -19,10 +19,17 @@ public class WinBox : BaseBox
     }
 
     public Button btnNext;
+    public Button btnRestart;
+    public Button btnHome;
+    public CharactorAnim anim;
 
     void Init()
     {
+        anim.Init();
+
         btnNext.onClick.AddListener(HandleNext);
+        btnRestart.onClick.AddListener(OnClickRestart);
+        btnHome.onClick.AddListener(OnClickHome);
     }
     void InitState()
     {
@@ -35,10 +42,25 @@ public class WinBox : BaseBox
 
         void Next()
         {
-            UseProfile.MaxUnlockedLevel++;
+            if(UseProfile.SelectedLevel == UseProfile.MaxUnlockedLevel)
+            {
+                UseProfile.MaxUnlockedLevel++;
+            }
             UseProfile.SelectedLevel++;
             GameController.Instance.musicManager.PlayClickSound();
             Initiate.Fade(SceneName.GAME_PLAY,Color.black,2f);
         }
+    }
+
+    void OnClickHome()
+    {
+        GameController.Instance.musicManager.PlayClickSound();
+        Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
+    }
+
+    void OnClickRestart()
+    {
+        GameController.Instance.musicManager.PlayClickSound();
+        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
     }
 }

@@ -11,6 +11,5 @@ public class LevelGameCtrl : MonoBehaviour
             Instantiate(level.lsZones[0].lsItems[UseProfile.SelectedLevel - 1].levelGame);
         else if(UseProfile.SelectedLevel <= 20)
             Instantiate(level.lsZones[1].lsItems[UseProfile.SelectedLevel - 11].levelGame);
-
     }
 }
