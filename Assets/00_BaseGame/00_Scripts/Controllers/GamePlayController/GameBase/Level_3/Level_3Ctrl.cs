@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,7 +52,6 @@ public class Level_3Ctrl : MonoBehaviour
 
             rotationAmount = mouseDelta.y * rotationSpeed;
             selectedPicture.transform.Rotate(0,0,rotationAmount);
-
             prevMousePos = mousePos;
 
             CheckWin();
@@ -61,7 +60,18 @@ public class Level_3Ctrl : MonoBehaviour
 
     void CheckWin()
     {
-        if (selectedPicture.transform.rotation.z >= -0.2f)
+        // Lấy góc hiện tại
+        float currentAngle = selectedPicture.transform.eulerAngles.z;
+
+        // Chuyển đổi về khoảng -180 đến 180 độ để dễ so sánh
+        if (currentAngle > 180)
+            currentAngle -= 360;
+
+        // Debug để xem giá trị thực của góc
+        Debug.Log("Current angle (adjusted): " + currentAngle);
+
+        // Kiểm tra nếu góc gần với 0 (với sai số nhỏ)
+        if (Mathf.Abs(currentAngle) < 1.5f) // Cho phép sai số 5 độ
         {
             isDragging = false;
             selectedPicture.circleCollider.enabled = false;
