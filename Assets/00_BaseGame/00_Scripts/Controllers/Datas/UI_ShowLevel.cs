@@ -19,7 +19,7 @@ public class UI_ShowLevel : ScriptableObject
         for (int i = 0; i < 10; i++)
         {
             lsZones[0].lsItems[i].level = i + 1;
-            //lsZones[1].lsItems[i].level = i + 11;
+            lsZones[1].lsItems[i].level = i + 11;
         }
     }
 }
