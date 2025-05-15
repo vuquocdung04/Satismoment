@@ -18,9 +18,10 @@ public class ZoneCtrl : MonoBehaviour
     [Button("SetUp id", ButtonSizes.Large)]
     void SetUp()
     {
-        for(int i = 0; i < lsZoneCategorys[0].lsZoneItems.Count; i++)
+        for(int i = 0; i < 10; i++)
         {
             lsZoneCategorys[0].lsZoneItems[i].idLevel = i + 1;
+            lsZoneCategorys[1].lsZoneItems[i].idLevel = i + 11;
         }
     }
 }
