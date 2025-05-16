@@ -12,6 +12,8 @@ public class StartLoading : MonoBehaviour
     public bool wasCoolDown;
     Coroutine coroutineLoad;
     public int countSecond;
+    public Image bgAim;
+    public List<Sprite> lsAnim;
     public void Init()
     {
         this.wasCoolDown = false;
@@ -19,6 +21,7 @@ public class StartLoading : MonoBehaviour
         this.countSecond = 0;
         coroutineLoad = StartCoroutine(LoadAdsToChangeScene());
         StartCoroutine(LoadingText());
+        StartCoroutine(LoadingAnimBG());
     }
 
     IEnumerator ChangeScene()
@@ -48,13 +51,25 @@ public class StartLoading : MonoBehaviour
 
         while (true)
         {
-            txtLoading.text = "LOADING .";
+            txtLoading.text = "LOADING.";
             yield return wait;
 
-            txtLoading.text = "LOADING ..";
+            txtLoading.text = "LOADING..";
             yield return wait;
 
-            txtLoading.text = "LOADING ...";
+            txtLoading.text = "LOADING...";
+            yield return wait;
+        }
+    }
+
+    IEnumerator LoadingAnimBG()
+    {
+        var wait = new WaitForSeconds(0.8f);
+        while (true)
+        {
+            bgAim.sprite = lsAnim[0];
+            yield return wait;
+            bgAim.sprite = lsAnim[1];
             yield return wait;
         }
     }
