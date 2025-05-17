@@ -22,4 +22,5 @@ public class PathPrefabs
     public const string SETTING_BOX = "UI/Popups/SettingBox";
     public const string SETTING_GAME_BOX = "UI/Popups/SettingGameBox";
     public const string ADS_UNLOCK_BOX = "UI/Popups/AdsUnlockBox";
+    public const string THUMB_UP_BOX = "UI/Popups/ThumbUpBox";
 }

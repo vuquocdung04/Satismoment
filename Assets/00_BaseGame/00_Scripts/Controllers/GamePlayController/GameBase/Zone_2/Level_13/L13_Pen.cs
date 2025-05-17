@@ -1,14 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L13_Pen : MonoBehaviour
+public class L13_Pen : LoadAutoComponents
 {
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var item = collision.GetComponent<L13_CasePen>();
-        if (item == null) return;
+    public int idPen;
+    public float angle;
 
-        this.transform.SetParent(item.holdPen);
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        angle = this.transform.eulerAngles.z;
     }
 }

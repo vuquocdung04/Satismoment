@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,16 @@ public class WinBox : BaseBox
     {
 
     }
+
+    public void Show2()
+    {
+        ThumbUpBox.SetUp().Show();
+        DOVirtual.DelayedCall(2f, delegate
+        {
+            ThumbUpBox.SetUp().Close();
+        }).OnComplete(()=> Show());
+    }
+
 
     public void HandleNext()
     {
