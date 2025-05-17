@@ -14,6 +14,8 @@ public abstract class BaseBox : MonoBehaviour
     #region Anim Init
     protected virtual void OnEnable()
     {
+        if(isAnim)
+            mainPanel.localScale = Vector3.zero;
         DoAppear();
         OnStart();
     }
@@ -23,7 +25,6 @@ public abstract class BaseBox : MonoBehaviour
         if (!isAnim) return;
         if (mainPanel == null) return;
 
-        mainPanel.localScale = Vector3.zero;
         mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack);
     }
 

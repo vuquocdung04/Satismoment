@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 public class Level_13Ctrl : BaseDragController<L13_Pen>
 {
@@ -47,7 +48,13 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
         HandleSortPen(null, true);
         if (CheckWinCondition())
         {
-            WinBox.SetUp().Show2();
+            foreach(var pen in this.lsPens)
+            {
+                pen.transform.DOMoveY(pen.transform.position.y + 0.4f, 0.3f)
+                    .SetLoops(2, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine);
+            }
+            DOVirtual.DelayedCall(0.7f, () => WinBox.SetUp().Show());
         }
     }
 

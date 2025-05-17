@@ -23,6 +23,7 @@ public class WinBox : BaseBox
     public Button btnRestart;
     public Button btnHome;
     public CharactorAnim anim;
+    public Image panel;
 
     void Init()
     {
@@ -37,14 +38,17 @@ public class WinBox : BaseBox
 
     }
 
-    public void Show2()
+    protected override void DoAppear()
     {
         ThumbUpBox.SetUp().Show();
-        DOVirtual.DelayedCall(2f, delegate
+        DOVirtual.DelayedCall(1.5f, delegate
         {
             ThumbUpBox.SetUp().Close();
-        }).OnComplete(()=> Show());
+            panel.color = new Color32(0,0,0,215);
+            base.DoAppear();
+        });
     }
+
 
 
     public void HandleNext()

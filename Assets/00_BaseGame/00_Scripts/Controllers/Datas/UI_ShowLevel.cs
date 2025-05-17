@@ -16,10 +16,14 @@ public class UI_ShowLevel : ScriptableObject
     [Button("SetUp", ButtonSizes.Large)]
     void SetUp()
     {
-        for (int i = 0; i < 10; i++)
+        int currentLevel = 1;
+        for(int i = 0; i < lsZones.Count; i++)
         {
-            lsZones[0].lsItems[i].level = i + 1;
-            lsZones[1].lsItems[i].level = i + 11;
+            for(int j = 0; j < lsZones[i].lsItems.Count; j++)
+            {
+                lsZones[i].lsItems[j].level = currentLevel;
+                currentLevel++;
+            }
         }
     }
 }

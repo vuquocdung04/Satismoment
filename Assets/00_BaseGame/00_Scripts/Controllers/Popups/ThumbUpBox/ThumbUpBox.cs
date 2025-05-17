@@ -35,4 +35,6 @@ public class ThumbUpBox : BaseBox
             .SetLoops(-1,LoopType.Yoyo)
             .SetEase(Ease.InOutSine);
     }
+
+
 }
