@@ -41,7 +41,7 @@ public class WinBox : BaseBox
     protected override void DoAppear()
     {
         ThumbUpBox.SetUp().Show();
-        DOVirtual.DelayedCall(1.5f, delegate
+        DOVirtual.DelayedCall(2f, delegate
         {
             ThumbUpBox.SetUp().Close();
             panel.color = new Color32(0,0,0,215);
