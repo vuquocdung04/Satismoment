@@ -6,10 +6,22 @@ public class LevelGameCtrl : MonoBehaviour
 {
     public void Init()
     {
-        var level = GameController.Instance.dataContain.dataLevel;
-        if (UseProfile.SelectedLevel <= 10)
-            Instantiate(level.lsZones[0].lsItems[UseProfile.SelectedLevel - 1].levelGame);
-        else if(UseProfile.SelectedLevel <= 20)
-            Instantiate(level.lsZones[1].lsItems[UseProfile.SelectedLevel - 11].levelGame);
+        var levelData = GameController.Instance.dataContain.dataLevel;
+        int selectedLevel = UseProfile.SelectedLevel;
+
+        int levelPerZone = 10;
+
+        int zoneIndex = (selectedLevel - 1) / levelPerZone;
+
+        // 8 % 10 => 8, 
+        int itemIndexInZone = (selectedLevel - 1) % levelPerZone;
+
+        if (zoneIndex >= levelData.lsZones.Count) return;
+
+        var currentZone = levelData.lsZones[zoneIndex];
+        if (itemIndexInZone >= currentZone.lsItems.Count) return;
+
+        Instantiate(currentZone.lsItems[itemIndexInZone].levelGame);
+
     }
 }
