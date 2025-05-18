@@ -12,7 +12,6 @@ public class L16_Item : LoadAutoComponents
     public Vector2 posDefault;
     public SpriteRenderer spriteRenderer;
     public int orderInLayer;
-    public float posDrop;
     protected override void LoadComponents()
     {
         base.LoadComponents();

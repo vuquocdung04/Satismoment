@@ -13,8 +13,6 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
 {
     public int winProgress = 0;
     public float dropAnimationDuration = 0.4f;
-    public float snapDistance = 0.5f;
-
     public L16_Compartment[] allWalletSlots;
     private L16_Item currentDraggItem;
     protected override void OnDragStarted()
