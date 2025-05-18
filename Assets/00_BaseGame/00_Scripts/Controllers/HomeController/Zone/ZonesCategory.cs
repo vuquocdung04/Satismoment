@@ -9,8 +9,8 @@ public class ZonesCategory : MonoBehaviour
 
     public void Init()
     {
-        int maxlevel = UseProfile.MaxUnlockedLevel;
         var dataLevel = GameController.Instance.dataContain.dataLevel;
+        int maxlevel = UseProfile.MaxUnlockedLevel;
         for(int i = 0; i < this.lsZoneItems.Count; i++)
         {
             if (lsZoneItems[i].idLevel < maxlevel)

@@ -131,19 +131,15 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
         {
             contentPanel.anchoredPosition = targetContentAnchoredPosition;
         }
-        // Nếu không, vòng lặp Update sẽ Lerp đến targetContentAnchoredPosition
-    }
 
-    // Các phương thức tiện ích cho nút Next/Prev (nếu bạn có BtnNext, BtnPrev như trong hình)
+    }
     public void SnapToNextZone()
     {
         if (!hasInitialized) return;
         int nextZoneIndex = currentSnappedZoneIndex + 1;
         if (nextZoneIndex >= snapTargetContentXPositions.Length)
         {
-            // Tùy chọn: quay vòng về zone đầu tiên hoặc không làm gì
-            // nextZoneIndex = 0; // Quay vòng
-            return; // Không làm gì nếu đã ở zone cuối
+            return; 
         }
         SnapToZone(nextZoneIndex);
     }
@@ -154,9 +150,7 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
         int prevZoneIndex = currentSnappedZoneIndex - 1;
         if (prevZoneIndex < 0)
         {
-            // Tùy chọn: quay vòng về zone cuối cùng hoặc không làm gì
-            // prevZoneIndex = snapTargetContentXPositions.Length - 1; // Quay vòng
-            return; // Không làm gì nếu đã ở zone đầu
+            return; 
         }
         SnapToZone(prevZoneIndex);
     }
