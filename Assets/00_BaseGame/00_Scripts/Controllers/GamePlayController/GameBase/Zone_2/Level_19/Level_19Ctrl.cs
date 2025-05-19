@@ -32,10 +32,15 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
     protected override void OnDragEnded()
     {
         base.OnDragEnded();
-        HandleSortBook(null,true);
-        HandleWin();
+        StartCoroutine(Wai());
     }
 
+    IEnumerator Wai()
+    {
+        HandleSortBook(null, true);
+        yield return null;
+        HandleWin();
+    }
 
     private void HandleSortBook(L19_Book draggedBook, bool snapPosition = false)
     {
