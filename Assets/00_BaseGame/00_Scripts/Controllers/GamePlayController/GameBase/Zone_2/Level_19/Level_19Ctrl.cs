@@ -1,63 +1,116 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
+using Sirenix.OdinInspector;
 public class Level_19Ctrl : BaseDragController<L19_Book>
 {
-    public float bookWidth = 0.5f;
-    public float bookSpacing = 0.01f;
+    public Transform hand;
+    public Sprite bookRed;
+    public float animationDuration = 1f;
+    public float startPosX;
+    public float spacing = 0.5f;
+    public float totalActualWidth;
+    public int validBookCount;
     public List<L19_Book> lsBooks;
+    Vector3 newPos;
+    private void Start()
+    {
+        HandleSortBook(null, true);
+    }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
-        draggableComponent.transform.position += mouseDelta;
-        HandleSortBook(draggableComponent, false);
+        newPos = draggableComponent.transform.position;
+        newPos.x += deltaMousePosition.x;
+        newPos.y = -2.95f;
+        draggableComponent.transform.position = newPos;
+        lsBooks.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
+
+        HandleSortBook(draggableComponent,false);
     }
 
     protected override void OnDragEnded()
     {
         base.OnDragEnded();
+        HandleSortBook(null,true);
+        HandleWin();
     }
 
 
-    private void HandleSortBook(L19_Book book, bool snapPosition = false)
+    private void HandleSortBook(L19_Book draggedBook, bool snapPosition = false)
     {
-        if(book != null && lsBooks.Contains(book))
-        {
-            lsBooks.Remove(book);
-            lsBooks.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
-            int indexBook = 0;
-
-            for(int i =0; i < lsBooks.Count; i++)
-            {
-                if(book.transform.position.x < lsBooks[i].transform.position.x)
-                {
-                    indexBook = i; break;
-                }
-                indexBook++;
-            }
-
-            lsBooks.Insert(indexBook,book);
-        }
-
-        L19_Book bookParam;
+        float currentEdgeX = this.startPosX;
+        L19_Book book = null;
         Vector3 targetPosition;
-        for(int i = 0; i < lsBooks.Count; i++)
+        for (int i =0; i < lsBooks.Count; i++)
         {
-            bookParam = lsBooks[i];
-            if (bookParam == null) continue;
-            targetPosition = new Vector3(bookParam.transform.position.x, 0, 0);
+            book = lsBooks[i];
+            if (book == null) continue;
+            float targetBookCenterX = currentEdgeX + book.bookWidth/ 2;
 
-            if(book == bookParam && !snapPosition) bookParam.transform.position = new Vector3(bookParam.transform.position.x, 0, 0);
+            targetPosition = new Vector3(targetBookCenterX, -2.95f,0);
 
+            if(book == draggedBook && !snapPosition)
+            {
+                //TODO
+            }
             else
             {
-                if (snapPosition) bookParam.transform.position = targetPosition;
-
-                else
-                    bookParam.transform.position = Vector3.Lerp(bookParam.transform.position, targetPosition, Time.deltaTime * 10f);
-
+                if (snapPosition) book.transform.position = targetPosition;
+                else book.transform.position = Vector3.Lerp(book.transform.position, targetPosition, 10f * Time.deltaTime);
             }
+            currentEdgeX += book.bookWidth + spacing;
+
         }
+
+    }
+
+    void HandleWin()
+    {
+        if (!CheckWinCondition()) return;
+
+        foreach(var book in this.lsBooks) book.colli.enabled = false;
+
+        hand.DOMoveY(-3.5f, animationDuration).SetEase(Ease.InQuad).OnComplete(delegate
+        {
+            lsBooks[lsBooks.Count - 1].spriteRenderer.sprite = bookRed;
+            lsBooks[lsBooks.Count - 1].transform.SetParent(hand);
+            hand.DOMoveY(-11f, animationDuration).SetEase(Ease.OutQuad);
+            
+            for(int i =0; i < lsBooks.Count- 1; i++)
+            {
+                lsBooks[i].transform.position = new Vector2(lsBooks[i].transform.position.x, -2.88f);
+                lsBooks[i].transform.DORotate(new Vector3(0, 0, -12.4f), 1f).SetEase(Ease.OutCubic);
+            }
+
+            DOVirtual.DelayedCall(2f, () => WinBox.SetUp().Show());
+
+        });
+    }
+
+    bool CheckWinCondition()
+    {
+        for(int i = 0; i < lsBooks.Count; i++)
+        {
+            if (lsBooks[i].idBook != i) return false;
+        }
+        return true;
+    }
+
+
+
+    [Button("Caculate Width", ButtonSizes.Large)]
+    void Caculate()
+    {
+        this.startPosX = lsBooks[0].posDefault.x  - lsBooks[0].bookWidth/2f;
+        totalActualWidth = 0;
+        validBookCount = 0;
+        foreach (var book in this.lsBooks)
+        {
+            totalActualWidth += book.bookWidth;
+            validBookCount++;
+        }
+        totalActualWidth += (validBookCount - 1) * spacing;
+
     }
 }
