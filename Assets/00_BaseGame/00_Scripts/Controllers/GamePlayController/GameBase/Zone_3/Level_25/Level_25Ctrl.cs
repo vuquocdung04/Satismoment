@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 
 public class Level_25Ctrl : BaseDragController<Transform>
 {
-    public bool isWin = false;
     public Transform pullCore;
     public Transform windowBlind;
     public Vector2 posPullCoreStart;
@@ -15,11 +14,6 @@ public class Level_25Ctrl : BaseDragController<Transform>
 
 
     float t;
-    protected override void Update()
-    {
-        if (isWin) return;
-        base.Update();
-    }
     protected override void OnDragStarted()
     {
         base.OnDragStarted();

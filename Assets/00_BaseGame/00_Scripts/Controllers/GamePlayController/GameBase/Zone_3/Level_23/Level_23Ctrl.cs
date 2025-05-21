@@ -10,7 +10,6 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     public float startPosY;
     public float pictureHeight;
     public List<L23_Picture> lsPictures;
-    public bool isWin = false;
     Vector3 newPos;
 
     // pos max mouse
@@ -22,14 +21,6 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     {
         HandleSortPicture(null, true);
     }
-
-    protected override void Update()
-    {
-        if (isWin) return;
-        base.Update();
-    }
-
-
     protected override void OnDragStarted()
     {
         base.OnDragStarted();

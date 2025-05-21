@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Level_26Ctrl : BaseDragController<Transform>
 {
-    public bool isWin = false;
     public Transform ornamentBall;
     public Transform pullCord;
     public Transform cake;
@@ -14,12 +13,6 @@ public class Level_26Ctrl : BaseDragController<Transform>
     Vector3 newPos;
     [Space(10)]
     public Transform posSpawnEffect;
-
-    protected override void Update()
-    {
-        if (isWin) return;
-        base.Update();
-    }
     protected override void OnDragStarted()
     {
         base.OnDragStarted();

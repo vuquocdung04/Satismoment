@@ -5,18 +5,10 @@ using UnityEngine;
 public class Level_22Ctrl : BaseDragController<L22_ChargingCable>
 {
     public L22_SmartPhone smartPhone;
-    public bool isWin = false;
     public float followSpeed = 5f;
 
     public Vector3 objToMouseOffset;
     Vector3 targetPosition;
-
-    protected override void Update()
-    {
-        if (isWin) return;
-        base.Update();
-    }
-
     protected override void OnDragStarted()
     {
         base.OnDragStarted();

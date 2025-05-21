@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Level_24Ctrl : BaseDragController<Transform>
 {
-    public bool isWin = false;
     public Transform toiletPaperRoll;
     public Transform toiletPaper;
     public Transform cardBoardTube;
@@ -14,11 +13,6 @@ public class Level_24Ctrl : BaseDragController<Transform>
     float t;
     float scalePaperRoll;
 
-    protected override void Update()
-    {
-        if (isWin) return;
-        base.Update();
-    }
     protected override void OnDragStarted()
     {
         base.OnDragStarted();

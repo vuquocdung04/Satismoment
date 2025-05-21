@@ -6,6 +6,7 @@
 /// </summary>
 public abstract class BaseDragController<T> : MonoBehaviour where T : Component
 {
+    public bool isWin = false;
     protected T draggableComponent;     // Component đang được kéo
     protected Vector3 mouseWorldPos;    // Vị trí chuột trong không gian thế giới
     protected Vector3 prevMouseWorldPos; // Vị trí chuột ở frame trước đó (dùng để tính delta)
@@ -14,6 +15,7 @@ public abstract class BaseDragController<T> : MonoBehaviour where T : Component
 
     protected virtual void Update()
     {
+        if (isWin) return;
         if (Camera.main == null)
         {
             Debug.LogError("Không tìm thấy Main Camera trong scene!");

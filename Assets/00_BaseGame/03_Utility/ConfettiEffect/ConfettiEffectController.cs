@@ -16,12 +16,12 @@ public class ConfettiEffectController : MonoBehaviour
 
     IEnumerator SpawnConfettiRoutine(Transform posSpawn, bool isUI = false)
     {
-        int rand = Random.Range(15,25);
+        int rand = Random.Range(20,25);
         Vector3 m_posSpawn = Vector3.zero;
         var waitTime = new WaitForSeconds(0.04f);
         for (int i = 0; i < rand; i++)
         {
-                m_posSpawn = new Vector3(posSpawn.position.x + Random.Range(-3, 3),
+                m_posSpawn = new Vector3(posSpawn.position.x + Random.Range(-4, 4),
                     posSpawn.position.y, posSpawn.position.z);
             ConfettiEffect confettiEffect = GetConfettiFromPool();
             confettiEffect.transform.SetParent(parentPool);
