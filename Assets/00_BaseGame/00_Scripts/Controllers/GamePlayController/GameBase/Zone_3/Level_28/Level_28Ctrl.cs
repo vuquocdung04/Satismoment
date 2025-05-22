@@ -1,14 +1,21 @@
 ﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq; // Cần cho LINQ (ví dụ: Select, Distinct, OrderBy) nếu dùng cách nhóm kệ phức tạp hơn
 using UnityEngine;
 
 public class Level_28Ctrl : BaseDragController<L28_Bottle>
 {
     public int winProgress = 0;
     public float snapDistance = 0.4f;
-    public List<L28_Bottle> lsBottles;
+    public float durationAnim = 2f;
+    public Transform parent;
+    public Transform hand;
+    public Vector2 handPosDefault;
+    public List<Transform> lsObjCosts;
+    public List<Transform> lsPosSetupCosts;
+    public List<L28_CategoryBottle> lsCategorys;
+
     protected override void OnDragStarted()
     {
         base.OnDragStarted();
@@ -28,103 +35,148 @@ public class Level_28Ctrl : BaseDragController<L28_Bottle>
         L28_Bottle closesBottleToSwapWith = null;
         float shortestDistanceFound = snapDistance;
 
-        foreach (var otherBottle in lsBottles)
+        foreach(var category in this.lsCategorys)
         {
-            if (otherBottle == draggedBottle) continue;
-
-            float distance = Vector2.Distance(
-                new Vector2(draggedBottle.transform.position.x, draggedBottle.transform.position.y),
-                new Vector2(otherBottle.transform.position.x, otherBottle.transform.position.y)
-            );
-
-            if (distance < shortestDistanceFound)
+            foreach (var otherBottle in category.lsBottles)
             {
-                shortestDistanceFound = distance;
-                closesBottleToSwapWith = otherBottle;
+                if (otherBottle == draggedBottle) continue;
+
+                float distance = Vector2.Distance(
+                    new Vector2(draggedBottle.transform.position.x, draggedBottle.transform.position.y),
+                    new Vector2(otherBottle.transform.position.x, otherBottle.transform.position.y)
+                );
+
+                if (distance < shortestDistanceFound)
+                {
+                    shortestDistanceFound = distance;
+                    closesBottleToSwapWith = otherBottle;
+                }
             }
         }
 
         if (closesBottleToSwapWith != null && !closesBottleToSwapWith.isMove)
         {
-            StartCoroutine(HandleSwapAndCheckWin(draggedBottle, closesBottleToSwapWith));
+            HandleSwapAndCheckWin(draggedBottle, closesBottleToSwapWith);
         }
         else
         {
-            if (draggedBottle != null) 
-            {
-                draggedBottle.transform.DOMove(draggedBottle.posDefault, 0.3f);
-            }
+            draggedBottle.transform.DOMove(draggedBottle.posDefault, 0.3f);
         }
+
+        CheckOverallWinConditionAndAnimate();
     }
 
-    IEnumerator HandleSwapAndCheckWin(L28_Bottle bottleA, L28_Bottle bottleB)
+    void HandleSwapAndCheckWin(L28_Bottle bottleA, L28_Bottle bottleB)
     {
+        lsCategorys[bottleA.idCategory].lsBottles.Remove(bottleA);
+        lsCategorys[bottleB.idCategory].lsBottles.Remove(bottleB);
+
+        lsCategorys[bottleA.idCategory].lsBottles.Add(bottleB);
+        lsCategorys[bottleB.idCategory].lsBottles.Add(bottleA);
+
+
+        int idCateA = bottleB.idCategory;
+        int idCateB = bottleA.idCategory;
+
         Vector2 slotPosForA_target = bottleB.posDefault;
         Vector2 slotPosForB_target = bottleA.posDefault;
 
+        //swap pos
         bottleA.posDefault = slotPosForA_target;
         bottleB.posDefault = slotPosForB_target;
 
+        //swap id
+        bottleA.idCategory = idCateA;
+        bottleB.idCategory = idCateB;
+
         bottleA.transform.position = slotPosForA_target;
 
-        // Chai B di chuyển từ từ đến vị trí slot cũ của A
-        Tween tweenB = bottleB.transform.DOMove(slotPosForB_target, 0.3f);
+        bottleB.transform.DOMove(slotPosForB_target, 0.4f);
 
-        // Đợi tween của B hoàn thành (nếu có)
-        if (tweenB != null && tweenB.IsActive())
-        {
-            yield return tweenB.WaitForCompletion();
-        }
-        else
-        {
-            // Nếu không có tween hoặc tween không active, đảm bảo vị trí cuối cùng được đặt
-            bottleB.transform.position = slotPosForB_target;
-            yield return null; // Đợi một frame cho chắc
-        }
-
-        // Sau khi tất cả di chuyển đã hoàn tất, kiểm tra điều kiện thắng
-        HandleWinCondition();
+        HandleWinCondition(lsCategorys[bottleA.idCategory].lsBottles, lsCategorys[bottleB.idCategory].lsBottles);
     }
 
-    void HandleWinCondition()
+    void HandleWinCondition(List<L28_Bottle> lsBottleA, List<L28_Bottle> lsBottleB)
     {
-        Dictionary<int, List<L28_Bottle>> shelves = new Dictionary<int, List<L28_Bottle>>();
-        float yPositionMultiplier = 10f;
-
-        foreach (L28_Bottle bottle in lsBottles)
+        bool allSameInA = true;
+        int fistBottleA = lsBottleA[0].idBottle;
+        for(int i = 1; i < lsBottleA.Count; i++)
         {
-            int shelfKey = Mathf.RoundToInt(bottle.transform.position.y * yPositionMultiplier);
-            if (!shelves.ContainsKey(shelfKey))
+            if (lsBottleA[i].idBottle != fistBottleA)
             {
-                shelves[shelfKey] = new List<L28_Bottle>();
-            }
-            shelves[shelfKey].Add(bottle);
-        }
-
-        foreach (var shelfKey in shelves.Keys)
-        {
-            List<L28_Bottle> bottlesOnThisShelf = shelves[shelfKey];
-
-            bottlesOnThisShelf.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
-
-            // 3. Kiểm tra 3 chai liên tiếp có cùng idBottle.
-            if (bottlesOnThisShelf.Count >= 3)
-            {
-                for (int i = 0; i <= bottlesOnThisShelf.Count - 3; i++)
-                {
-                    L28_Bottle b1 = bottlesOnThisShelf[i];
-                    L28_Bottle b2 = bottlesOnThisShelf[i + 1];
-                    L28_Bottle b3 = bottlesOnThisShelf[i + 2];
-
-                    if (b1.idBottle == b2.idBottle && b2.idBottle == b3.idBottle)
-                    {
-                        b1.isMove = true;
-                        b2.isMove = true;
-                        b3.isMove = true;
-                        winProgress++;
-                    }
-                }
+                allSameInA = false;
+                break;
             }
         }
+
+        if (allSameInA)
+        {
+            winProgress++;
+            foreach (var bottle in lsBottleA) bottle.isMove = true;
+        }
+
+        bool allSameInB = true;
+        int fistBottleB = lsBottleB[0].idBottle;
+
+        for (int i = 1; i < lsBottleB.Count; i++)
+        {
+            if (lsBottleB[i].idBottle != fistBottleB)
+            {
+                allSameInB = false;
+                break;
+            }
+        }
+
+        if (allSameInB)
+        {
+            winProgress++;
+            foreach (var bottle in lsBottleB) bottle.isMove = true;
+        }
+
     }
+
+    void CheckOverallWinConditionAndAnimate()
+    {
+        if (winProgress < 4) return;
+
+        isWin = true;
+        Sequence handSequense = DOTween.Sequence();
+
+        for(int i = 0; i < lsPosSetupCosts.Count; i++)
+        {
+            int index = i;
+            handSequense.Append(hand.DOMove(lsPosSetupCosts[i].transform.position, durationAnim).SetEase(Ease.InQuad));
+            handSequense.AppendCallback(delegate
+            {
+                lsObjCosts[index].SetParent(parent);
+                lsObjCosts[index].position = lsPosSetupCosts[index].position;
+            });
+            handSequense.Append(hand.DOMove(handPosDefault, durationAnim).SetEase(Ease.OutCubic));
+        }
+
+        handSequense.OnComplete(() => WinBox.SetUp().Show());
+    }
+
+    [Button("setup", ButtonSizes.Large)]
+    void Setup()
+    {
+        int index = 0;
+        foreach(var category in this.lsCategorys)
+        {
+            foreach(var bottle in category.lsBottles)
+            {
+                bottle.idCategory = index;
+            }
+            index++;
+        }
+
+        handPosDefault = hand.transform.position;
+    }
+    
+}
+
+[System.Serializable]
+public class L28_CategoryBottle
+{
+    public List<L28_Bottle> lsBottles;
 }
