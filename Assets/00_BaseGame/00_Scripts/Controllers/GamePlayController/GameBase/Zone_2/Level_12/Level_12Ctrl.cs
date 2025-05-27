@@ -72,7 +72,6 @@ public class Level_12Ctrl : BaseDragController<L12_PaintRoller>
     // --- XỬ LÝ KHI KÉO THẢ CỤC TẨY ---
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
         oldPoint = draggableComponent.transform.position; // Lưu vị trí bắt đầu kéo
     }
 
@@ -92,7 +91,6 @@ public class Level_12Ctrl : BaseDragController<L12_PaintRoller>
     }
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         CheckWinCondition(); // Kiểm tra xem đã thắng chưa
 
     }

@@ -31,7 +31,6 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         StartCoroutine(Wai());
     }
 
@@ -117,5 +116,10 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
         }
         totalActualWidth += (validBookCount - 1) * spacing;
 
+    }
+
+    protected override void OnDragStarted()
+    {
+        throw new System.NotImplementedException();
     }
 }

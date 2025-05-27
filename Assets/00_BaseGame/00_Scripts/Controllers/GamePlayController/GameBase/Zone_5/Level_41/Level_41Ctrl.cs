@@ -8,7 +8,7 @@ public class Level_41Ctrl : BaseDragController<L41_Screw>
 
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {

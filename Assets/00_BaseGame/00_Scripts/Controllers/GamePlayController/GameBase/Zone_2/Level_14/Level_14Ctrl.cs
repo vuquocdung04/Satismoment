@@ -13,7 +13,6 @@ public class Level_14Ctrl : BaseDragController<L14_Nozzle>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         draggableComponent.transform.position = new Vector3(-1,-3);
         if(winProgress > 3)
         {
@@ -23,7 +22,7 @@ public class Level_14Ctrl : BaseDragController<L14_Nozzle>
 
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
 
 

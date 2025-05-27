@@ -11,7 +11,7 @@ public class Level_22Ctrl : BaseDragController<L22_ChargingCable>
     Vector3 targetPosition;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
         objToMouseOffset = draggableComponent.transform.position - this.mouseWorldPos;
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -26,7 +26,7 @@ public class Level_22Ctrl : BaseDragController<L22_ChargingCable>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
+
     }
 
 

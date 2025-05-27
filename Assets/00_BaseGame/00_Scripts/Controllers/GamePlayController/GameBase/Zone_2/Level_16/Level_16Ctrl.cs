@@ -17,7 +17,6 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
     private L16_Item currentDraggItem;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
         currentDraggItem = draggableComponent;
         draggableComponent.transform.DORotate(Vector3.zero, dropAnimationDuration, RotateMode.Fast);
         draggableComponent.spriteRenderer.sortingOrder = 20;
@@ -28,7 +27,6 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
     }
     protected override void OnDragEnded()
     {
-        base.OnDragEnded(); // Gọi hàm OnDragEnded của lớp cha (thường chỉ để log hoặc các xử lý cơ bản)
         Collider2D itemCollider = currentDraggItem.GetComponent<Collider2D>();
 
         L16_Compartment targetSlot = null;

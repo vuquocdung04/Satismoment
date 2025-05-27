@@ -18,7 +18,7 @@ public class Level_28Ctrl : BaseDragController<L28_Bottle>
 
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -29,7 +29,6 @@ public class Level_28Ctrl : BaseDragController<L28_Bottle>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
 
         L28_Bottle draggedBottle = draggableComponent;
         L28_Bottle closesBottleToSwapWith = null;

@@ -15,7 +15,6 @@ public class Level_11Ctrl : BaseDragController<L11_Item>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         draggableComponent.spriteRenderer.sortingOrder = draggableComponent.index;
     }
 
@@ -23,5 +22,10 @@ public class Level_11Ctrl : BaseDragController<L11_Item>
     {
         if (amount < 3) return;
         DOVirtual.DelayedCall(1f, () => WinBox.SetUp().Show());
+    }
+
+    protected override void OnDragStarted()
+    {
+        throw new System.NotImplementedException();
     }
 }

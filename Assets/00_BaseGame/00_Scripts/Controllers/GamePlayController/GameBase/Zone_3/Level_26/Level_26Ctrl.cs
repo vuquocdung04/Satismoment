@@ -15,7 +15,6 @@ public class Level_26Ctrl : BaseDragController<Transform>
     public Transform posSpawnEffect;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
         DoShakeOrnamentBall();
     }
 
@@ -37,7 +36,6 @@ public class Level_26Ctrl : BaseDragController<Transform>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         ornamentBall.DOKill();
     }
 

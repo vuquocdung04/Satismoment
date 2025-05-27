@@ -16,12 +16,10 @@ public class Level_18Ctrl : BaseDragController<L18_Piece>
 
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
     }
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         draggableComponent.spriteRenderer.sortingOrder = draggableComponent.order;
         float distanceToTarget = Vector3.Distance(draggableComponent.transform.position, draggableComponent.trans.position);
         Debug.LogError(distanceToTarget);

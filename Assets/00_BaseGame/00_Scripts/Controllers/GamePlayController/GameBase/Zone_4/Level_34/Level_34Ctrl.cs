@@ -11,7 +11,7 @@ public class Level_34Ctrl : BaseDragController<L34_Lid>
     public List<Vector2> lsPosWins;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -21,7 +21,7 @@ public class Level_34Ctrl : BaseDragController<L34_Lid>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
+
         L34_Lid draggedLid = draggableComponent;
         L34_Lid closesLidToSwapWith = null;
 

@@ -19,7 +19,6 @@ public class Level_17Ctrl : BaseDragController<L17_Candy>
 
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
         candy = draggableComponent;
         draggableComponent.spriteRenderer.sortingOrder = 3;
     }
@@ -31,7 +30,6 @@ public class Level_17Ctrl : BaseDragController<L17_Candy>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
 
         bool successfullyDropped = false;
 

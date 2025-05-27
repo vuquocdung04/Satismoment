@@ -9,7 +9,7 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
     public List<L38_Car> lsCars;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -19,7 +19,7 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
+
         if (IsInCorrectPosition())
         {
             winProgress++;

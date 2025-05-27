@@ -16,7 +16,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
     float t;
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
 
     }
 
@@ -41,7 +41,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
+
     }
 
 

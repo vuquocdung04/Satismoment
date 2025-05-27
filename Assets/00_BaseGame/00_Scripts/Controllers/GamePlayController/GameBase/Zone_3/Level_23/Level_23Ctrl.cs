@@ -23,7 +23,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     }
     protected override void OnDragStarted()
     {
-        base.OnDragStarted();
+
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -47,7 +47,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
+
         HandleSortPicture(null, true);
         lsPictures.Sort((a, b) => b.transform.position.y.CompareTo(a.transform.position.y));
 

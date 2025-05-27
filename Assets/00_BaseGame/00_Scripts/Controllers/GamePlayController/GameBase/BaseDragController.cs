@@ -121,10 +121,7 @@ public abstract class BaseDragController<T> : MonoBehaviour where T : Component
     /// (Tùy chọn Override) Được gọi một lần khi quá trình kéo bắt đầu thành công trên draggableComponent.
     /// Sử dụng để thiết lập ban đầu cho đối tượng kéo (ví dụ: thay đổi màu sắc, tắt vật lý tạm thời).
     /// </summary>
-    protected virtual void OnDragStarted()
-    {
-        // Ví dụ: Debug.Log($"Bắt đầu kéo: {draggableComponent.gameObject.name}");
-    }
+    protected abstract void OnDragStarted();
 
     /// <summary>
     /// (Bắt buộc Override) Được gọi mỗi frame trong suốt quá trình kéo.
@@ -138,8 +135,5 @@ public abstract class BaseDragController<T> : MonoBehaviour where T : Component
     /// (Tùy chọn Override) Được gọi một lần khi quá trình kéo kết thúc (ví dụ: khi nhả chuột).
     /// Sử dụng để dọn dẹp hoặc thực hiện các hành động cuối cùng trên draggableComponent (ví dụ: khôi phục vật lý, kích hoạt sự kiện game).
     /// </summary>
-    protected virtual void OnDragEnded()
-    {
-        // Ví dụ: Debug.Log($"Kết thúc kéo: {draggableComponent.gameObject.name}");
-    }
+    protected abstract void OnDragEnded();
 }

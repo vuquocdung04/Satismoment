@@ -42,7 +42,6 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
 
     protected override void OnDragEnded()
     {
-        base.OnDragEnded();
         if (!lsPens.Contains(draggableComponent))
             draggableComponent.transform.eulerAngles = new Vector3(0, 0, draggableComponent.angle);
         HandleSortPen(null, true);
@@ -120,5 +119,10 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
             }
         }
         return true;
+    }
+
+    protected override void OnDragStarted()
+    {
+        throw new System.NotImplementedException();
     }
 }
