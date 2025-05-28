@@ -1,10 +1,16 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public abstract class BaseSnapBack : LoadAutoComponents
 {
+    [Title("Cài đặt hiển thị")]
+    [SerializeField]
+    private bool showTransform = false;
+    [ShowIf("showTransform")]
+    public Transform pointCorrect;
     [Header("Snap back Base")]
     public Vector2 positionDefault;
     public float angleDefault;
@@ -18,6 +24,20 @@ public abstract class BaseSnapBack : LoadAutoComponents
     public virtual void SnapBackRotation(RotateMode rotateMode)
     {
         this.transform.DORotate(new Vector3(0, 0, angleDefault), timeSnapBack, rotateMode);
+    }
+
+    public virtual void RotateToZero()
+    {
+        this.transform.DORotate(Vector3.zero, 0.4f, RotateMode.Fast);
+    }
+
+
+
+    public virtual float GetDistance()
+    {
+        if (!showTransform) return 0;
+        float distance = Vector2.Distance(this.transform.position, pointCorrect.position);
+        return distance;
     }
 
     protected override void LoadComponents()
