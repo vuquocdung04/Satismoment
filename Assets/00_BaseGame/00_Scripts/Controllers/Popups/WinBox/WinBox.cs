@@ -45,7 +45,6 @@ public class WinBox : BaseBox
         {
             ThumbUpBox.SetUp().Close();
             panel.color = new Color32(0,0,0,215);
-            GameController.Instance.confettiEffectController.SpawmEffect_Drop_UI(posSpawn,true);
             base.DoAppear();
         });
     }
