@@ -40,15 +40,17 @@ public class WinBox : BaseBox
 
     protected override void DoAppear()
     {
-        ThumbUpBox.SetUp().Show();
-        DOVirtual.DelayedCall(2f, delegate
-        {
-            ThumbUpBox.SetUp().Close();
-            panel.color = new Color32(0,0,0,215);
-            base.DoAppear();
-        });
+        StartCoroutine(DoShowingPopup());
     }
 
+    IEnumerator DoShowingPopup()
+    {
+        ThumbUpBox.SetUp().Show();
+        yield return new WaitForSeconds(1f);
+        ThumbUpBox.SetUp().Close();
+        panel.color = new Color32(0, 0, 0, 215);
+        base.DoAppear();
+    }
 
 
     public void HandleNext()

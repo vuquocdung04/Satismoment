@@ -49,7 +49,7 @@ public class Level_26Ctrl : BaseDragController<Transform>
         ornamentBall_Left.transform.eulerAngles = new Vector3(0,0,-15);
         ornamentBall_Right.transform.eulerAngles = new Vector3(0,0,15);
 
-        GameController.Instance.confettiEffectController.SpawmEffect_Drop_UI(posSpawnEffect);
+        //GameController.Instance.confettiEffectController.SpawmEffect_Drop_UI(posSpawnEffect);
         yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();
     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class ThumbUpBox : BaseBox
 {
+    Tween currentRotateTwen;
     static ThumbUpBox instance;
     public static ThumbUpBox SetUp()
     {
@@ -31,10 +32,18 @@ public class ThumbUpBox : BaseBox
 
     void AnimThumbUp()
     {
-        thumbUp.DORotate(new Vector3(0,0,30),0.3f)
+        currentRotateTwen =  thumbUp.DORotate(new Vector3(0,0,15),0.3f)
             .SetLoops(-1,LoopType.Yoyo)
             .SetEase(Ease.InOutSine);
     }
 
+
+    private void OnDisable()
+    {
+        if(currentRotateTwen != null && currentRotateTwen.IsActive())
+        {
+            currentRotateTwen.Kill();
+        }
+    }
 
 }
