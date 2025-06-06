@@ -61,6 +61,7 @@ public class Level_50Ctrl : MonoBehaviour
         boy.sprite = boySprite;
         Tween moveBoard =  board.DOMoveX(-2.62f,3f).SetEase(Ease.OutQuad);
         yield return moveBoard.WaitForCompletion();
+        yield return new WaitForSeconds(0.1f);
         WinBox.SetUp().Show();
     }
     void OnDestroy()
