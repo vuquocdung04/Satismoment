@@ -21,7 +21,7 @@ public abstract class BaseSnapBack : LoadAutoComponents
         this.transform.DOMove(positionDefault, timeSnapBack).SetEase(ease);
     }
 
-    public virtual void SnapBackRotation(RotateMode rotateMode)
+    public virtual void RotateAngleDefault(RotateMode rotateMode)
     {
         this.transform.DORotate(new Vector3(0, 0, angleDefault), timeSnapBack, rotateMode);
     }
@@ -44,7 +44,7 @@ public abstract class BaseSnapBack : LoadAutoComponents
     {
         base.LoadComponents();
         positionDefault = transform.position;
-        angleDefault = transform.position.z;
+        angleDefault = transform.eulerAngles.z;
         _collider = GetComponent<Collider2D>();
     }
 }

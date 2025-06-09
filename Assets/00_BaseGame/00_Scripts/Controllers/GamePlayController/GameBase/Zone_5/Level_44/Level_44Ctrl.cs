@@ -35,7 +35,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
         else
         {
             draggableComponent.SnapBackPostion(Ease.Flash);
-            draggableComponent.SnapBackRotation(RotateMode.Fast);
+            draggableComponent.RotateAngleDefault(RotateMode.Fast);
         }
     }
 
