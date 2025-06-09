@@ -47,7 +47,7 @@ public class Level_55Ctrl : BaseDragController<L55_Item>
 
     protected override void OnDragEnded()
     {
-        
+        currentItem = null;
     }
 
 
@@ -64,9 +64,8 @@ public class Level_55Ctrl : BaseDragController<L55_Item>
             0.5f,
             value => image.fillAmount = value
         );
-        Destroy(itemClone.gameObject);
-        yield return fillTween.WaitForCompletion();
         GetPosBtnById(itemClone.idItem).gameObject.SetActive( false );
+        yield return fillTween.WaitForCompletion();
         winProgress++;
         if(winProgress == lsBtns.Count)
         {

@@ -9,7 +9,7 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
     public L57_noteMusic prefabs;
 
     private L57_TurntablePart vinylDiscClone;
-    private L57_TurntablePart turntableArmClone;
+    private Tween rotateTween;
     protected override void OnDragEnded()
     {
         switch (draggableComponent.type)
@@ -21,7 +21,7 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
                     draggableComponent.transform.position = draggableComponent.posCorrect;
                     vinylDiscClone = draggableComponent;
                     vinylDiscClone.isMovevinylDisc = true;
-                    vinylDiscClone.transform
+                    rotateTween =  vinylDiscClone.transform
                         .DORotate(new Vector3(0, 0, -360f), 5f, RotateMode.FastBeyond360)
                         .SetEase(Ease.Linear)
                         .SetLoops(-1);
@@ -32,7 +32,7 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
 
                 if (zRotation > 180f) zRotation -= 360f;
 
-                if (zRotation <= -2f && zRotation >= -8f)
+                if (zRotation < 1f && zRotation > -10f)
                 {
                     item.gameObject.SetActive(true);
                     StartCoroutine(HandleWinCodition());
@@ -52,7 +52,6 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
                 draggableComponent.transform.position += mouseDelta;
                 break;
             case TurntablePartType.turntableArm:
-                if (vinylDiscClone == null) return;
                 if(vinylDiscClone.isMovevinylDisc)
                 draggableComponent.transform.Rotate(0, 0, -mouseDelta.y * 15f);
                 break;
@@ -74,6 +73,7 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
             clone.Effect();
         }
         yield return new WaitForSeconds(0.3f);
+        if (rotateTween != null && rotateTween.IsActive()) rotateTween.Kill();
         WinBox.SetUp().Show();
     }
 }

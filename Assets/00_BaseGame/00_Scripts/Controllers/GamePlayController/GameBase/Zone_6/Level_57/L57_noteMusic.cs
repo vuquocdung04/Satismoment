@@ -38,5 +38,9 @@ public class L57_noteMusic : MonoBehaviour
 
         spriteRenderer.DOFade(0, fadeDuration).SetEase(Ease.Linear);
     }
-
+    private void OnDestroy()
+    {
+        DOTween.Kill(transform);
+        DOTween.Kill(spriteRenderer);
+    }
 }
