@@ -15,6 +15,17 @@ public class Level_47Ctrl : BaseDragController<L47_Hand>
         currentObjectPosition.x += mouseDelta.x;
 
         draggableComponent.transform.position = currentObjectPosition;
+
+
+        Vector3 pivotToMouse = currentMousePosition - draggableComponent.transform.position;
+        float angleZ = Mathf.Atan2(pivotToMouse.y, pivotToMouse.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angleZ + 180f);
+
+        draggableComponent.transform.rotation = Quaternion.Slerp(
+            draggableComponent.transform.rotation,
+            targetRotation,
+            Time.deltaTime * 12f
+        );
     }
 
     protected override void OnDragStarted()
