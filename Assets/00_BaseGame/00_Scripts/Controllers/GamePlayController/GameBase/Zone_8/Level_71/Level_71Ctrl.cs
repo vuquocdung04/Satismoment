@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class Level_71Ctrl : Singleton<Level_71Ctrl>
 {
+    public int winProgress = 0;
     public List<Transform> lsPoints; // Danh sách các slot (transform trống)
-    private List<L71_Fruit> placedFruits = new List<L71_Fruit>(); // Danh sách các quả đã chọn
+    public List<L71_Fruit> placedFruits;
     public void AddFruit(L71_Fruit fruit)
     {
         if (placedFruits.Contains(fruit)) return;
@@ -27,7 +29,7 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
 
         UpdateSlots(); // Cập nhật vị trí cho từng quả
     }
-
+    public bool hasLost = false;
     private void UpdateSlots()
     {
         // Tạo một sequence lớn để quản lý tất cả chuyển động
@@ -46,9 +48,30 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         masterSequence.OnComplete(() =>
         {
             CheckAndRemoveTriple();
+            if (placedFruits.Count >= 7 && !hasLost)
+            {
+                hasLost = true;
+                StartCoroutine(HandleLoseCodition());
+            }
+            if (winProgress == 7)
+            {
+                StartCoroutine(HandleWinCodition());
+            }
         });
     }
-    List<L71_Fruit> fruitsToRemove = new List<L71_Fruit>();
+
+    IEnumerator HandleWinCodition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show(); 
+    }
+    IEnumerator HandleLoseCodition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Initiate.Fade(SceneName.GAME_PLAY,Color.black, 3f);
+    }
+
+    public List<L71_Fruit> fruitsToRemove;
     private void CheckAndRemoveTriple()
     {
         fruitsToRemove.Clear();
@@ -68,26 +91,32 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
             }
         }
 
-        // handle list
         if (fruitsToRemove.Count > 0)
         {
-            foreach (L71_Fruit fruit in fruitsToRemove)
-            {
-                placedFruits.Remove(fruit);
-            }
-            Sequence destroySequence = DOTween.Sequence();
-
-            foreach (L71_Fruit fruit in fruitsToRemove)
-            {
-                // Tạo tween co nhỏ và tự hủy.
-                Tween scaleTween = fruit.transform.DOScale(Vector3.zero, 0.35f)
-                    .SetEase(Ease.InBack);
-                destroySequence.Join(scaleTween);
-            }
-            destroySequence.OnComplete(() =>
-            {
-                UpdateSlots();
-            });
+            winProgress++;
+            HandleRemoveMatch();
         }
+    }
+
+    void HandleRemoveMatch()
+    {
+        foreach (L71_Fruit fruit in fruitsToRemove)
+        {
+            placedFruits.Remove(fruit);
+        }
+        Sequence destroySequence = DOTween.Sequence();
+
+        foreach (L71_Fruit fruit in fruitsToRemove)
+        {
+            // Tạo tween co nhỏ và tự hủy.
+            Tween scaleTween = fruit.transform.DOScale(Vector3.zero, 0.35f)
+                .SetEase(Ease.InBack);
+
+            destroySequence.Join(scaleTween);
+        }
+        destroySequence.OnComplete(() =>
+        {
+            UpdateSlots();
+        });
     }
 }
