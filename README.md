@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-# Sliding-Tile-Puzzle
-=======
-# Satismoment
->>>>>>> b1a84658450e4d6c7b5a7101a16dd4df61535f27
+#### `Bounds.Intersects(...)`
+- Là hàm có sẵn trong Unity, dùng để kiểm tra xem hai vùng không gian (`Bounds`) có giao nhau hay không.
