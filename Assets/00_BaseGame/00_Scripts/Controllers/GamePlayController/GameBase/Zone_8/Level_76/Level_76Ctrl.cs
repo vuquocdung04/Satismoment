@@ -28,7 +28,6 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     public void OnTileClicked(L76_Tile clickedTile)
     {
         AddTile(clickedTile); // Thêm Tile vào hàng đợi
-        DarkenOverlappedTiles(); // Làm tối lại các Tile bị che
     }
 
     public void AddTile(L76_Tile tile)
