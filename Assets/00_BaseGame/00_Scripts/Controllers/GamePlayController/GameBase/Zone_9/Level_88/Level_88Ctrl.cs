@@ -5,6 +5,7 @@ using UnityEngine;
 public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
 {
     public int winProgress = 0;
+    public L88_Yard yard;
     [Header("Cài đặt làm mịn")]
     [Tooltip("Tốc độ đối tượng di chuyển bám theo chuột. Càng lớn càng nhanh.")]
     [SerializeField] private float moveSmoothSpeed = 8f;
@@ -13,7 +14,10 @@ public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
     [SerializeField] private float rotationSmoothSpeed = 12f;
     protected override void OnDragEnded()
     {
-
+        if(winProgress == 28)
+        {
+            StartCoroutine(HandleWinCondition());
+        }
     }
     Vector3 pivotToMouse;
     float angleZ;
@@ -22,7 +26,7 @@ public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
     {
         pivotToMouse = currentMousePosition - draggableComponent.transform.position;
         angleZ = Mathf.Atan2(pivotToMouse.y, pivotToMouse.x) * Mathf.Rad2Deg;
-        targetRotation = Quaternion.Euler(0, 0, angleZ -90);
+        targetRotation = Quaternion.Euler(0, 0, angleZ -90 );
 
         draggableComponent.transform.rotation = Quaternion.Slerp(
             draggableComponent.transform.rotation,
@@ -39,5 +43,14 @@ public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
     protected override void OnDragStarted()
     {
 
+    }
+
+    IEnumerator HandleWinCondition()
+    {
+        isWin = true;
+        StartCoroutine(yard.AnimateWinCondition());
+        yield return new WaitUntil(() => yard.isAnimateCompleted);
+        yield return new WaitForSeconds(0.2f);
+        WinBox.SetUp().Show();
     }
 }

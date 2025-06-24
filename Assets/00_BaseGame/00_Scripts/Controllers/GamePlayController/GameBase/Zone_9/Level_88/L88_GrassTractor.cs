@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class L88_GrassTractor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Level_88Ctrl levelCtrl;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        collision.gameObject.SetActive(false);
+        levelCtrl.winProgress++;
     }
 }
