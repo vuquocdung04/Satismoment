@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class L83_GlassSet : MonoBehaviour
 {
+    public SpriteMask maskAfterWin;
     public SpriteRenderer targetSprite; // Sprite hình ảnh cái kính
     public SpriteMask mask;             // SpriteMask để che phủ vùng vẽ
 

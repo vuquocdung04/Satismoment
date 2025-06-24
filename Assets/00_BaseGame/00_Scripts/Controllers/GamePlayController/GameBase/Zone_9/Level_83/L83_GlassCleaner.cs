@@ -131,9 +131,11 @@ public class L83_GlassCleaner : MonoBehaviour
         float coverage = (float)drawnCount / pixels.Length;
         glassAnim.ChangeSpriteFirst();
 
-        if (coverage > 0.93f) // Nếu hơn 90% đã được lau
+        if (coverage > 0.95f) // Nếu hơn 90% đã được lau
         {
             glass.completed = true;
+            glass.mask.gameObject.SetActive(false);
+            glass.maskAfterWin.gameObject.SetActive(true);
         }
     }
 

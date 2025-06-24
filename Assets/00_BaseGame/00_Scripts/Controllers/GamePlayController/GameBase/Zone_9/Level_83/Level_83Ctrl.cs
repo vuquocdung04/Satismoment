@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Level_83Ctrl : BaseDragController<L83_GlassCleaner>
 {
+    public Transform effectGlass;
     public  bool isCompleteLevel = false;
     public List<Transform> lsEffects;
     protected override void OnDragEnded()
@@ -30,7 +31,7 @@ public class Level_83Ctrl : BaseDragController<L83_GlassCleaner>
     IEnumerator HandleWinCondition()
     {
         isWin = true;
-
+        effectGlass.DOMoveX(-4,0.5f).SetEase(Ease.Linear);
         Sequence sequence = DOTween.Sequence();
 
         foreach (var effect in lsEffects)
