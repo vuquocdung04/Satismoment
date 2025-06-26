@@ -10,6 +10,7 @@ public class Level_89Ctrl : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             rod.housePrefab.HandleFallCondition();
+            rod.housePrefab.transform.SetParent(transform);
         }
     }
 }
