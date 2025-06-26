@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class L89_TriggerRestHouse : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public void Init()
     {
-        
+        transform.SetParent(Camera.main.transform);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        var houseClone = collision.GetComponent<L89_HousePrefab>();
+        if (houseClone == null) return;
+        if (houseClone.isComplete) return;
+        houseClone.ResetStateAndSetParent();
     }
 }

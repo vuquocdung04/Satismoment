@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class L89_Rod : MonoBehaviour
 {
+    public Level_89Ctrl levelCtrl;
     public Transform pointFall;
     public L89_HousePrefab housePrefab;
+    public L89_HousePrefab currrentHousePrefab;
     public List<Sprite> lsHouseSrites;
 
     public bool rotationEnabled = true;
@@ -15,6 +17,15 @@ public class L89_Rod : MonoBehaviour
 
     float pingPongValue;
     float currentSwingOffset;
+
+    public void Init()
+    {
+        transform.SetParent(Camera.main.transform);
+        currrentHousePrefab = Instantiate(housePrefab, Vector2.zero, Quaternion.identity);
+        currrentHousePrefab.SetSprite(lsHouseSrites[0]);
+        currrentHousePrefab.ResetStateAndSetParent();
+    }
+
 
     void Update()
     {
@@ -34,11 +45,29 @@ public class L89_Rod : MonoBehaviour
         );
     }
 
-    public int  index = 0;
+    public int index = 1;
     public void InitHouse()
     {
+        levelCtrl.winProgress++;
+
+        // Thêm cái cũ vào list trước
+        levelCtrl.lsHouses.Add(currrentHousePrefab);
+
+        if(levelCtrl.winProgress == lsHouseSrites.Count)
+        {
+            levelCtrl.isWin = true;
+            StartCoroutine(levelCtrl.HandleWinCondition());
+            return;
+        }
+
+        // Tạo nhà mới
+        L89_HousePrefab newHouse = Instantiate(housePrefab, Vector2.zero, Quaternion.identity);
+        newHouse.SetSprite(lsHouseSrites[index]);
+        newHouse.ResetStateAndSetParent();
+        newHouse.UpdateColliderSize();
+
+        // Gán lại current house
+        currrentHousePrefab = newHouse;
         index++;
-        var houseClone = Instantiate(housePrefab, Vector2.zero, Quaternion.identity);
-        houseClone.SetSprite(lsHouseSrites[index]);
     }
 }
