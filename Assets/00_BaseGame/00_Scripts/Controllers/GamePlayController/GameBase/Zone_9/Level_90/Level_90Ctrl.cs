@@ -1,0 +1,58 @@
+using DG.Tweening;
+using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Level_90Ctrl : BaseDragController<L90_Lego>
+{
+    public int winProgress = 0;
+    public Transform boxLid;
+    public List<L90_Lego> lsLegos;
+    protected override void OnDragEnded()
+    {
+        if (draggableComponent.IsItemInCorrectCompartment())
+        {
+            winProgress++;
+            if(winProgress == lsLegos.Count)
+            {
+                isWin = true;
+                StartCoroutine(HandleWinCondition());
+            }
+        }
+    }
+
+    protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
+    {
+        draggableComponent.transform.position += mouseDelta;
+    }
+
+    protected override void OnDragStarted()
+    {
+        draggableComponent.OnStartDrag();
+    }
+    IEnumerator HandleWinCondition()
+    {
+        Tween moveLidBox = boxLid.DOMoveY(0.15f,1f).SetEase(Ease.Linear);
+        yield return moveLidBox.WaitForCompletion();
+        yield return new WaitForSeconds(0.2f);
+        WinBox.SetUp().Show();
+    }
+
+    [Button("Setup After",ButtonSizes.Large)]
+    void SetupAfter()
+    {
+        foreach(var lego in this.lsLegos)
+        {
+            lego.InitAfter();
+        }
+    }
+    [Button("Setup Before",ButtonSizes.Large)]
+    void SetupBefore()
+    {
+        foreach (var lego in this.lsLegos)
+        {
+            lego.InitBefore();
+        }
+    }
+}
