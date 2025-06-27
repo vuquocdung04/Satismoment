@@ -1,18 +1,60 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level_92Ctrl : MonoBehaviour
+public class Level_92Ctrl : BaseDragController<L92_Food>
 {
-    // Start is called before the first frame update
-    void Start()
+    public int winProgress;
+    public List<L92_Food> lsFoods;
+
+
+    protected override void OnDragEnded()
     {
-        
+        if (draggableComponent.CheckPositionCorrect())
+        {
+            winProgress++;
+            if (winProgress == lsFoods.Count)
+                StartCoroutine(HandleWinCondition());
+        }
+        else
+        {
+            draggableComponent.OnEndDrag();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
-        
+        draggableComponent.transform.position += mouseDelta;
+    }
+
+    protected override void OnDragStarted()
+    {
+        draggableComponent.OnStartDrag();
+    }
+
+    IEnumerator HandleWinCondition()
+    {
+        isWin = true;
+        yield return new WaitForSeconds(0.2f);
+        WinBox.SetUp().Show();
+    }
+
+    [Button("SetupAfter", ButtonSizes.Large)]
+    void SetupAfter()
+    {
+        foreach (var item in this.lsFoods)
+        {
+            item.InitAfter();
+        }
+    }
+    [Button("SetupBefore", ButtonSizes.Large)]
+
+    void SetupBefore()
+    {
+        foreach (var item in this.lsFoods)
+        {
+            item.InitBefore();
+        }
     }
 }
