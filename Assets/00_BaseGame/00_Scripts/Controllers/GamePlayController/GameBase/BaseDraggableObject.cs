@@ -44,10 +44,12 @@ public abstract class BaseDraggableObject : MonoBehaviour
     public void InitAfter()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null) { Debug.LogError("SpriteRenderer null, bo qua neu can thiet"); }
         objectCollider = GetComponent<Collider2D>();
         posCorrect = transform.position;
         angleDrag = transform.eulerAngles.z;
-        orderIndex = spriteRenderer.sortingOrder;
+        if (spriteRenderer != null)
+            orderIndex = spriteRenderer.sortingOrder;
     }
 
     public void InitBefore()
