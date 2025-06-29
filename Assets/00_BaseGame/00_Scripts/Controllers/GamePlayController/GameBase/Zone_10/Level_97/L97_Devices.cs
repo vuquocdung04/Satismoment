@@ -26,6 +26,9 @@ public class L97_Devices : BaseDraggableObject
     private Sprite maskSprite;
     private bool ninetyPercentReached = false;
 
+
+    private Color[] maskPixelsBuffer; // Buffer để thao tác pixel
+    private int drawnPixelCount = 0; // Đếm số pixel đã vẽ một cách tăng dần
     #region mask
     private void Start()
     {
@@ -53,16 +56,20 @@ public class L97_Devices : BaseDraggableObject
 
         // gan nguoc lai
         spriteMask.sprite = maskSprite;
-    }
-    void ClearTexture(Color color)
-    {
-        Color[] clearColors = new Color[textureWidth * textureHeight];
-        for (int i = 0; i < clearColors.Length; i++)
+
+        maskPixelsBuffer = maskTexture.GetPixels();
+        drawnPixelCount = 0; // Đặt lại số pixel đã vẽ
+        void ClearTexture(Color color)
         {
-            clearColors[i] = color;
+            Color[] clearColors = new Color[textureWidth * textureHeight];
+            for (int i = 0; i < clearColors.Length; i++)
+            {
+                clearColors[i] = color;
+            }
+            maskTexture.SetPixels(clearColors);
+            maskTexture.Apply();
         }
-        maskTexture.SetPixels(clearColors);
-        maskTexture.Apply();
+
     }
     int startX;
     int endX;
@@ -70,20 +77,42 @@ public class L97_Devices : BaseDraggableObject
     int endY;
     void DrawCircle(Vector2Int center, int radius, Color color)
     {
-         startX = Mathf.Max(0, center.x - radius);
-         endX = Mathf.Min(textureWidth, center.x + radius);
-         startY = Mathf.Max(0, center.y - radius);
-         endY = Mathf.Min(textureHeight, center.y + radius);
+        startX = Mathf.Max(0, center.x - radius);
+        endX = Mathf.Min(textureWidth, center.x + radius);
+        startY = Mathf.Max(0, center.y - radius);
+        endY = Mathf.Min(textureHeight, center.y + radius);
+
+        int radiusSq = radius * radius; // Tối ưu: So sánh bình phương khoảng cách để tránh sqrt
 
         for (int x = startX; x < endX; x++)
         {
             for (int y = startY; y < endY; y++)
             {
-                if (Vector2.Distance(new Vector2(x, y), center) <= radius)
+                int dx = x - center.x;
+                int dy = y - center.y;
+                if (dx * dx + dy * dy <= radiusSq) // So sánh bình phương khoảng cách
                 {
-                    maskTexture.SetPixel(x, y, color);
+                    int index = y * textureWidth + x;
+                    // Chỉ tăng drawnPixelCount nếu pixel đó trước đây trong suốt và bây giờ được vẽ
+                    if (maskPixelsBuffer[index].a <= 0.01f && color.a > 0.01f) // Dùng epsilon cho so sánh float
+                    {
+                        drawnPixelCount++;
+                    }
+                    maskPixelsBuffer[index] = color; // Thay đổi trong buffer
                 }
             }
+        }
+    }
+
+    // Phương thức mới để áp dụng thay đổi pixel và kiểm tra độ phủ
+    public void ApplyMaskChangesAndCheckCoverage()
+    {
+        maskTexture.SetPixels(maskPixelsBuffer); // Áp dụng toàn bộ buffer vào texture
+        maskTexture.Apply(); // Chỉ Apply() một lần sau khi vẽ
+
+        if (!ninetyPercentReached) // Chỉ kiểm tra nếu chưa đạt 90%
+        {
+            CheckDrawingCoverage();
         }
     }
     Sprite brushSprite;
@@ -95,24 +124,17 @@ public class L97_Devices : BaseDraggableObject
                                            200f);
         spriteMask.sprite = brushSprite;
     }
-    int drawnCount;
-    Color32[] pixels;
+
     float coverage;
     void CheckDrawingCoverage()
     {
-        pixels = maskTexture.GetPixels32();
-        drawnCount = 0;
+        // Bây giờ tính toán dựa trên drawnPixelCount đã được cập nhật tăng dần
+        coverage = (float)drawnPixelCount / (textureWidth * textureHeight);
 
-        foreach (var pixel in pixels)
-        {
-            if (pixel.a > 0) drawnCount++;
-        }
-
-        coverage = (float)drawnCount / pixels.Length;
-
-        if (coverage > 0.9f)
+        if (coverage > 0.9f && !ninetyPercentReached) // Thêm !ninetyPercentReached để chỉ kích hoạt một lần
         {
             ninetyPercentReached = true;
+            Debug.Log("Đã đạt 90% độ phủ!"); // Hoặc gọi sự kiện thắng cuộc
         }
     }
     #endregion
@@ -125,25 +147,17 @@ public class L97_Devices : BaseDraggableObject
     public void DrawAtPosition(Vector3 worldPos)
     {
         localPos = spriteMask.transform.InverseTransformPoint(worldPos);
-         texX_normalized = (localPos.x / (maskTexture.width / maskSprite.pixelsPerUnit)) + 0.5f;
-         texY_normalized = (localPos.y / (maskTexture.height / maskSprite.pixelsPerUnit)) + 0.5f;
+        texX_normalized = (localPos.x / (maskTexture.width / maskSprite.pixelsPerUnit)) + 0.5f;
+        texY_normalized = (localPos.y / (maskTexture.height / maskSprite.pixelsPerUnit)) + 0.5f;
 
-         texX = (int)(texX_normalized * textureWidth);
-         texY = (int)(texY_normalized * textureHeight);
+        texX = (int)(texX_normalized * textureWidth);
+        texY = (int)(texY_normalized * textureHeight);
 
         if (texX >= 0 && texX < textureWidth && texY >= 0 && texY < textureHeight)
         {
             DrawCircle(new Vector2Int(texX, texY), drawRadius, drawColor);
-            maskTexture.Apply();
-            UpdateSprite();
-
-            if (!ninetyPercentReached)
-            {
-                CheckDrawingCoverage();
-            }
         }
     }
-
 
     public override void OnStartDrag()
     {
