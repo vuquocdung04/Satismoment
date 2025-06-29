@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class L97_Devices : BaseDraggableObject
     // Khoi tao bien tam trung gian 
     private Texture2D maskTexture;
     private Sprite maskSprite;
-    private bool ninetyPercentReached = false;
+    public bool ninetyPercentReached = false;
 
 
     private Color[] maskPixelsBuffer; // Buffer để thao tác pixel
@@ -131,10 +132,10 @@ public class L97_Devices : BaseDraggableObject
         // Bây giờ tính toán dựa trên drawnPixelCount đã được cập nhật tăng dần
         coverage = (float)drawnPixelCount / (textureWidth * textureHeight);
 
-        if (coverage > 0.9f && !ninetyPercentReached) // Thêm !ninetyPercentReached để chỉ kích hoạt một lần
+        if (coverage > 0.90f && !ninetyPercentReached) // Thêm !ninetyPercentReached để chỉ kích hoạt một lần
         {
             ninetyPercentReached = true;
-            Debug.Log("Đã đạt 90% độ phủ!"); // Hoặc gọi sự kiện thắng cuộc
+            Debug.Log("Đã đạt 95% độ phủ!"); // Hoặc gọi sự kiện thắng cuộc
         }
     }
     #endregion
@@ -173,6 +174,6 @@ public class L97_Devices : BaseDraggableObject
 
     public override void ReturnToOriginalPosition()
     {
-        
+        transform.DOMove(posDefault,0.2f).SetEase(Ease.Linear);
     }
 }
