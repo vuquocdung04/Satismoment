@@ -41,7 +41,7 @@ public abstract class BaseDraggableObject : MonoBehaviour
     /// <summary>
     ///  Khai bao odin
     /// </summary>
-    public void InitAfter()
+    public virtual void InitAfter()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if(spriteRenderer == null) { Debug.LogError("SpriteRenderer null, bo qua neu can thiet"); }
