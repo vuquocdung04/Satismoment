@@ -5,6 +5,7 @@ using UnityEngine;
 public class Level_101Ctrl : BaseDragController<L101_Angten>
 {
     public L101_NoisyScreen noisyScreen;
+    public SpriteRenderer backGround;
     public float currentRotation = -35f;
 
     private float lastAlpha = 0f; // Biến lưu lại giá trị alpha cuối cùng
@@ -46,6 +47,7 @@ public class Level_101Ctrl : BaseDragController<L101_Angten>
         {
             Debug.Log("✅ Tín hiệu ổn định! Alpha gần bằng 0.");
             noisyScreen.isPlayingAnimation = true;
+            StartCoroutine(HandleWinCondition());
         }
         else
         {
@@ -59,6 +61,8 @@ public class Level_101Ctrl : BaseDragController<L101_Angten>
 
     IEnumerator HandleWinCondition()
     {
+        backGround.color = new Color32(255,255,121,255);
+        isWin = true;
         yield return new WaitForSeconds(0.4f);
         WinBox.SetUp().Show();
     }
