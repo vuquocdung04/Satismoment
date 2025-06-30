@@ -35,6 +35,16 @@ public class GameScene : MonoBehaviour
         SettingGameBox.SetUp().Show();
     }
 
+    public void HiddenAllButton()
+    {
+        btnSetting.gameObject.SetActive(false);
+        btnSkip.gameObject.SetActive(false);
+    }
 
+    public void ShowAllButton()
+    {
+        btnSetting.gameObject.SetActive(true);
+        btnSkip.gameObject.SetActive(true);
+    }
 
 }
