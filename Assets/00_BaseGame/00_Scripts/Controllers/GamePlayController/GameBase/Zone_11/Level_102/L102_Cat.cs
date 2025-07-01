@@ -12,8 +12,8 @@ public class L102_Cat : MonoBehaviour
     private float waitBetweenPeek = 1f; // Thời gian chờ giữa các lần peek
     private int repeatCount = 2;       // Số lần lặp lại hành động "nhô ra"
 
-    private bool isPeeking = false;    // Trạng thái đang nhô ra hay không
-
+    [SerializeField] bool isPeeking = false;    // Trạng thái đang nhô ra hay không
+    bool isDone = false;
     void Start()
     {
         StartCoroutine(AppearRandomly());
@@ -22,13 +22,11 @@ public class L102_Cat : MonoBehaviour
     {
         yield return new WaitForSeconds(appearDelay);
 
-        while (true)
+        while (!isDone)
         {
             // Chọn ngẫu nhiên một điểm trong danh sách
             int randomIndex = Random.Range(0, lsPoints.Count);
             Transform targetPoint = lsPoints[randomIndex];
-
-            // Đảo chiều sprite nếu cần
             if (randomIndex != 0)
             {
                 FlipSprite(-1);
@@ -37,8 +35,6 @@ public class L102_Cat : MonoBehaviour
             {
                 FlipSprite(1);
             }
-
-            // Di chuyển đến điểm đó
             transform.position = targetPoint.position;
 
             // Thực hiện animation peek nhiều lần
@@ -62,7 +58,7 @@ public class L102_Cat : MonoBehaviour
                 Debug.LogError("Dang nho");
                 // Di chuyển ra ngoài (nhô ra)
                 transform.DOMove(endPosition, moveDuration).SetEase(Ease.OutQuad);
-                yield return new WaitForSeconds(moveDuration);
+                yield return new WaitForSeconds(1f);
 
                 // Cập nhật trạng thái isPeeking = false
                 isPeeking = false;
@@ -89,5 +85,12 @@ public class L102_Cat : MonoBehaviour
     public bool IsPeeking()
     {
         return isPeeking;
+    }
+
+    public void StopAll()
+    {
+        isDone  = true;
+        transform.DOKill();
+        StopAllCoroutines();
     }
 }

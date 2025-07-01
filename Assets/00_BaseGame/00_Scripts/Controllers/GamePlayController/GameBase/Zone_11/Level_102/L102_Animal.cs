@@ -12,6 +12,7 @@ public class L102_Animal : MonoBehaviour
     private Vector3 targetPosition; // Vị trí đích
     public float moveDuration = 1f; // Thời gian di chuyển mỗi lần
     public float timeChangeFrame = 0.1f;
+    bool isWin = false; 
     void Start()
     {
         StartCoroutine(PlayAnimation());
@@ -36,7 +37,7 @@ public class L102_Animal : MonoBehaviour
     public IEnumerator PlayAnimation()
     {
         var waitTime = new WaitForSeconds(timeChangeFrame);
-        while (true)
+        while (!isWin)
         {
             if (lsFrameAnimations.Count > 0)
             {
@@ -46,5 +47,12 @@ public class L102_Animal : MonoBehaviour
 
             yield return waitTime;
         }
+    }
+
+    public void StopAll()
+    {
+        isWin = true;
+        StopAllCoroutines();
+        animalMove.Kill();
     }
 }
