@@ -32,14 +32,11 @@ public class L105_CueBall : MonoBehaviour
                 break;
             }
         }
-
-        // Có thể thêm logic gì đó ở đây, ví dụ: báo hiệu bóng đã dừng
-        OnBallStopped();
     }
 
-    private void OnBallStopped()
+    public void OnBallStopped()
     {
-        Debug.Log("Quả bóng đã dừng lại!");
-        // Ví dụ: Gọi event hoặc kích hoạt hành động tiếp theo trong game
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 }
