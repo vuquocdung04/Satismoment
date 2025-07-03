@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class L108_Compartment : MonoBehaviour
 {
+    public int id;
     public BoxCollider2D boxCollider2d;
     public List<Vector2> lsPoints = new List<Vector2>();
 
