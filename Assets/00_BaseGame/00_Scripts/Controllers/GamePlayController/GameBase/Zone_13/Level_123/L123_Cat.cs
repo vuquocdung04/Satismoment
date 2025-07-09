@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class L123_Cat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public SpriteRenderer spriteRenderer;
+    public Sprite defaultSprite;
+    public Sprite supriseSprite;
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeSpriteDefault()
     {
-        
+        spriteRenderer.sprite = defaultSprite;
+    }
+    public void ChangeSpriteSuprise()
+    {
+        spriteRenderer.sprite = supriseSprite;
     }
 }

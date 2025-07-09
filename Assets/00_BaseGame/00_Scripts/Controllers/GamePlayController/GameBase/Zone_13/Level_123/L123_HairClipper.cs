@@ -30,4 +30,11 @@ public class L123_HairClipper : MonoBehaviour
         currentTween.Pause();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var catHair = collision.GetComponent<L123_CatHair>();
+        if (catHair == null) return;
+        catHair.Init();
+    }
+
 }
