@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class L123_HairClipper : MonoBehaviour
 {
+    public Level_123Ctrl levelCtrl;
     public Transform headClip;
     private Tween currentTween;
     private void MoveLeft()
@@ -35,6 +36,12 @@ public class L123_HairClipper : MonoBehaviour
         var catHair = collision.GetComponent<L123_CatHair>();
         if (catHair == null) return;
         catHair.Init();
+        levelCtrl.InCreaseWinAmount();
     }
 
+
+    private void OnDestroy()
+    {
+        currentTween.Kill();
+    }
 }

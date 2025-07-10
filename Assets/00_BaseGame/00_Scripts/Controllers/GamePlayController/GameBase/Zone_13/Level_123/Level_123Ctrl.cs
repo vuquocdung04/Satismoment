@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Level_123Ctrl : BaseDragController<L123_HairClipper>
 {
     public L123_Cat cat;
+    public List<L123_CatHair> lsCatHairs;
 
     protected override void OnDragEnded()
     {
@@ -22,5 +24,31 @@ public class Level_123Ctrl : BaseDragController<L123_HairClipper>
     {
         draggableComponent.OnStateStart();
         cat.ChangeSpriteSuprise();
+    }
+
+    int winProgress = 0;
+    public void InCreaseWinAmount()
+    {
+        winProgress++;
+        if (winProgress == lsCatHairs.Count)
+        {
+            StartCoroutine(HandleWinCondition());
+        }
+    }
+
+    IEnumerator HandleWinCondition()
+    {
+        isWin = true;
+        yield return new WaitForSeconds(1f);
+        WinBox.SetUp().Show();
+    }
+
+    [Button("Setup",ButtonSizes.Large)]
+    void Setup()
+    {
+        foreach(var catHair in this.lsCatHairs)
+        {
+            catHair.InitSetup();
+        }
     }
 }
