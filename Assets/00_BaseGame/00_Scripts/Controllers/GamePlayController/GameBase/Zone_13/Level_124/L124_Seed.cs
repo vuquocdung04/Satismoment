@@ -1,51 +1,65 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class L124_Seed : MonoBehaviour
+public class L124_Seed : L124_ObjDragable
 {
-    public Level_124Ctrl levelCtrl;
-    public BoxCollider2D boxCollider2d;
-    public SpriteRenderer spriteRenderer;
+    public List<L124_Apple> lsApples;
     public List<Sprite> lsFrames;
     public List<Transform> lsPointSpawnApples;
-    public bool inDir;
-    bool CheckCollisionWithDir()
-    {
-        if(boxCollider2d.IsTouching(levelCtrl.dirCollider)) return true;
-        return false;
-    }
 
-    public void HandleCollisitonWithDir()
+    public override void HandleCollisionWithObj()
     {
-        if (CheckCollisionWithDir())
-        {
-            inDir = true;
-            transform.position = levelCtrl.dirCollider.transform.position;
-            spriteRenderer.sprite = lsFrames[1];
-        }
+        if (!objCollider.IsTouching(levelCtrl.dir.dirCollider)) return;
+        if (levelCtrl.dir.HasSeeded()) return;
+        transform.position = levelCtrl.dir.transform.position;
+        objCollider.enabled = false;
+        levelCtrl.dir.SetCurrentSeed(this);
+        objRenderer.sprite = lsFrames[1];
     }
     public void ResetSeedState()
     {
-        spriteRenderer.sprite = lsFrames[0];
+        lsApples.Clear();
+        objRenderer.sprite = lsFrames[0];
         indexFrame = 1;
-        spriteRenderer.sprite = lsFrames[0];
-        inDir = false;
+        objCollider.enabled = true;
     }
 
     int indexFrame = 1;
     public void GrownSeed()
     {
         indexFrame++;
-        if(indexFrame == lsFrames.Count)
+        if(indexFrame == lsFrames.Count - 1)
         {
-            ResetSeedState();
             levelCtrl.SpawnApple(lsPointSpawnApples);
+        }
+        if (indexFrame == lsFrames.Count)
+        {
+            levelCtrl.dir.OnSeedGrowthComplete();
+            JumpingApple();
+            ResetSeedState();
             SimplePool2.Despawn(gameObject);
             return;
         }
-        spriteRenderer.sprite = lsFrames[indexFrame];
+        objRenderer.sprite = lsFrames[indexFrame];
     }
+
+    public void JumpingApple()
+    {
+        foreach(var apple in this.lsApples)
+        {
+            Debug.LogError("Jump");
+            apple.objCollider.enabled = true;
+            Transform appleTransform = apple.transform;
+            appleTransform
+                .DOJump(appleTransform.position, // giữ nguyên vị trí x/z
+                        1f, // chiều cao jump
+                        1, // số lần jump (1 lần)
+                        0.5f) // thời gian
+                .SetEase(Ease.OutBounce); // Hiệu ứng bật
+        }
+    }
+
 }
