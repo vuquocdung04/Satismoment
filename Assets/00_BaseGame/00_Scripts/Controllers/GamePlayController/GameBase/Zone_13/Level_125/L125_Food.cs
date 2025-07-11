@@ -111,4 +111,10 @@ public class L125_Food : MonoBehaviour
         mask.DOPlay();
     }
 
+    private void OnDestroy()
+    {
+        mask.DOKill();
+        StopAllCoroutines();
+    }
+
 }

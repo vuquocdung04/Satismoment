@@ -31,6 +31,11 @@ public class Level_125Ctrl : BaseDragController<L125_Food>
             foodConsumedTotal++;
             cat.ResetChewingAnimation();
             SimplePool2.Despawn(draggableComponent.gameObject);
+            if(foodConsumedTotal == foodNeededTotal)
+            {
+                isWin = true;
+                StartCoroutine(HandleWinCondition());
+            }
         }
     }
 
@@ -46,7 +51,7 @@ public class Level_125Ctrl : BaseDragController<L125_Food>
 
     IEnumerator HandleWinCondition()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();
     }
 }

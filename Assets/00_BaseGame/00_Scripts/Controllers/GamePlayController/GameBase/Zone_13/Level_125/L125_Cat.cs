@@ -62,4 +62,9 @@ public class L125_Cat : MonoBehaviour
         isAnimating = false;
         catRenrerer.sprite = spriteCatDefault;
     }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
 }

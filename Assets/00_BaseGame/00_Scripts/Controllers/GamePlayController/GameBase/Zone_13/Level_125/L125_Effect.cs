@@ -28,4 +28,10 @@ public class L125_Effect : MonoBehaviour
             SimplePool2.Despawn(gameObject);
         });
     }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
+        StopAllCoroutines();
+    }
 }
