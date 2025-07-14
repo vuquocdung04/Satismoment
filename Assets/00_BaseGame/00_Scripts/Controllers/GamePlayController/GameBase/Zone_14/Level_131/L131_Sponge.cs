@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SpongeStage
+public class L131_SpongeStage
 {
     public Transform stainTransform; // Vết bẩn cần được tắt khi hoàn thành stage này
     public SpriteRenderer targetSpriteRenderer; // Target Sprite để lấy width/height và pixelsPerUnit
@@ -30,7 +30,7 @@ public class SpongeStage
 
 public class L131_Sponge : MonoBehaviour
 {
-    public List<SpongeStage> stages; // Danh sách các giai đoạn lau chùi
+    public List<L131_SpongeStage> stages; // Danh sách các giai đoạn lau chùi
     public int drawRadius = 10;
     public Color drawColor = Color.white;
 
@@ -63,7 +63,7 @@ public class L131_Sponge : MonoBehaviour
             return;
         }
 
-        SpongeStage currentStage = stages[currentStageIndex];
+        L131_SpongeStage currentStage = stages[currentStageIndex];
 
         // Bật vết bẩn cho stage hiện tại
         if (currentStage.stainTransform != null)
@@ -141,7 +141,7 @@ public class L131_Sponge : MonoBehaviour
     int dx;
     int dy;
     int index;
-    void DrawCircle(SpongeStage stage, Vector2Int center, int radius, Color color)
+    void DrawCircle(L131_SpongeStage stage, Vector2Int center, int radius, Color color)
     {
         startX = Mathf.Max(0, center.x - radius);
         endX = Mathf.Min(stage.textureWidth, center.x + radius);
@@ -173,7 +173,7 @@ public class L131_Sponge : MonoBehaviour
     {
         if (currentStageIndex >= stages.Count) return;
 
-        SpongeStage currentStage = stages[currentStageIndex];
+        L131_SpongeStage currentStage = stages[currentStageIndex];
         if (currentStage.maskTexture != null)
         {
             currentStage.maskTexture.SetPixels(currentStage.maskPixelsBuffer);
@@ -185,7 +185,7 @@ public class L131_Sponge : MonoBehaviour
     {
         if (currentStageIndex >= stages.Count) return false;
 
-        SpongeStage currentStage = stages[currentStageIndex];
+        L131_SpongeStage currentStage = stages[currentStageIndex];
         if (currentStage.isNinetyPercentReached) return false;
 
         float totalPixels = currentStage.textureWidth * currentStage.textureHeight;
@@ -205,7 +205,7 @@ public class L131_Sponge : MonoBehaviour
     {
         if (currentStageIndex >= stages.Count) return;
 
-        SpongeStage completedStage = stages[currentStageIndex];
+        L131_SpongeStage completedStage = stages[currentStageIndex];
 
         // Tắt vết bẩn của stage vừa hoàn thành
         if (completedStage.stainTransform != null)
@@ -225,7 +225,7 @@ public class L131_Sponge : MonoBehaviour
         InitCurrentStage(); // Khởi tạo stage tiếp theo
     }
 
-    SpongeStage currentStage;
+    L131_SpongeStage currentStage;
     Vector3 localPos;
     float texX_normalized;
     float texY_normalized;
