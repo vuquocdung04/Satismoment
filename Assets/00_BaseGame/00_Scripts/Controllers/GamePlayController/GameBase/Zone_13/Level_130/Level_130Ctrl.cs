@@ -13,54 +13,84 @@ public class Level_130Ctrl : BaseDragController<L130_MixerTap>
 
     protected override void OnDragEnded()
     {
-        // Tùy chọn: có thể reset trạng thái, hoặc giữ nguyên
+        if (isCurrentCold)
+        {
+            boy.PlayHotAnimation();
+        }
+        else if (isCurrentHot)
+        {
+            boy.PlayColdAnimation();
+        }
+        else
+        {
+            boy.ChangeSpriteDefault();
+            StartCoroutine(HandleWinCondition());
+        }
     }
 
     float rotationAmount;
     float currentZ;
     float clampedZ;
     float newZ;
-    bool shouldBeHot;
-    bool shouldBeCold;
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
-        // Tính lượng xoay dựa trên mouseDelta.x
-        rotationAmount = deltaMousePosition.x * 15f;
+        rotationAmount = deltaMousePosition.x * 25f;
 
-        // Lấy góc xoay hiện tại theo trục Z
         currentZ = draggableComponent.transform.eulerAngles.z;
-
-        // Chuyển về khoảng [-180, 180] để dễ xử lý
         clampedZ = currentZ > 180 ? currentZ - 360 : currentZ;
-
-        // Kiểm tra nếu xoay thêm không vượt quá giới hạn
         newZ = Mathf.Clamp(clampedZ + rotationAmount, -60f, 60f);
-
-        // Áp dụng xoay với giá trị đã được giới hạn
         draggableComponent.transform.rotation = Quaternion.Euler(0, 0, newZ);
 
-        // --- Logic kiểm tra và chuyển trạng thái ---
+        bool inColdZone = (newZ <= -5f && newZ >= -60f); // Lạnh khi từ -60 đến -5
+        bool inHotZone = (newZ >= 5f && newZ <= 60f);    // Nóng khi từ 5 đến 60
+                                                         // Vùng trung lập sẽ là từ -5f đến 5f
 
-        shouldBeCold = (newZ <= 0f && newZ >= -60f);
-        shouldBeHot = (newZ >= 20f && newZ <= 60f);
-
-        // Chỉ gọi hàm nếu trạng thái thực sự thay đổi
-        if (shouldBeCold && !isCurrentCold)
+        // Đảm bảo chỉ gọi hàm khi trạng thái thực sự thay đổi
+        if (inColdZone) // Nếu đang ở vùng lạnh
         {
-            showerHead.ActiveColdEffect();
-            isCurrentHot = false;
-            isCurrentCold = true;
+            if (!isCurrentCold) // Và trước đó không phải là lạnh
+            {
+                showerHead.ActiveColdEffect();
+                boy.ChangeSpriteCold(); // Gọi sprite lạnh
+                isCurrentHot = false;
+                isCurrentCold = true;
+                Debug.Log("Entered Cold Zone: Boy is now Cold.");
+            }
         }
-        else if (shouldBeHot && !isCurrentHot)
+        else if (inHotZone) // Nếu đang ở vùng nóng
         {
-            showerHead.ActiveHotEffect();
-            isCurrentCold = false;
-            isCurrentHot = true;
+            if (!isCurrentHot) // Và trước đó không phải là nóng
+            {
+                showerHead.ActiveHotEffect();
+                boy.ChangeSpriteHot(); // Gọi sprite nóng
+                isCurrentCold = false;
+                isCurrentHot = true;
+                Debug.Log("Entered Hot Zone: Boy is now Hot.");
+            }
+        }
+        else 
+        {
+            if (isCurrentHot || isCurrentCold) // Chỉ thay đổi nếu trước đó đang ở trạng thái nóng hoặc lạnh
+            {
+                showerHead.DeactiveAllEffects();
+                boy.ChangeSpriteDefault(); // Gọi sprite mặc định
+                isCurrentHot = false;
+                isCurrentCold = false;
+                Debug.Log("Entered Neutral Zone: Boy is now Default.");
+            }
         }
     }
 
     protected override void OnDragStarted()
     {
-        // Có thể bỏ trống hoặc xử lý gì đó khi bắt đầu kéo
+        boy.StopCurrentAnimation();
     }
+
+    IEnumerator HandleWinCondition()
+    {
+        isWin = true;
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
+    }
+
 }

@@ -17,4 +17,9 @@ public class L130_ShowerHead : MonoBehaviour
         cold.gameObject.SetActive(true);
         hot.gameObject.SetActive(false);
     }
+    public void DeactiveAllEffects()
+    {
+        cold.gameObject.SetActive(false);
+        cold.gameObject.SetActive(false);
+    }
 }
