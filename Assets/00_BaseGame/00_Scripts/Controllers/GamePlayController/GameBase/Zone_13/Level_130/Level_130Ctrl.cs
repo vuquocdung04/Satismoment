@@ -16,10 +16,12 @@ public class Level_130Ctrl : BaseDragController<L130_MixerTap>
         if (isCurrentCold)
         {
             boy.PlayHotAnimation();
+            boy.PlayColdAnimation();
+            
         }
         else if (isCurrentHot)
         {
-            boy.PlayColdAnimation();
+            boy.PlayHotAnimation();
         }
         else
         {
@@ -32,6 +34,8 @@ public class Level_130Ctrl : BaseDragController<L130_MixerTap>
     float currentZ;
     float clampedZ;
     float newZ;
+    bool inColdZone;
+    bool inHotZone;
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
         rotationAmount = deltaMousePosition.x * 25f;
@@ -41,9 +45,9 @@ public class Level_130Ctrl : BaseDragController<L130_MixerTap>
         newZ = Mathf.Clamp(clampedZ + rotationAmount, -60f, 60f);
         draggableComponent.transform.rotation = Quaternion.Euler(0, 0, newZ);
 
-        bool inColdZone = (newZ <= -5f && newZ >= -60f); // Lạnh khi từ -60 đến -5
-        bool inHotZone = (newZ >= 5f && newZ <= 60f);    // Nóng khi từ 5 đến 60
-                                                         // Vùng trung lập sẽ là từ -5f đến 5f
+         inColdZone = (newZ >= 5f && newZ <= 60f); 
+         inHotZone = (newZ <= -5f && newZ >= -60f);   
+                                                         
 
         // Đảm bảo chỉ gọi hàm khi trạng thái thực sự thay đổi
         if (inColdZone) // Nếu đang ở vùng lạnh
