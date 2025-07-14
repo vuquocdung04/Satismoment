@@ -1,168 +1,169 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpongeStage
+{
+    public Transform stainTransform; // Vết bẩn cần được tắt khi hoàn thành stage này
+    public SpriteRenderer targetSpriteRenderer; // Target Sprite để lấy width/height và pixelsPerUnit
+    public SpriteMask spriteMask; // SpriteMask sẽ được vẽ lên
+
+    // Các biến nội bộ cho mỗi Stage
+    [NonSerialized] public Texture2D maskTexture;
+    [NonSerialized] public Sprite maskSprite;
+    [NonSerialized] public Color[] maskPixelsBuffer;
+    [NonSerialized] public int drawnPixelCount;
+    [NonSerialized] public int textureWidth;
+    [NonSerialized] public int textureHeight;
+    [NonSerialized] public bool isNinetyPercentReached; // Cờ riêng cho từng Stage
+    [NonSerialized] public float pixelsPerUnit; // Lưu pixelsPerUnit cho stage này
+    [NonSerialized] public Rect spriteRect; // Lưu rect của sprite cho stage này
+
+    // Có thể thêm các thuộc tính khác nếu mỗi stage cần cấu hình riêng (ví dụ: drawRadius, drawColor)
+    // public int stageDrawRadius = 10;
+    // public Color stageDrawColor = Color.white;
+}
+
+
+
 public class L131_Sponge : MonoBehaviour
 {
-    public List<Transform> lsSpriteStains; // Danh sách các Transform của vết bẩn
-    [Header("TargetSprite de lay width va heigh")]
-    public List<SpriteRenderer> lsTargetSprites;
-    // textureWidth và textureHeight sẽ được xác định nội bộ theo targetSprite hiện tại
-    // public int textureWidth; // Không cần thiết public nữa
-    // public int textureHeight; // Không cần thiết public nữa
-
-    [Space(5)]
-    public List<SpriteMask> lsSpriteMasks;
+    public List<SpongeStage> stages; // Danh sách các giai đoạn lau chùi
     public int drawRadius = 10;
     public Color drawColor = Color.white;
 
-    // Khởi tạo biến tạm trung gian 
-    private Texture2D maskTexture;
-    private Sprite maskSprite;
-    public bool ninetyPercentReached = false;
-
-
-    private Color[] maskPixelsBuffer; // Buffer để thao tác pixel
-    private int drawnPixelCount = 0; // Đếm số pixel đã vẽ một cách tăng dần
-
-    // Biến mới để theo dõi mask hiện tại trong danh sách
-    private int currentMaskIndex = 0;
-
-    // Kích thước texture hiện tại, được cập nhật theo targetSprite
-    private int currentTextureWidth;
-    private int currentTextureHeight;
-
+    private int currentStageIndex = 0; // Chỉ số của giai đoạn hiện tại
 
     private void Start()
     {
-        // Đảm bảo tất cả các vết bẩn đều được tắt ban đầu
-        // và chỉ bật vết bẩn đầu tiên (nếu có)
-        for (int i = 0; i < lsSpriteStains.Count; i++)
+        // Tắt tất cả vết bẩn và mask ban đầu
+        foreach (var stage in stages)
         {
-            if (lsSpriteStains[i] != null)
+            if (stage.stainTransform != null)
+                stage.stainTransform.gameObject.SetActive(false);
+            if (stage.spriteMask != null)
             {
-                lsSpriteStains[i].gameObject.SetActive(false);
+                stage.spriteMask.enabled = false;
+                stage.spriteMask.sprite = null;
             }
         }
 
-        // Bật vết bẩn đầu tiên nếu danh sách không rỗng
-        if (lsSpriteStains.Count > 0 && lsSpriteStains[0] != null)
-        {
-            lsSpriteStains[0].gameObject.SetActive(true);
-        }
-
-        InitMask();
+        // Khởi tạo giai đoạn đầu tiên
+        InitCurrentStage();
     }
 
-    void InitMask()
+    void InitCurrentStage()
     {
-        // Đảm bảo chỉ số nằm trong phạm vi của cả lsTargetSprites và lsSpriteMasks
-        if (currentMaskIndex >= lsTargetSprites.Count || currentMaskIndex >= lsSpriteMasks.Count)
+        if (currentStageIndex >= stages.Count)
         {
-            Debug.LogWarning("Đã hoàn thành tất cả các SpriteMasks hoặc hết TargetSprites để tham chiếu!");
-            // Đặt logic kết thúc trò chơi hoặc dừng ở đây
+            Debug.LogWarning("Đã hoàn thành tất cả các giai đoạn!");
+            // Thêm logic kết thúc trò chơi ở đây
             return;
         }
 
-        Sprite targetSpriteRef = lsTargetSprites[currentMaskIndex].sprite;
-        Texture2D originalTex = targetSpriteRef.texture;
+        SpongeStage currentStage = stages[currentStageIndex];
 
-        currentTextureWidth = originalTex.width;
-        currentTextureHeight = originalTex.height;
-
-        // Tạo lại maskTexture nếu kích thước thay đổi hoặc nếu nó chưa được tạo
-        if (maskTexture == null || maskTexture.width != currentTextureWidth || maskTexture.height != currentTextureHeight)
+        // Bật vết bẩn cho stage hiện tại
+        if (currentStage.stainTransform != null)
         {
-            // Nếu đã có maskTexture cũ, phá hủy nó trước khi tạo mới để tránh rò rỉ bộ nhớ
-            if (maskTexture != null)
-            {
-                Destroy(maskTexture);
-            }
-            maskTexture = new Texture2D(currentTextureWidth, currentTextureHeight, TextureFormat.Alpha8, false);
+            currentStage.stainTransform.gameObject.SetActive(true);
+            Debug.Log($"Đã bật vết bẩn cho Stage: {currentStageIndex}");
         }
 
-        ClearTexture(new Color(0, 0, 0, 0)); // Khởi tạo toàn bộ là trong suốt
+        // Lấy thông tin từ TargetSprite
+        Sprite targetSpriteRef = currentStage.targetSpriteRenderer.sprite;
+        Texture2D originalTex = targetSpriteRef.texture;
+
+        currentStage.textureWidth = originalTex.width;
+        currentStage.textureHeight = originalTex.height;
+        currentStage.pixelsPerUnit = targetSpriteRef.pixelsPerUnit;
+        currentStage.spriteRect = targetSpriteRef.rect;
+
+        // Tạo hoặc cập nhật maskTexture
+        if (currentStage.maskTexture == null || currentStage.maskTexture.width != currentStage.textureWidth || currentStage.maskTexture.height != currentStage.textureHeight)
+        {
+            if (currentStage.maskTexture != null)
+            {
+                Destroy(currentStage.maskTexture);
+            }
+            currentStage.maskTexture = new Texture2D(currentStage.textureWidth, currentStage.textureHeight, TextureFormat.Alpha8, false);
+        }
+        ClearTexture(currentStage.maskTexture, new Color(0, 0, 0, 0), currentStage.textureWidth, currentStage.textureHeight); // Khởi tạo trong suốt
 
         // Cập nhật hoặc tạo maskSprite
-        if (maskSprite == null || maskSprite.texture != maskTexture) // Cần tạo lại sprite nếu texture thay đổi
+        if (currentStage.maskSprite == null || currentStage.maskSprite.texture != currentStage.maskTexture)
         {
-            // Nếu đã có maskSprite cũ, phá hủy nó trước khi tạo mới
-            if (maskSprite != null)
+            if (currentStage.maskSprite != null)
             {
-                Destroy(maskSprite);
+                Destroy(currentStage.maskSprite);
             }
-            maskSprite = Sprite.Create(maskTexture,
-                new Rect(0, 0, currentTextureWidth, currentTextureHeight),
+            currentStage.maskSprite = Sprite.Create(currentStage.maskTexture,
+                new Rect(0, 0, currentStage.textureWidth, currentStage.textureHeight),
                 new Vector2(0.5f, 0.5f),
-                targetSpriteRef.pixelsPerUnit); // Lấy pixelsPerUnit từ targetSprite
+                currentStage.pixelsPerUnit);
         }
         else
         {
-            // Nếu maskSprite đã tồn tại và dùng cùng texture, chỉ cập nhật texture của nó
-            maskSprite.texture.SetPixels(maskTexture.GetPixels());
+            currentStage.maskSprite.texture.SetPixels(currentStage.maskTexture.GetPixels());
         }
 
+        // Gán maskSprite cho SpriteMask hiện tại và bật nó
+        currentStage.spriteMask.sprite = currentStage.maskSprite;
+        currentStage.spriteMask.enabled = true;
+        Debug.Log($"Đang vẽ lên SpriteMask số: {currentStageIndex} (dựa trên {currentStage.targetSpriteRenderer.name})");
 
-        // Gán maskSprite cho SpriteMask hiện tại được chỉ định bởi currentMaskIndex
-        for (int i = 0; i < lsSpriteMasks.Count; i++)
-        {
-            if (lsSpriteMasks[i] != null)
-            {
-                lsSpriteMasks[i].sprite = null; // Xóa sprite cũ
-                lsSpriteMasks[i].enabled = false; // Tắt mask cũ
-            }
-        }
-
-        // Gán maskSprite cho mask hiện tại và bật nó
-        lsSpriteMasks[currentMaskIndex].sprite = maskSprite;
-        lsSpriteMasks[currentMaskIndex].enabled = true;
-        Debug.Log($"Đang vẽ lên SpriteMask số: {currentMaskIndex} (dựa trên {lsTargetSprites[currentMaskIndex].name})");
-
-        // Cập nhật maskPixelsBuffer với pixel của maskTexture mới
-        maskPixelsBuffer = maskTexture.GetPixels();
-        drawnPixelCount = 0; // Đặt lại số pixel đã vẽ
-        ninetyPercentReached = false; // Đặt lại cờ 90% khi khởi tạo mask mới
+        // Cập nhật buffer và reset trạng thái vẽ
+        currentStage.maskPixelsBuffer = currentStage.maskTexture.GetPixels();
+        currentStage.drawnPixelCount = 0;
+        currentStage.isNinetyPercentReached = false;
 
         ApplyMaskChanges(); // Áp dụng thay đổi ngay để mask mới hiển thị đúng
-
-        void ClearTexture(Color color)
-        {
-            Color[] clearColors = new Color[currentTextureWidth * currentTextureHeight];
-            for (int i = 0; i < clearColors.Length; i++)
-            {
-                clearColors[i] = color;
-            }
-            maskTexture.SetPixels(clearColors);
-        }
     }
+
+    void ClearTexture(Texture2D texture, Color color, int width, int height)
+    {
+        Color[] clearColors = new Color[width * height];
+        for (int i = 0; i < clearColors.Length; i++)
+        {
+            clearColors[i] = color;
+        }
+        texture.SetPixels(clearColors);
+    }
+
+
     int startX;
     int endX;
     int startY;
     int endY;
-    void DrawCircle(Vector2Int center, int radius, Color color)
+    int radiusSq;
+    int dx;
+    int dy;
+    int index;
+    void DrawCircle(SpongeStage stage, Vector2Int center, int radius, Color color)
     {
-        // Sử dụng currentTextureWidth và currentTextureHeight
         startX = Mathf.Max(0, center.x - radius);
-        endX = Mathf.Min(currentTextureWidth, center.x + radius);
+        endX = Mathf.Min(stage.textureWidth, center.x + radius);
         startY = Mathf.Max(0, center.y - radius);
-        endY = Mathf.Min(currentTextureHeight, center.y + radius);
+        endY = Mathf.Min(stage.textureHeight, center.y + radius);
 
-        int radiusSq = radius * radius;
+        radiusSq = radius * radius;
 
         for (int x = startX; x < endX; x++)
         {
             for (int y = startY; y < endY; y++)
             {
-                int dx = x - center.x;
-                int dy = y - center.y;
+                dx = x - center.x;
+                dy = y - center.y;
                 if (dx * dx + dy * dy <= radiusSq)
                 {
-                    int index = y * currentTextureWidth + x; // Sử dụng currentTextureWidth
-                    if (maskPixelsBuffer[index].a <= 0.01f && color.a > 0.01f)
+                    index = y * stage.textureWidth + x;
+                    if (stage.maskPixelsBuffer[index].a <= 0.01f && color.a > 0.01f)
                     {
-                        drawnPixelCount++;
+                        stage.drawnPixelCount++;
                     }
-                    maskPixelsBuffer[index] = color;
+                    stage.maskPixelsBuffer[index] = color;
                 }
             }
         }
@@ -170,21 +171,30 @@ public class L131_Sponge : MonoBehaviour
 
     public void ApplyMaskChanges()
     {
-        maskTexture.SetPixels(maskPixelsBuffer);
-        maskTexture.Apply();
+        if (currentStageIndex >= stages.Count) return;
+
+        SpongeStage currentStage = stages[currentStageIndex];
+        if (currentStage.maskTexture != null)
+        {
+            currentStage.maskTexture.SetPixels(currentStage.maskPixelsBuffer);
+            currentStage.maskTexture.Apply();
+        }
     }
 
     public bool CheckDrawingCoverage()
     {
-        if (ninetyPercentReached) return false;
+        if (currentStageIndex >= stages.Count) return false;
 
-        float totalPixels = currentTextureWidth * currentTextureHeight; // Sử dụng kích thước hiện tại
-        float coverage = (float)drawnPixelCount / totalPixels;
+        SpongeStage currentStage = stages[currentStageIndex];
+        if (currentStage.isNinetyPercentReached) return false;
 
-        if (coverage > 0.90f && !ninetyPercentReached)
+        float totalPixels = currentStage.textureWidth * currentStage.textureHeight;
+        float coverage = (float)currentStage.drawnPixelCount / totalPixels;
+
+        if (coverage > 0.90f && !currentStage.isNinetyPercentReached)
         {
-            ninetyPercentReached = true;
-            Debug.Log($"Đã đạt 90% độ phủ cho SpriteMask số: {currentMaskIndex}!");
+            currentStage.isNinetyPercentReached = true;
+            Debug.Log($"Đã đạt 90% độ phủ cho Stage: {currentStageIndex}!");
             AdvanceMask();
             return true;
         }
@@ -193,68 +203,54 @@ public class L131_Sponge : MonoBehaviour
 
     void AdvanceMask()
     {
-        // Nếu có vết bẩn tương ứng với mask vừa hoàn thành, tắt nó đi
-        if (currentMaskIndex < lsSpriteStains.Count && lsSpriteStains[currentMaskIndex] != null)
+        if (currentStageIndex >= stages.Count) return;
+
+        SpongeStage completedStage = stages[currentStageIndex];
+
+        // Tắt vết bẩn của stage vừa hoàn thành
+        if (completedStage.stainTransform != null)
         {
-            lsSpriteStains[currentMaskIndex].gameObject.SetActive(false);
-            Debug.Log($"Đã tắt vết bẩn số: {currentMaskIndex}");
+            completedStage.stainTransform.gameObject.SetActive(false);
+            Debug.Log($"Đã tắt vết bẩn cho Stage: {currentStageIndex}");
         }
 
-        // Tắt mask hiện tại
-        if (lsSpriteMasks.Count > 0 && currentMaskIndex < lsSpriteMasks.Count && lsSpriteMasks[currentMaskIndex] != null)
+        // Tắt mask của stage vừa hoàn thành
+        if (completedStage.spriteMask != null)
         {
-            lsSpriteMasks[currentMaskIndex].enabled = false;
-            lsSpriteMasks[currentMaskIndex].sprite = null;
+            completedStage.spriteMask.enabled = false;
+            completedStage.spriteMask.sprite = null; // Xóa sprite khỏi mask để giải phóng bộ nhớ (optional)
         }
 
-        currentMaskIndex++;
-
-        // Kiểm tra xem còn mask và target sprite nào nữa không
-        if (currentMaskIndex < lsSpriteMasks.Count && currentMaskIndex < lsTargetSprites.Count)
-        {
-            Debug.Log($"Chuyển sang SpriteMask số: {currentMaskIndex}");
-
-            // Bật vết bẩn tiếp theo (nếu có)
-            if (currentMaskIndex < lsSpriteStains.Count && lsSpriteStains[currentMaskIndex] != null)
-            {
-                lsSpriteStains[currentMaskIndex].gameObject.SetActive(true);
-                Debug.Log($"Đã bật vết bẩn số: {currentMaskIndex}");
-            }
-
-            InitMask(); // Khởi tạo lại mask cho SpriteMask tiếp theo
-        }
-        else
-        {
-            Debug.Log("Đã hoàn thành tất cả các SpriteMasks và vết bẩn!");
-            // Bạn có thể thêm logic kết thúc trò chơi ở đây
-        }
+        currentStageIndex++;
+        InitCurrentStage(); // Khởi tạo stage tiếp theo
     }
 
+    SpongeStage currentStage;
     Vector3 localPos;
-    float texY_normalized;
     float texX_normalized;
+    float texY_normalized;
     int texX;
     int texY;
     public void DrawAtPosition(Vector3 worldPos)
     {
-        // Thêm điều kiện kiểm tra currentMaskIndex để tránh lỗi khi hết mask
-        if (ninetyPercentReached || currentMaskIndex >= lsSpriteMasks.Count || currentMaskIndex >= lsTargetSprites.Count) return;
+        if (currentStageIndex >= stages.Count) return;
 
-        // Quan trọng: Sử dụng transform của SpriteMask hiện tại và pixelsPerUnit của TargetSprite hiện tại
-        Sprite currentTargetSprite = lsTargetSprites[currentMaskIndex].sprite;
+        currentStage = stages[currentStageIndex];
+        if (currentStage.isNinetyPercentReached) return;
 
-        localPos = lsSpriteMasks[currentMaskIndex].transform.InverseTransformPoint(worldPos);
+        localPos = currentStage.spriteMask.transform.InverseTransformPoint(worldPos);
 
         // Tính toán tọa độ texture dựa trên kích thước của TargetSprite hiện tại và pixelsPerUnit
-        texX_normalized = (localPos.x / (currentTargetSprite.rect.width / currentTargetSprite.pixelsPerUnit)) + 0.5f;
-        texY_normalized = (localPos.y / (currentTargetSprite.rect.height / currentTargetSprite.pixelsPerUnit)) + 0.5f;
+        // Sử dụng spriteRect để tính toán chính xác hơn nếu sprite không nằm trọn trong texture
+        texX_normalized = (localPos.x / (currentStage.spriteRect.width / currentStage.pixelsPerUnit)) + 0.5f;
+        texY_normalized = (localPos.y / (currentStage.spriteRect.height / currentStage.pixelsPerUnit)) + 0.5f;
 
-        texX = (int)(texX_normalized * currentTextureWidth); // Sử dụng currentTextureWidth
-        texY = (int)(texY_normalized * currentTextureHeight); // Sử dụng currentTextureHeight
+        texX = (int)(texX_normalized * currentStage.textureWidth);
+        texY = (int)(texY_normalized * currentStage.textureHeight);
 
-        if (texX >= 0 && texX < currentTextureWidth && texY >= 0 && texY < currentTextureHeight)
+        if (texX >= 0 && texX < currentStage.textureWidth && texY >= 0 && texY < currentStage.textureHeight)
         {
-            DrawCircle(new Vector2Int(texX, texY), drawRadius, drawColor);
+            DrawCircle(currentStage, new Vector2Int(texX, texY), drawRadius, drawColor);
         }
     }
 }
