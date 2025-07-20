@@ -52,7 +52,7 @@ public abstract class BaseDraggableObject : MonoBehaviour
             orderIndex = spriteRenderer.sortingOrder;
     }
 
-    public void InitBefore()
+    public virtual void InitBefore()
     {
         angleDefault = transform.eulerAngles.z;
         posDefault = transform.position;
