@@ -7,6 +7,7 @@ using System.Collections;
 public class Level_164Ctrl : BaseDragController<L164_CornHusk>
 {
     public int progressWin = 0;
+    public Transform holdCorn;
     public L164_CornKernel kernelPrefabs;
     public List<L164_CornHusk> lsCornHusks;
     public List<Vector2> lsPointSpawnCornKernels;
@@ -24,6 +25,7 @@ public class Level_164Ctrl : BaseDragController<L164_CornHusk>
         {
             var corne = Instantiate(kernelPrefabs, lsPointSpawnCornKernels[i], Quaternion.identity);
             corne.levelCtrl = this;
+            corne.transform.SetParent(holdCorn);
             lsCornKernels.Add(corne);
         }
     }
@@ -80,6 +82,7 @@ public class Level_164Ctrl : BaseDragController<L164_CornHusk>
 
     public void CheckWin()
     {
+        progressWin++;
         if(progressWin == lsCornKernels.Count)
         {
             isWin = true;

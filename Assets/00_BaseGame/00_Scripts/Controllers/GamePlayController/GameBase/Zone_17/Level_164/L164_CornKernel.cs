@@ -40,5 +40,6 @@ public class L164_CornKernel : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOMove(targetUpDown, 0.3f).SetEase(Ease.OutQuad));
         seq.Append(transform.DOMoveY(-9f, 0.5f).SetEase(Ease.InQuad));
+        levelCtrl.CheckWin();
     }
 }
