@@ -1621,6 +1621,7 @@ MonoBehaviour:
   - {fileID: 2117302855}
   - {fileID: 341088850}
   - {fileID: 19886142}
+  createdItems: []
 --- !u!1 &954037904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,6 +2116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  gameSetup: {fileID: 928301785}
+  snapDistance: 6
 --- !u!1 &1140974582
 GameObject:
   m_ObjectHideFlags: 0
