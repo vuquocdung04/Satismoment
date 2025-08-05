@@ -1,4 +1,4 @@
-﻿
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,25 +7,21 @@ public class L168_Setup : MonoBehaviour
 {
     [Header("Prefabs & Data")]
     public L168_ItemProduct productPrefab;
+    
     public List<Sprite> lsSprites;
-    public List<Transform> lsPoints;           // 54 points (0-53)
+    public List<L168_Point> lsPoints;           // 54 points (0-53)
 
     [HideInInspector] public readonly List<L168_ItemProduct> createdItems = new();
-
-    /* Lưu giá trị sortingOrder cao nhất ứng với mỗi point */
-    private readonly Dictionary<int, int> pointTopOrder = new();
-
-    /******************************************************/
-    /* ----------------    UNITY LIFE    --------------- */
-    /******************************************************/
     private void Start()
     {
-        CreateItemsRound(42, 2);   // round 1 – order bắt đầu = 2
-        CreateItemsRound(18, 3);   // round 2 – order bắt đầu = 3
-        UpdateCoveredItems();      // tính che phủ ban đầu
+        CreateItemsRound(42);
+        CreateItemsRound(18);
+
+        // Sau khi tạo xong tất cả items, check covered
+        CheckCoveredItems();
     }
 
-    private void CreateItemsRound(int totalItem, int baseOrder)
+    private void CreateItemsRound(int totalItem)
     {
         int curItem = 0;
         const int batchSize = 3;   // sinh theo nhóm 3
@@ -38,131 +34,73 @@ public class L168_Setup : MonoBehaviour
             for (int i = 0; i < batchSize && curItem < totalItem; i++)
             {
                 int pointIdx = Random.Range(0, lsPoints.Count);
-                Transform pointTr = lsPoints[pointIdx];
+                L168_Point pointTr = lsPoints[pointIdx];
 
-                /* ---- Tính order = top + 1 (hoặc baseOrder nếu point trống) ---- */
-                int nextOrder = GetNextOrderForPoint(pointIdx, baseOrder);
-
-                var item = Instantiate(productPrefab, pointTr.position, Quaternion.identity);
+                // Tạo item
+                var item = Instantiate(productPrefab, pointTr.transform.position, Quaternion.identity);
                 item.InitSprite(sprite, spriteIdx);
-                item.SetSortingOrder(nextOrder);
-                item.SetOriginalPosition(pointTr.position);
-                item.SetPointIndex(pointIdx);
+                item.SetOriginalPosition(pointTr.transform.position);
 
+                // Set sorting order dựa trên số lượng items đã có tại point
+                item.SetSortingOrder(pointTr.indexOrder + pointTr.lsItems.Count);
+                item.SetPointIndex(pointTr.indexOrder + pointTr.lsItems.Count);
+
+                // Thêm vào point và created items
+                pointTr.lsItems.Add(item);
                 createdItems.Add(item);
                 curItem++;
             }
         }
     }
 
-    private int GetNextOrderForPoint(int pointIdx, int baseOrder)
+    private void CheckCoveredItems()
     {
-        if (pointTopOrder.TryGetValue(pointIdx, out int top))
+        // Reset tất cả items về trạng thái không bị che
+        foreach (var item in createdItems)
         {
-            top += 1;
-            pointTopOrder[pointIdx] = top;
-            return top;
+            item.SetCovered(false);
         }
-        else
-        {
-            pointTopOrder[pointIdx] = baseOrder;
-            return baseOrder;
-        }
-    }
 
-    /******************************************************/
-    /* -------------   UPDATE COVERED FLAG   ------------ */
-    /******************************************************/
-    public void UpdateCoveredItems()
-    {
-        /* Reset flag */
-        foreach (var it in createdItems) it.SetCovered(false);
-
-        /* So sánh bounds từng cặp */
+        // Check từng item xem có bị che bởi item nào khác không
         for (int i = 0; i < createdItems.Count; i++)
         {
-            var a = createdItems[i];
-            Bounds boundsA = a.objRenderer.bounds;
+            var currentItem = createdItems[i];
 
-            for (int j = i + 1; j < createdItems.Count; j++)
+            // Lấy bounds của item hiện tại
+            Bounds currentBounds = GetItemBounds(currentItem);
+
+            // Check với tất cả các items khác
+            for (int j = 0; j < createdItems.Count; j++)
             {
-                var b = createdItems[j];
-                Bounds boundsB = b.objRenderer.bounds;
+                if (i == j) continue; // Bỏ qua chính nó
 
-                if (!boundsA.Intersects(boundsB)) continue;
+                var otherItem = createdItems[j];
 
-                /* Item có order thấp hơn ⇒ bị che */
-                if (b.objRenderer.sortingOrder < a.objRenderer.sortingOrder)
-                    b.SetCovered(true);
-                else if (a.objRenderer.sortingOrder < b.objRenderer.sortingOrder)
-                    a.SetCovered(true);
+                // Chỉ check nếu otherItem có sorting order cao hơn (ở trên)
+                if (otherItem.objRenderer.sortingOrder > currentItem.objRenderer.sortingOrder)
+                {
+                    Bounds otherBounds = GetItemBounds(otherItem);
+
+                    // Nếu bounds intersect thì item hiện tại bị che
+                    if (currentBounds.Intersects(otherBounds))
+                    {
+                        currentItem.SetCovered(true);
+                        break; // Đã bị che rồi thì không cần check nữa
+                    }
+                }
             }
         }
     }
 
-    /******************************************************/
-    /* --------  CHECK & DESTROY 3-POINT COMBO   -------- */
-    /******************************************************/
-    public void CheckAndDestroyCombo()
+    private Bounds GetItemBounds(L168_ItemProduct item)
     {
-        UpdateCoveredItems();   // đảm bảo flag mới nhất
-
-        for (int start = 0; start < lsPoints.Count; start += 3)
-        {
-            int p0 = start, p1 = start + 1, p2 = start + 2;
-            if (p2 >= lsPoints.Count) break;
-
-            /* Lấy đúng 1 item hiển thị ở mỗi point */
-            var rep0 = GetVisibleItemAtPoint(p0);
-            var rep1 = GetVisibleItemAtPoint(p1);
-            var rep2 = GetVisibleItemAtPoint(p2);
-
-            if (rep0 == null || rep1 == null || rep2 == null) continue;
-
-            bool sameSprite = rep0.spriteId == rep1.spriteId && rep1.spriteId == rep2.spriteId;
-            bool sameOrder = rep0.objRenderer.sortingOrder ==
-                              rep1.objRenderer.sortingOrder &&
-                              rep1.objRenderer.sortingOrder ==
-                              rep2.objRenderer.sortingOrder;
-
-            if (!sameSprite || !sameOrder) continue;
-
-            /* ---- DESTROY combo ---- */
-            DestroyItem(rep0);
-            DestroyItem(rep1);
-            DestroyItem(rep2);
-
-            Debug.Log($"Combo destroyed at points {p0}-{p2} (spriteId {rep0.spriteId}, order {rep0.objRenderer.sortingOrder})");
-
-            UpdateCoveredItems();   // cập nhật lại sau khi xoá
-            return;                 // xử lý 1 combo / lần gọi
-        }
+        // Lấy bounds từ SpriteRenderer
+        return item.objRenderer.bounds;
     }
 
-    private L168_ItemProduct GetVisibleItemAtPoint(int pointIdx)
+    // Method để gọi lại check covered khi cần (ví dụ sau khi move item)
+    public void RefreshCoveredStatus()
     {
-        /* Chỉ lấy item KHÔNG bị che và có order cao nhất */
-        L168_ItemProduct top = null;
-        int highest = int.MinValue;
-
-        foreach (var it in createdItems)
-        {
-            if (it.pointIndex != pointIdx) continue;
-            if (it.IsCovered) continue;
-
-            int order = it.objRenderer.sortingOrder;
-            if (order > highest)
-            {
-                highest = order;
-                top = it;
-            }
-        }
-        return top;
-    }
-
-    private void DestroyItem(L168_ItemProduct item)
-    {
-        createdItems.Remove(item);
-        Destroy(item.gameObject);
+        CheckCoveredItems();
     }
 }

@@ -3,17 +3,30 @@
 public class L168_ItemProduct : MonoBehaviour
 {
     public SpriteRenderer objRenderer;
-    [HideInInspector] public int pointIndex;
-    [HideInInspector] public bool IsCovered;
-    [HideInInspector] public Vector3 originalPosition;
-    [HideInInspector] public int spriteId; // ID để check combo
+    public BoxCollider2D boxCollider2d;
+    public int pointIndex;
+    public bool IsCovered;
+    public Vector3 originalPosition;
+    public int spriteId; // ID để check combo
 
     public void InitSprite(Sprite sprite, int id)
     {
         objRenderer.sprite = sprite;
         spriteId = id;
+        ResetColliderToSpriteBounds();
     }
+    public void ResetColliderToSpriteBounds()
+    {
+        if (objRenderer.sprite != null && boxCollider2d != null)
+        {
+            // Lấy bounds của sprite
+            Bounds spriteBounds = objRenderer.sprite.bounds;
 
+            // Set size và offset của BoxCollider2D
+            boxCollider2d.size = spriteBounds.size;
+            boxCollider2d.offset = spriteBounds.center;
+        }
+    }
     public void SetSortingOrder(int order) => objRenderer.sortingOrder = order;
 
     public void SetCovered(bool covered)
@@ -22,15 +35,15 @@ public class L168_ItemProduct : MonoBehaviour
 
         if (covered)
         {
-            Color c = objRenderer.color;
-            c.a = 0.5f;
+            Color32 c = new Color32(135, 135, 135, 255);
             objRenderer.color = c;
+            boxCollider2d.enabled = false;
         }
         else
         {
-            Color c = objRenderer.color;
-            c.a = 1f;
+            Color c = Color.white;
             objRenderer.color = c;
+            boxCollider2d.enabled = true;
         }
     }
 
