@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
+using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 
 public class Level_164Ctrl : BaseDragController<L164_CornHusk>
 {

@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections;
+using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 

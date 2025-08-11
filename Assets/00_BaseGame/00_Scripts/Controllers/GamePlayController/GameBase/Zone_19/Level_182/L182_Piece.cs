@@ -6,7 +6,8 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
     public enum PieceType
     {
         MainPoint,
-        MiddlePoint
+        MiddlePointHorizontal,
+        MiddlePointVertical
     }
 
     public class L182_Piece : MonoBehaviour
@@ -17,25 +18,41 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
         public void CheckCorrectToPosition(L182_SetupPoint setupPoint)
         {
             Transform closestPoint = null;
-            var closestDistance = float.MaxValue;
+            float closestDistance = float.MaxValue;
             
             // Chọn list phù hợp dựa trên loại piece
-            var targetPoints = pieceType == PieceType.MainPoint ? 
-                setupPoint.points : setupPoint.middlePoints;
+            var targetPoints = GetTargetPoints(setupPoint);
             
             // Tìm điểm gần nhất trong list tương ứng
-            foreach (var point in targetPoints)
+            foreach (Transform point in targetPoints)
             {
-                var distance = Vector2.Distance(transform.position, point.position);
-                if (!(distance < closestDistance)) continue;
-                closestDistance = distance;
-                closestPoint = point;
+                float distance = Vector2.Distance(transform.position, point.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPoint = point;
+                }
             }
             
             // Snap nếu khoảng cách đủ gần
-            if (closestPoint is not null && closestDistance < 0.4f)
+            if (closestPoint != null && closestDistance < 0.4f)
             {
                 transform.DOMove(closestPoint.position, 0.2f);
+            }
+        }
+        
+        private System.Collections.Generic.List<Transform> GetTargetPoints(L182_SetupPoint setupPoint)
+        {
+            switch (pieceType)
+            {
+                case PieceType.MainPoint:
+                    return setupPoint.points;
+                case PieceType.MiddlePointHorizontal:
+                    return setupPoint.middlePointsHorizontal;
+                case PieceType.MiddlePointVertical:
+                    return setupPoint.middlePointsVertical;
+                default:
+                    return setupPoint.points;
             }
         }
     }

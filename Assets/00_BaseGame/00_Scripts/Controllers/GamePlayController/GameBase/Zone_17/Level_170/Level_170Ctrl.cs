@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
+using DG.Tweening;
 using UnityEngine;
 
 public class Level_170Ctrl : BaseDragController<L170_Btn>

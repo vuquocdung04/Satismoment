@@ -1,4 +1,4 @@
-
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +7,17 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
     public class L182_SetupPoint : MonoBehaviour
     {
         public Transform pointPrefab;
-        public Transform middlePointPrefab;
+        public Transform middlePointHorizontalPrefab; // Prefab cho điểm giữa ngang
+        public Transform middlePointVerticalPrefab;   // Prefab cho điểm giữa dọc
         public Vector2 startPosition;
         public Vector2 spacing;
         public List<Transform> points;
-        public List<Transform> middlePoints;
+        public List<Transform> middlePointsHorizontal; // List điểm giữa ngang
+        public List<Transform> middlePointsVertical;   // List điểm giữa dọc
         
         public void InitMatrix()
         {
-            // Tạo ma trận chính 6x6 (thay đổi từ 4x4)
+            // Tạo ma trận chính 6x6
             for (var row = 0; row < 6; row++)
             {
                 for (var col = 0; col < 6; col++)
@@ -32,16 +34,16 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                 }
             }
             
-            // Tạo các điểm ở giữa cho ma trận 6x6
+            // Tạo các điểm ở giữa
             CreateMiddlePoints();
         }
         
         private void CreateMiddlePoints()
         {
-            // Tạo điểm ở giữa theo chiều ngang (giữa các cột)
-            for (var row = 0; row < 6; row++) // 6 hàng
+            // Tạo điểm ở giữa theo chiều ngang (horizontal)
+            for (var row = 0; row < 6; row++)
             {
-                for (var col = 0; col < 5; col++) // 5 điểm giữa cho 6 cột
+                for (var col = 0; col < 5; col++)
                 {
                     var position = new Vector3(
                         startPosition.x + col * spacing.x + spacing.x * 0.5f,
@@ -49,16 +51,16 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                         0f
                     );
                     
-                    var middlePoint = Instantiate(middlePointPrefab, position, Quaternion.identity);
+                    var middlePoint = Instantiate(middlePointHorizontalPrefab, position, Quaternion.identity);
                     middlePoint.parent = this.transform;
-                    middlePoints.Add(middlePoint);
+                    middlePointsHorizontal.Add(middlePoint);
                 }
             }
             
-            // Tạo điểm ở giữa theo chiều dọc (giữa các hàng)
-            for (var row = 0; row < 5; row++) // 5 hàng giữa cho 6 hàng
+            // Tạo điểm ở giữa theo chiều dọc (vertical)
+            for (var row = 0; row < 5; row++)
             {
-                for (var col = 0; col < 6; col++) // 6 cột
+                for (var col = 0; col < 6; col++)
                 {
                     var position = new Vector3(
                         startPosition.x + col * spacing.x,
@@ -66,9 +68,9 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                         0f
                     );
                     
-                    var middlePoint = Instantiate(middlePointPrefab, position, Quaternion.identity);
+                    var middlePoint = Instantiate(middlePointVerticalPrefab, position, Quaternion.identity);
                     middlePoint.parent = this.transform;
-                    middlePoints.Add(middlePoint);
+                    middlePointsVertical.Add(middlePoint);
                 }
             }
         }

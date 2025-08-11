@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class L124_DragObjCtrl : BaseDragController<L124_ObjDragable>
