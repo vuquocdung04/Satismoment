@@ -6,9 +6,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
 {
     public class L182_SetupPoint : MonoBehaviour
     {
-        public Transform pointPrefab;
-        public Transform middlePointHorizontalPrefab; // Prefab cho điểm giữa ngang
-        public Transform middlePointVerticalPrefab;   // Prefab cho điểm giữa dọc
+        public Transform pointPrefab; // Chỉ cần 1 prefab dùng chung
         public Vector2 startPosition;
         public Vector2 spacing;
         public List<Transform> points;
@@ -30,6 +28,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                     
                     var point = Instantiate(pointPrefab, position, Quaternion.identity);
                     point.parent = this.transform;
+                    point.name = $"Point_{row}_{col}"; // Gán name cho point chính
                     points.Add(point);
                 }
             }
@@ -51,8 +50,9 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                         0f
                     );
                     
-                    var middlePoint = Instantiate(middlePointHorizontalPrefab, position, Quaternion.identity);
+                    var middlePoint = Instantiate(pointPrefab, position, Quaternion.identity);
                     middlePoint.parent = this.transform;
+                    middlePoint.name = $"MiddlePoint_H_{row}_{col}"; // Gán name cho middle point horizontal
                     middlePointsHorizontal.Add(middlePoint);
                 }
             }
@@ -68,8 +68,9 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
                         0f
                     );
                     
-                    var middlePoint = Instantiate(middlePointVerticalPrefab, position, Quaternion.identity);
+                    var middlePoint = Instantiate(pointPrefab, position, Quaternion.identity);
                     middlePoint.parent = this.transform;
+                    middlePoint.name = $"MiddlePoint_V_{row}_{col}"; // Gán name cho middle point vertical
                     middlePointsVertical.Add(middlePoint);
                 }
             }

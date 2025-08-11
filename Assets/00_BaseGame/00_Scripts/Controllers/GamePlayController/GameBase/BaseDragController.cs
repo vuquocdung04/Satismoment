@@ -15,12 +15,13 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase
         {
             if (isWin) return;
 
-            mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Camera.main) mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = 0; 
 
             HandleDragInput();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>
         /// Xử lý các sự kiện đầu vào từ chuột (nhấn, kéo, thả).
         /// </summary>
@@ -58,19 +59,15 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase
         protected virtual void TryStartDrag(Vector3 position)
         {
             // Raycast để tìm collider tại vị trí chuột
-            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
+            var hit = Physics2D.Raycast(position, Vector2.zero);
 
-            if (hit.collider != null)
-            {
-                T component = hit.collider.GetComponent<T>();
-                if (component != null && CanStartDragCondition(component))
-                {
-                    draggableComponent = component;
-                    isDragging = true;
-                    prevMouseWorldPos = mouseWorldPos; // Khởi tạo cho việc tính delta ở frame đầu tiên kéo
-                    OnDragStarted(); // Gọi hook khi bắt đầu kéo
-                }
-            }
+            if (hit.collider == null) return;
+            var component = hit.collider.GetComponent<T>();
+            if (component == null || !CanStartDragCondition(component)) return;
+            draggableComponent = component;
+            isDragging = true;
+            prevMouseWorldPos = mouseWorldPos; // Khởi tạo cho việc tính delta ở frame đầu tiên kéo
+            OnDragStarted(); // Gọi hook khi bắt đầu kéo
         }
 
         /// <summary>
