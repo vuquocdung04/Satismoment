@@ -1,65 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using DG.Tweening;
-public class Level_2Ctrl : MonoBehaviour
+
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_2
 {
-    public L2_CakeItem selectedCake;
-    public bool isDragging = false;
-    public List<L2_CakeItem> lsCake;
-    public List<L2_CakeItemPlate> lsCakeItemPlates;
-    public int amount = 0;
-    private void Start()
+    public class Level_2Ctrl : BaseDragControllerVer2<L2_CakeItem>
     {
-        foreach (var cake in this.lsCake) cake.Init();
-        foreach (var cake in this.lsCakeItemPlates) cake.Init();
-    }
-    private void Update()
-    {
-        SelectedCake1();
-    }
-
-    void SelectedCake1()
-    {
-        Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0))
+        public AudioSource soundSource;
+        public AudioClip soundCake;
+        private void Start()
         {
-            RaycastHit2D hit = Physics2D.Raycast(posMouse, Vector3.zero);
-
-            if (hit.collider == null) return;
-            selectedCake = hit.collider.GetComponent<L2_CakeItem>();
-            if(selectedCake != null)
+            soundSource = GameController.Instance.musicManager.soundSource;
+            foreach (var cake in this.lsItems)
             {
-                isDragging = true;
-                selectedCake.spriteRenderer.sortingOrder = 3;
-                selectedCake.HandleIconDrag();
+                cake.spriteRenderer.sprite = cake.spriteDragEnd;
             }
         }
 
-        if(isDragging && selectedCake != null)
+        protected override void OnDragStarted()
         {
-            selectedCake.transform.position = posMouse;
+            draggableComponent.OnStartDrag();
+            soundSource.clip = soundCake;
+            soundSource.Play();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
         {
-            if (selectedCake == null) return;
-            selectedCake.HandleIconStart();
-            selectedCake.transform.position = selectedCake.pos;
-            selectedCake.spriteRenderer.sortingOrder =1;
-            selectedCake = null;
-            isDragging = false;
+            draggableComponent.transform.position += mouseDelta;
         }
 
+        protected override void OnDragEnded()
+        {
+            draggableComponent.CheckCorrectToPosition(delegate
+            {
+                winProgress++;
+                if (winProgress == lsItems.Count)
+                {
+                    isWin =  true;
+                    StartCoroutine(HandleWinCondition());
+                }
+            });
+        }
+
+        protected override void SetupAfter()
+        {
+            foreach (var cake in lsItems)
+            {
+                cake.InitAfter();
+            }
+        }
+
+        protected override void SetupBefore()
+        {
+            foreach (var cake in lsItems)
+            {
+                cake.InitBefore();
+            }
+        }
     }
-
-    public void IncreaseAmount()
-    {
-        amount++;
-        if (amount == 5)
-        {
-            DOVirtual.DelayedCall(0.5f, () => WinBox.SetUp().Show());
-        }
-    }
-
 }

@@ -1,38 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public enum CakeType
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_2
 {
-    type1, type2, type3, type4, type5
-}
+    public class L2_CakeItem : BaseDraggableObject
+    {
+        public Sprite spriteDragStart;
+        public Sprite spriteDragEnd;
 
-public class L2_CakeItem : LoadAutoComponents
-{
-    public CakeType cakeType;
-    public SpriteRenderer spriteRenderer;
-    public Sprite iconStart;
-    public Sprite iconDrag;
-    public Vector2 pos;
-    public CircleCollider2D circleCollider;
-    public void Init()
-    {
-        pos = transform.position;
-    }
+        public void CheckCorrectToPosition(System.Action callback = null)
+        {
+            float distance = Vector2.Distance(transform.position, posCorrect);
+            if (distance < 0.4f)
+            {
+                transform.DOMove(posCorrect, 0.2f).SetEase(Ease.Linear);
+                objectCollider.enabled = false;
+                callback?.Invoke();
+                spriteRenderer.sortingOrder = 1;
+            }
+            else
+            {
+                OnEndDrag();
+            }
+        }
 
-    public void HandleIconDrag()
-    {
-        spriteRenderer.sprite = iconDrag;
-    }
+        public override void OnEndDrag()
+        {
+            base.OnEndDrag();
+            spriteRenderer.sprite = spriteDragEnd;
+        }
 
-    public void HandleIconStart()
-    {
-        spriteRenderer.sprite = iconStart;
-    }
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        circleCollider = GetComponent<CircleCollider2D>();
+        public override void OnStartDrag()
+        {
+            base.OnStartDrag();
+            spriteRenderer.sprite = spriteDragStart;
+        }
+
+
+        public override void ReturnToOriginalPosition()
+        {
+            objectCollider.enabled = false;
+            transform.DOMove(posDefault,0.2f).SetEase(Ease.Linear).OnComplete(delegate
+            {
+                objectCollider.enabled = true;
+            });
+        }
     }
 }
