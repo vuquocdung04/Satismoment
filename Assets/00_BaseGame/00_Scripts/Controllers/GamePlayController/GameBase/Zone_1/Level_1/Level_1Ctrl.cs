@@ -1,39 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+
+using System;
 using DG.Tweening;
-public class Level_1Ctrl : MonoBehaviour
+using UnityEngine;
+using System.Collections;
+
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_1
 {
-    public Button btnSwitch;
-    public Image imgSwitch;
-    public Image imgBG;
-    public RectTransform transLight;
-    [Space(10)]
-    public Sprite iconSwitchOn;
-
-    private void Start()
+    public class Level_1Ctrl : BaseDragController<L1_Btn>
     {
-        btnSwitch.onClick.AddListener(delegate
-        {
-            imgSwitch.sprite = iconSwitchOn;
-            GameController.Instance.musicManager.PlayClickSound();
-            HandleLight();
-        });
-    }
+        public Transform lightBulb;
+        public Transform mask;
+        public AudioSource soundSource;
+        public AudioClip btnClickSound;
 
-    void HandleLight()
-    {
-        transLight.DOAnchorPos(new Vector3(0, 700f), 0.4f).OnComplete(delegate
+        private void Start()
         {
-            imgBG.color = new Color32(243, 213, 148, 255);
+            mask.gameObject.SetActive(false);
+            soundSource = GameController.Instance.musicManager.soundSource;
+        }
 
-            DOVirtual.DelayedCall(0.5f, delegate
+        protected override void OnDragStarted()
+        {
+            draggableComponent.ChangeSpriteOn(delegate
             {
-                WinBox.SetUp().Show();
+                
+                isWin = true;
+                soundSource.clip = btnClickSound;
+                soundSource.Play();
+                StartCoroutine(HandleWinCondition());
             });
-        });
+        }
+
+        protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
+        {
+            
+        }
+
+        protected override void OnDragEnded()
+        {
+            
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        IEnumerator HandleWinCondition()
+        {
+            var lightMove = lightBulb.DOMoveY(3.8f,0.2f).SetEase(Ease.Linear);
+            yield return lightMove.WaitForCompletion();
+            mask.gameObject.SetActive(true);
+            var maskScale = mask.DOScale(Vector3.one * 20, 0.5f);
+            yield return maskScale.WaitForCompletion();
+            yield return new WaitForSeconds(0.5f);
+            WinBox.SetUp().Show();
+        }
     }
-
-
 }

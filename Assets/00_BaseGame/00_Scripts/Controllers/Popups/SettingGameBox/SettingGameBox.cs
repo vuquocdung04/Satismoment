@@ -65,7 +65,14 @@ public class SettingGameBox : BaseBox
 
     void InitState()
     {
-
+        if (GameController.Instance.useProfile.OnSound)
+        {
+            imgSound.sprite = iconSoundOn;
+        }
+        else
+        {
+            imgSound.sprite = iconSoundOff;
+        }
     }
     void OnClickNextLevelWithAds()
     {
