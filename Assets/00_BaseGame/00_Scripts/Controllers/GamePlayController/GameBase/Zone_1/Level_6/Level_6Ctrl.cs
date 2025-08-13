@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Level_6Ctrl : MonoBehaviour
 {
+    public AudioClip ballonBrokenSound;
     public bool isPressing;
 
     public L6_Balloon balloon;
@@ -68,12 +69,23 @@ public class Level_6Ctrl : MonoBehaviour
             i++;
             yield return time;
 
+            if (i == lsSpriteBreakBalloons.Count - 2)
+            {
+                GameController.Instance.musicManager.PlaySingle(ballonBrokenSound);
+            }
+            
             if(i >= lsSpriteBreakBalloons.Count)
             {
+                balloon.gameObject.SetActive(false);
                 yield return new WaitForSeconds(0.5f);
                 WinBox.SetUp().Show();
                 break;
             }
         }
+        
+        
     }
+    
+    
+    
 }
