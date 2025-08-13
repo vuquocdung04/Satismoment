@@ -6,7 +6,7 @@ public class L116_PiecePotato : BaseDraggableObject
 {
     public int id;
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

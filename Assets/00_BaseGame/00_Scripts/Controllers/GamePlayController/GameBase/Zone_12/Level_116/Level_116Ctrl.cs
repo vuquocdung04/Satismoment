@@ -107,8 +107,8 @@ public class Level_116Ctrl : BaseDragController<L116_PiecePotato>
     {
         foreach(var potato in this.potatoPieces)
         {
-            potato.InitAfter();
-            potato.InitBefore();
+            potato.InitCorrect();
+            potato.InitDefault();
         }
     }
 }

@@ -18,7 +18,7 @@ public class L128_Candy : BaseDraggableObject
         return false;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

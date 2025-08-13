@@ -43,8 +43,8 @@ public class Level_95Ctrl : BaseDragController<L95_PieceStone>
     {
         foreach (var child in this.lsPieceStones)
         {
-            child.InitAfter();
-            child.InitBefore();
+            child.InitCorrect();
+            child.InitDefault();
         }
     }
 }

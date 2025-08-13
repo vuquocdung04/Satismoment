@@ -26,7 +26,8 @@ public class L180_Coin : BaseDraggableObject
             OnEndDrag();
         }
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         objectCollider.enabled = false;
         transform.DOMove(posDefault, 0.3f).SetEase(Ease.OutBack).OnComplete(delegate

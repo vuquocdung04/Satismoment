@@ -36,7 +36,7 @@ public class Level_139Ctrl : BaseDragControllerVer2<L139_ToyPiece>
     {
         toyFrame.transform.DOMoveX(-6f, 0.5f).SetEase(Ease.Linear).OnComplete(delegate
         {
-            foreach(var item in this.lsItems)
+            foreach(var item in this.lsT_ItemDragables)
             {
                 item.objectCollider.enabled = true;
             }
@@ -47,13 +47,13 @@ public class Level_139Ctrl : BaseDragControllerVer2<L139_ToyPiece>
     
 
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var item in this.lsItems) item.InitAfter();
+        foreach(var item in this.lsT_ItemDragables) item.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems) item.InitBefore();
+        foreach (var item in this.lsT_ItemDragables) item.InitDefault();
     }
 }

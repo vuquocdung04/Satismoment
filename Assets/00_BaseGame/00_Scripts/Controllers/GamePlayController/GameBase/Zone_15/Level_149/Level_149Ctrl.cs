@@ -51,24 +51,24 @@ public class Level_149Ctrl : BaseDragControllerVer2<L149_Fruit>
     }
 
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        for(int i = 0; i < lsItems.Count; i++)
+        for(int i = 0; i < lsT_ItemDragables.Count; i++)
         {
-            lsItems[i].InitAfter();
+            lsT_ItemDragables[i].InitCorrect();
             lsHands[i].targetPosition = lsHands[i].transform.position;
         }
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        for (int i = 0; i < lsItems.Count; i++)
+        for (int i = 0; i < lsT_ItemDragables.Count; i++)
         {
-            lsItems[i].InitBefore();
+            lsT_ItemDragables[i].InitDefault();
             lsHands[i].originalPosition = lsHands[i].transform.position;
             lsHands[i].objCollider = lsHands[i].transform.GetComponentInChildren<CircleCollider2D>();
             lsHands[i].id = i;
-            lsItems[i].id = i;
+            lsT_ItemDragables[i].id = i;
         }
     }
 }

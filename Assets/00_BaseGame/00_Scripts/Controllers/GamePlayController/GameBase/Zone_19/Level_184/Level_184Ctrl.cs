@@ -52,8 +52,8 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
         {
             foreach (var fruit in fruits)
             {
-                fruit.InitAfter();
-                fruit.InitBefore();
+                fruit.InitCorrect();
+                fruit.InitDefault();
             }
         }
     }

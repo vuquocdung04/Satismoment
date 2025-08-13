@@ -14,7 +14,7 @@ public class L133_BoxSetup : MonoBehaviour
 
     public void Init()
     {
-        foreach(var item in this.levelCtrl.lsItems)
+        foreach(var item in this.levelCtrl.lsT_ItemDragables)
         {
             item.transform.position = transform.position + new Vector3(-0.2f,0.5f);
             item.objectCollider.enabled = false;
@@ -25,7 +25,7 @@ public class L133_BoxSetup : MonoBehaviour
     private void OnMouseDown()
     {
         boxRenderer.sprite = spriteOpen;
-        var currentItem = levelCtrl.lsItems[indexItem];
+        var currentItem = levelCtrl.lsT_ItemDragables[indexItem];
         currentItem.transform.DOMoveY(transform.position.y + 3f,0.3f).SetEase(Ease.InBack);
         currentItem.transform.DOScale(Vector3.one,0.3f).SetEase(Ease.Linear);
         currentItem.objectCollider.enabled = true;
@@ -35,7 +35,7 @@ public class L133_BoxSetup : MonoBehaviour
     private void OnMouseUp()
     {
         boxRenderer.sprite = spriteClose;
-        if(indexItem == levelCtrl.lsItems.Count)
+        if(indexItem == levelCtrl.lsT_ItemDragables.Count)
         {
             transform.DOMoveX(-6f, 0.5f).SetEase(Ease.OutBack);
         }

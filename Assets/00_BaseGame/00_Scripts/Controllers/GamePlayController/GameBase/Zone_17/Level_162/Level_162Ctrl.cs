@@ -71,8 +71,8 @@ public class Level_162Ctrl : BaseDragController<L162_Item>
     {
         foreach(var item in this.lsItems)
         {
-            item.InitAfter();
-            item.InitBefore();
+            item.InitCorrect();
+            item.InitDefault();
         }
     }
 }

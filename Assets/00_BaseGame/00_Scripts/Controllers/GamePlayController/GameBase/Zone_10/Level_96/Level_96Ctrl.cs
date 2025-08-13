@@ -118,8 +118,8 @@ public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
     {
         foreach (var child in lsKitchenObjs)
         {
-            child.InitAfter();
-            child.InitBefore();
+            child.InitCorrect();
+            child.InitDefault();
         }
     }
 

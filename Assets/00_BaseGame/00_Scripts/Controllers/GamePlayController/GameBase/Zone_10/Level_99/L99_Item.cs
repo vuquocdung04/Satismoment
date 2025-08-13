@@ -16,7 +16,8 @@ public class L99_Item : BaseDraggableObject
         }
         return false;
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMoveY(-2.5f,0.3f).SetEase(Ease.Linear);
     }

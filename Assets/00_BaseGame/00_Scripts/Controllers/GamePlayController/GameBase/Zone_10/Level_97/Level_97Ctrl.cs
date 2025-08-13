@@ -85,8 +85,8 @@ public class Level_97Ctrl : BaseDragController<L97_Devices>
     {
         foreach (var device in this.lsDevices)
         {
-            device.InitAfter();
-            device.InitBefore();
+            device.InitCorrect();
+            device.InitDefault();
         }
     }
 }

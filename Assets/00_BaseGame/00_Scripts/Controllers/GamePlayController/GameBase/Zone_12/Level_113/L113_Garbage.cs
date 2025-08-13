@@ -23,7 +23,7 @@ public class L113_Garbage : BaseDraggableObject
         spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMove(posDefault, 0.3f).SetEase(Ease.OutBack);
     }

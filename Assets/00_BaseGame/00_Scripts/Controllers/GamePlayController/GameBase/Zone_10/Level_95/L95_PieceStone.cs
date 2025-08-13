@@ -40,7 +40,7 @@ public class L95_PieceStone : BaseDraggableObject
             .SetEase(Ease.Linear));
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
 
     }

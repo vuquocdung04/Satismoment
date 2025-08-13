@@ -22,7 +22,8 @@ public class L149_Fruit : BaseDraggableObject
             spriteRenderer.sortingOrder = orderIndex;
         }
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMove(posDefault,0.4f).SetEase(Ease.OutBack);
     }

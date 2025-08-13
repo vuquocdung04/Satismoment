@@ -12,7 +12,7 @@ public class Level_100Ctrl : BaseDragControllerVer2<L100_Item>
         if (draggableComponent.CheckPositionCorrect())
         {
             winProgress++;
-            if (winProgress == lsItems.Count)
+            if (winProgress == lsT_ItemDragables.Count)
                 StartCoroutine(HandleWinCondition());
         }
         else
@@ -31,7 +31,7 @@ public class Level_100Ctrl : BaseDragControllerVer2<L100_Item>
         draggableComponent.OnStartDrag();
     }
 
-    public override IEnumerator HandleWinCondition()
+    protected override IEnumerator HandleWinCondition()
     {
         isWin = true;
         lsHands[0].DOMove(new Vector2(2,-2),0.5f).SetEase(Ease.Linear);
@@ -52,19 +52,19 @@ public class Level_100Ctrl : BaseDragControllerVer2<L100_Item>
 
 
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var item in this.lsItems)
+        foreach(var item in this.lsT_ItemDragables)
         {
-            item.InitAfter();
+            item.InitCorrect();
         }
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems)
+        foreach (var item in this.lsT_ItemDragables)
         {
-            item.InitBefore();
+            item.InitDefault();
         }
     }
 

@@ -17,7 +17,7 @@ public class Level_137Ctrl : BaseDragControllerVer2<L137_Animal>
             winProgress++;
             draggableComponent.HandleTheCorrectCondition(lsGlass[draggableComponent.id]);
 
-            if (winProgress == lsItems.Count)
+            if (winProgress == lsT_ItemDragables.Count)
             {
                 isWin = true;
                 StartCoroutine(HandleWinCondition());
@@ -41,17 +41,17 @@ public class Level_137Ctrl : BaseDragControllerVer2<L137_Animal>
 
 
     //ODin
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        for(int i = 0; i < lsItems.Count; i++)
+        for(int i = 0; i < lsT_ItemDragables.Count; i++)
         {
-            lsItems[i].id = i;
-            lsItems[i].InitAfter();
+            lsT_ItemDragables[i].id = i;
+            lsT_ItemDragables[i].InitCorrect();
         }
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach(var item in this.lsItems) item.InitBefore();
+        foreach(var item in this.lsT_ItemDragables) item.InitDefault();
     }
 }

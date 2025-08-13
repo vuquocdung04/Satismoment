@@ -46,7 +46,7 @@ public class Level_92Ctrl : BaseDragController<L92_Food>
     {
         foreach (var item in this.lsFoods)
         {
-            item.InitAfter();
+            item.InitCorrect();
         }
     }
     [Button("SetupBefore", ButtonSizes.Large)]
@@ -55,7 +55,7 @@ public class Level_92Ctrl : BaseDragController<L92_Food>
     {
         foreach (var item in this.lsFoods)
         {
-            item.InitBefore();
+            item.InitDefault();
         }
     }
 }

@@ -26,8 +26,7 @@ public class L137_Animal : BaseDraggableObject
     }
 
 
-
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMove(posDefault, 0.5f).SetEase(Ease.OutBack);
     }

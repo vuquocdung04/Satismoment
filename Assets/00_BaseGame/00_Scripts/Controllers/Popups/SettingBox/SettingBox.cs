@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingBox : BaseBox
 {
-    static SettingBox instance;
+    private static SettingBox instance;
     public static SettingBox SetUp()
     {
         if (instance == null)
@@ -32,8 +31,10 @@ public class SettingBox : BaseBox
     public Sprite imgMusicOff;
     public Sprite imgVibOn;
     public Sprite imgVibOff;
-    void Init()
+
+    private void Init()
     {
+        InitDisplaySoundAndMusic();
         btnClose.onClick.AddListener(delegate
         {
             GameController.Instance.musicManager.PlayClickSound();
@@ -51,12 +52,12 @@ public class SettingBox : BaseBox
         });
     }
 
-    void InitState()
+    private void InitState()
     {
 
     }
 
-    void OnClickSound()
+    private void OnClickSound()
     {
         if(GameController.Instance.useProfile.OnSound)
         {
@@ -70,7 +71,7 @@ public class SettingBox : BaseBox
         }
     }
 
-    void OnMusicSound()
+    private void OnMusicSound()
     {
         if (GameController.Instance.useProfile.OnMusic)
         {
@@ -83,4 +84,11 @@ public class SettingBox : BaseBox
             GameController.Instance.useProfile.OnMusic = true;
         }
     }
+
+    private void InitDisplaySoundAndMusic()
+    {
+        imgSound.sprite = GameController.Instance.useProfile.OnSound ? imgSoundOn : imgSoundOff;
+        imgMusic.sprite = GameController.Instance.useProfile.OnMusic ? imgMusicOn : imgMusicOff;
+    }
+    
 }

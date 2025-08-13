@@ -36,14 +36,14 @@ public class L150_ProduceSticker : BaseDraggableObject
         spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMove(posDefault,0.1f).SetEase(Ease.Linear);
     }
 
-    public override void InitBefore()
+    public override void InitDefault()
     {
-        base.InitBefore();
+        base.InitDefault();
         posDefault = transform.localPosition;
     }
 }

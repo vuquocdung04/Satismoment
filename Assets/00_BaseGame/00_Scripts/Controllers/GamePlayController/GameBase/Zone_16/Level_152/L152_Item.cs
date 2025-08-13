@@ -22,7 +22,7 @@ public class L152_Item : BaseDraggableObject
         }
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

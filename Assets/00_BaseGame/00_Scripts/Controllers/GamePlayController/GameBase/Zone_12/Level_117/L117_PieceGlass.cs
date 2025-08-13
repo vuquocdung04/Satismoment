@@ -20,9 +20,8 @@ public class L117_PieceGlass : BaseDraggableObject
         return false;
     }
 
-    
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

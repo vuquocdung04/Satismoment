@@ -172,7 +172,7 @@ public class L97_Devices : BaseDraggableObject
         deviceAnim.StopAnimation();
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         transform.DOMove(posDefault,0.2f).SetEase(Ease.Linear);
     }

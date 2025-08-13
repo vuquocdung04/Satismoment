@@ -10,7 +10,7 @@ public class Level_118Ctrl : BaseDragControllerVer2<L118_PicturePiece>
         if (draggableComponent.IsAtZeroDegree())
         {
             winProgress++;
-            if (winProgress == lsItems.Count)
+            if (winProgress == lsT_ItemDragables.Count)
                 StartCoroutine(HandleWinCondition());
         }
     }
@@ -24,12 +24,12 @@ public class Level_118Ctrl : BaseDragControllerVer2<L118_PicturePiece>
     {
         draggableComponent.Rotate();
     }
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var item in this.lsItems) item.Init();
+        foreach (var item in this.lsT_ItemDragables) item.Init();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
         // K lam gi
     }

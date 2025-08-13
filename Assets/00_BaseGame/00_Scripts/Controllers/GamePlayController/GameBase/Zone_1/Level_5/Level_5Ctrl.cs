@@ -1,41 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class Level_5Ctrl : MonoBehaviour
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_5
 {
-    public L5_Cup cup;
-    Vector3 mousePos;
-    public bool isDragging;
-    public int amount;
-    private void Update()
+    public class Level_5Ctrl : BaseDragControllerVer2<L5_Cup>
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-        HandleDraggingCup();
-    }
-
-    void HandleDraggingCup()
-    {
-        if (Input.GetMouseButtonDown(0))
+        public AudioClip soundWhenCorrectPosition;
+        protected override void OnDragStarted()
         {
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero);
-            if (hit.collider == null) return;
-
-            cup = hit.collider.GetComponent<L5_Cup>();
-            if (cup == null) return;
-            isDragging = true;
+            draggableComponent.OnStartDrag();
         }
 
-        if(isDragging && cup != null)
+        protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
         {
-            cup.transform.position = mousePos;
+            draggableComponent.transform.position += mouseDelta;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        protected override void OnDragEnded()
         {
-            isDragging = false;
-            cup = null;
+            draggableComponent.CheckCorrectToDish(delegate
+            {
+                winProgress++;
+                GameController.Instance.musicManager.PlaySingle(soundWhenCorrectPosition);
+                if (winProgress == lsT_ItemDragables.Count)
+                {
+                    StartCoroutine(HandleWinCondition());
+                }
+            });
+        }
+        
+        
+        protected override void SetupComponent_PositionCorrect()
+        {
+            foreach (var cup in this.lsT_ItemDragables)
+            {
+                cup.InitCorrect();
+            }
+        }
+
+        protected override void SetupPositionDefault()
+        {
+            
         }
     }
 }

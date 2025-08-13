@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class L87_Stick : BaseDraggableObject
 {
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

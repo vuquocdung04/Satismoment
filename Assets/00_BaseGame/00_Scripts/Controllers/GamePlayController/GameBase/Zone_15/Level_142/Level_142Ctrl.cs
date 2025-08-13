@@ -26,30 +26,30 @@ public class Level_142Ctrl : BaseDragControllerVer2<L142_CeramicPiece>
         draggableComponent.OnStartDrag();
     }
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var item in this.lsItems) item.InitAfter();
+        foreach (var item in this.lsT_ItemDragables) item.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems) item.InitBefore();
+        foreach (var item in this.lsT_ItemDragables) item.InitDefault();
     }
     [Button("Set position Correct",ButtonSizes.Large)]
     void SetupCorrect()
     {
-        for(int i = 0; i < lsItems.Count; i++)
+        for(int i = 0; i < lsT_ItemDragables.Count; i++)
         {
-            lsItems[i].transform.position = lsItems[i].posCorrect;
-            jar.lsPoints[i].transform.position = lsItems[i].transform.position;
-            lsItems[i].id = i;
+            lsT_ItemDragables[i].transform.position = lsT_ItemDragables[i].posCorrect;
+            jar.lsPoints[i].transform.position = lsT_ItemDragables[i].transform.position;
+            lsT_ItemDragables[i].id = i;
             jar.lsPoints[i].id = i;
         }
     }
     [Button("Set position Default", ButtonSizes.Large)]
     void SetupDefault()
     {
-        foreach (var item in this.lsItems) item.transform.position = item.posDefault;
+        foreach (var item in this.lsT_ItemDragables) item.transform.position = item.posDefault;
     }
 
 }

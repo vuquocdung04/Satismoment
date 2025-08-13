@@ -8,7 +8,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
         public AudioClip soundCake;
         private void Start()
         {
-            foreach (var cake in this.lsItems)
+            foreach (var cake in this.lsT_ItemDragables)
             {
                 cake.spriteRenderer.sprite = cake.spriteDragEnd;
             }
@@ -30,7 +30,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
             draggableComponent.CheckCorrectToPosition(delegate
             {
                 winProgress++;
-                if (winProgress == lsItems.Count)
+                if (winProgress == lsT_ItemDragables.Count)
                 {
                     isWin =  true;
                     StartCoroutine(HandleWinCondition());
@@ -38,19 +38,19 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
             });
         }
 
-        protected override void SetupAfter()
+        protected override void SetupComponent_PositionCorrect()
         {
-            foreach (var cake in lsItems)
+            foreach (var cake in lsT_ItemDragables)
             {
-                cake.InitAfter();
+                cake.InitCorrect();
             }
         }
 
-        protected override void SetupBefore()
+        protected override void SetupPositionDefault()
         {
-            foreach (var cake in lsItems)
+            foreach (var cake in lsT_ItemDragables)
             {
-                cake.InitBefore();
+                cake.InitDefault();
             }
         }
     }

@@ -12,7 +12,8 @@ public enum L96_KitchenObjType
 public class L96_KitchenObj : BaseDraggableObject
 {
     public L96_KitchenObjType objType;
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
 
     }

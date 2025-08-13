@@ -41,7 +41,7 @@ public class L142_CeramicPiece : BaseDraggableObject
 
                     gameObject.SetActive(false);
                 });
-                if (levelCtrl.winProgress == levelCtrl.lsItems.Count) callback?.Invoke();
+                if (levelCtrl.winProgress == levelCtrl.lsT_ItemDragables.Count) callback?.Invoke();
                 return;
             }
         }
@@ -49,7 +49,7 @@ public class L142_CeramicPiece : BaseDraggableObject
         OnEndDrag();
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         objectCollider.enabled = false;
         transform.DOMove(posDefault, 0.2f).SetEase(Ease.OutBack).OnComplete(() =>

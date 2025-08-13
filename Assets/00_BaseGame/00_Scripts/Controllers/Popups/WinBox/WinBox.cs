@@ -1,8 +1,6 @@
-using DG.Tweening;
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WinBox : BaseBox
@@ -43,17 +41,20 @@ public class WinBox : BaseBox
         StartCoroutine(DoShowingPopup());
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     IEnumerator DoShowingPopup()
     {
         ThumbUpBox.SetUp().Show();
         yield return new WaitForSeconds(1f);
         ThumbUpBox.SetUp().Close();
         panel.color = new Color32(0, 0, 0, 215);
+        GameController.Instance.musicManager.PlayWinLevelSound();
         base.DoAppear();
     }
 
 
-    public void HandleNext()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void HandleNext()
     {
         Next();
 
@@ -69,13 +70,15 @@ public class WinBox : BaseBox
         }
     }
 
-    void OnClickHome()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void OnClickHome()
     {
         GameController.Instance.musicManager.PlayClickSound();
         Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
     }
 
-    void OnClickRestart()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void OnClickRestart()
     {
         GameController.Instance.musicManager.PlayClickSound();
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);

@@ -23,7 +23,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
             }
         }
 
-        public override void ReturnToOriginalPosition()
+        protected override void ReturnToOriginalPosition()
         {
             objectCollider.enabled = false;
             transform.DOMove(posDefault,0.2f).SetEase(Ease.Linear).OnComplete(delegate

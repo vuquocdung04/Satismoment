@@ -23,12 +23,13 @@ public class L162_Item : BaseDraggableObject
         curHook = null;
     }
 
-    public override void InitAfter()
+    public override void InitCorrect()
     {
-        base.InitAfter();
+        base.InitCorrect();
         rb = GetComponent<Rigidbody2D>();
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         
     }

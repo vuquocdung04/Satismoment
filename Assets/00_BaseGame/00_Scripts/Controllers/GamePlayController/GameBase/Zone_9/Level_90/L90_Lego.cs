@@ -20,7 +20,7 @@ public class L90_Lego : BaseDraggableObject
         return false;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
 
     }

@@ -45,7 +45,7 @@ public class Level_90Ctrl : BaseDragController<L90_Lego>
     {
         foreach(var lego in this.lsLegos)
         {
-            lego.InitAfter();
+            lego.InitCorrect();
         }
     }
     [Button("Setup Before",ButtonSizes.Large)]
@@ -53,7 +53,7 @@ public class Level_90Ctrl : BaseDragController<L90_Lego>
     {
         foreach (var lego in this.lsLegos)
         {
-            lego.InitBefore();
+            lego.InitDefault();
         }
     }
 }

@@ -55,7 +55,7 @@ public class Level_99Ctrl : BaseDragController<L99_Item>
     {
         foreach (L99_Item item in lsItems)
         {
-            item.InitAfter();
+            item.InitCorrect();
         }
     }
     [Button("Setup Item Before",ButtonSizes.Large)]
@@ -63,7 +63,7 @@ public class Level_99Ctrl : BaseDragController<L99_Item>
     {
         foreach (L99_Item item in lsItems)
         {
-            item.InitBefore();
+            item.InitDefault();
         }
     }
 

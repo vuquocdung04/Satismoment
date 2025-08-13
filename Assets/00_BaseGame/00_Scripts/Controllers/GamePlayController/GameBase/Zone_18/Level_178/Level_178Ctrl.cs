@@ -9,7 +9,7 @@ public class Level_178Ctrl : BaseDragControllerVer2<L178_BrokenRecord>
         draggableComponent.CheckCorrectToPosition(delegate
         {
             winProgress++;
-            if(winProgress == lsItems.Count)
+            if(winProgress == lsT_ItemDragables.Count)
             {
                 StartCoroutine(HandleWinCondition());
             }
@@ -26,13 +26,13 @@ public class Level_178Ctrl : BaseDragControllerVer2<L178_BrokenRecord>
         draggableComponent.OnStartDrag();
     }
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var brokenRecord in this.lsItems) brokenRecord.InitAfter();
+        foreach(var brokenRecord in this.lsT_ItemDragables) brokenRecord.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach(var brokenRecord in this.lsItems) brokenRecord.InitBefore();
+        foreach(var brokenRecord in this.lsT_ItemDragables) brokenRecord.InitDefault();
     }
 }

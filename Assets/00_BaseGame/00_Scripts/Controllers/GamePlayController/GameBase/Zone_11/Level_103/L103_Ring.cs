@@ -17,7 +17,8 @@ public class L103_Ring : BaseDraggableObject
         }
         return false;
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         
     }

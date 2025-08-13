@@ -49,7 +49,7 @@ public class Level_85Ctrl : BaseDragController<L85_LearningTool>
     {
         foreach(var tool in this.lsTools)
         {
-            tool.InitAfter();
+            tool.InitCorrect();
         }
     }
     [Button("Setup Before", ButtonSizes.Large)]
@@ -57,7 +57,7 @@ public class Level_85Ctrl : BaseDragController<L85_LearningTool>
     {
         foreach(var tool in this.lsTools)
         {
-            tool.InitBefore();
+            tool.InitDefault();
         }
     }
 }

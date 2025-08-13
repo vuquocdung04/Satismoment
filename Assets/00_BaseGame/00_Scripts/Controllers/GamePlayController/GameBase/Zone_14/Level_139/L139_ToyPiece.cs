@@ -18,7 +18,7 @@ public class L139_ToyPiece : BaseDraggableObject
             objectCollider.enabled = false;
             levelCtrl.winProgress++;
             transform.DOMove(posCorrect, 0.2f).SetEase(Ease.InElastic);
-            if(levelCtrl.winProgress == levelCtrl.lsItems.Count)
+            if(levelCtrl.winProgress == levelCtrl.lsT_ItemDragables.Count)
             {
                 callback?.Invoke();
             }
@@ -38,7 +38,7 @@ public class L139_ToyPiece : BaseDraggableObject
             objectCollider.enabled = false;
             transform.DOMove(posDefault, 0.3f).SetEase(Ease.Linear);
             levelCtrl.amountStage++;
-            if(levelCtrl.amountStage == levelCtrl.lsItems.Count)
+            if(levelCtrl.amountStage == levelCtrl.lsT_ItemDragables.Count)
             {
                 callback?.Invoke();
             }
@@ -53,7 +53,8 @@ public class L139_ToyPiece : BaseDraggableObject
             isRemovedFromSprue = true;
         }
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         objectCollider.enabled = false;
         transform.DOMove(posDefault, 0.2f).SetEase(Ease.OutBack).OnComplete(delegate

@@ -9,7 +9,7 @@ public class Level_128Ctrl : BaseDragControllerVer2<L128_Candy>
     {
         if (draggableComponent.CheckleCorrectToPosition(GetCompartmentById(draggableComponent.id))){
             winProgress++;
-            if(winProgress == lsItems.Count)
+            if(winProgress == lsT_ItemDragables.Count)
             {
                 StartCoroutine(HandleWinCondition());
             }
@@ -38,7 +38,7 @@ public class Level_128Ctrl : BaseDragControllerVer2<L128_Candy>
         return null;
     }
 
-    public override IEnumerator HandleWinCondition()
+    protected override IEnumerator HandleWinCondition()
     {
         isWin = true;
         yield return base.HandleWinCondition();
@@ -47,16 +47,16 @@ public class Level_128Ctrl : BaseDragControllerVer2<L128_Candy>
 
     //ODin
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var item in this.lsItems)
+        foreach(var item in this.lsT_ItemDragables)
         {
-            item.InitAfter();
-            item.InitBefore();
+            item.InitCorrect();
+            item.InitDefault();
         }
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
         
     }

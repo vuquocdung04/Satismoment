@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseDraggableObject : MonoBehaviour
@@ -21,12 +19,12 @@ public abstract class BaseDraggableObject : MonoBehaviour
 
     public virtual void OnStartDrag()
     {
-        transform.DORotate(new Vector3(0, 0, angleDrag), 0.3f, RotateMode.Fast);
+        transform.DORotate(new Vector3(0, 0, angleDrag), 0.3f);
         spriteRenderer.sortingOrder = orderIndex + 2;
     }
     public virtual void OnEndDrag()
     {
-        transform.DORotate(new Vector3(0,0, angleDefault), 0.3f, RotateMode.Fast);
+        transform.DORotate(new Vector3(0,0, angleDefault), 0.3f);
         spriteRenderer.sortingOrder = orderIndex;
         ReturnToOriginalPosition();
     }
@@ -41,7 +39,7 @@ public abstract class BaseDraggableObject : MonoBehaviour
     /// <summary>
     ///  Khai bao odin
     /// </summary>
-    public virtual void InitAfter()
+    public virtual void InitCorrect()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if(spriteRenderer == null) { Debug.LogError("SpriteRenderer null, bo qua neu can thiet"); }
@@ -52,12 +50,12 @@ public abstract class BaseDraggableObject : MonoBehaviour
             orderIndex = spriteRenderer.sortingOrder;
     }
 
-    public virtual void InitBefore()
+    public virtual void InitDefault()
     {
         angleDefault = transform.eulerAngles.z;
         posDefault = transform.position;
     }
 
 
-    public abstract void ReturnToOriginalPosition();
+    protected abstract void ReturnToOriginalPosition();
 }

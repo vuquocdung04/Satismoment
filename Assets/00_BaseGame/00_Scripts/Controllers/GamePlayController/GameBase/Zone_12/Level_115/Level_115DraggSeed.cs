@@ -45,8 +45,8 @@ public class Level_115DraggSeed : BaseDragController<L115_Seed>
     {
         foreach (var seed in this.lsSeeds)
         {
-            seed.InitAfter();
-            seed.InitBefore();
+            seed.InitCorrect();
+            seed.InitDefault();
         }
 
     }

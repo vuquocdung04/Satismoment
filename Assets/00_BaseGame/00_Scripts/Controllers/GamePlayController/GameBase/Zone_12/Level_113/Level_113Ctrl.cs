@@ -43,13 +43,14 @@ public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
     }
     public bool CheckWin()
     {
-        if(winProgress == lsItems.Count)
+        if(winProgress == lsT_ItemDragables.Count)
         {
             return true;
         }
         return false;
     }
-    public override IEnumerator HandleWinCondition()
+
+    protected override IEnumerator HandleWinCondition()
     {
         Tween carMove = car.DOMoveX(6f,1.5f).SetEase(Ease.Linear);
         yield return carMove.WaitForCompletion();
@@ -57,13 +58,13 @@ public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
     }
     //Odin INspector
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var garbage in this.lsItems) garbage.InitAfter();
+        foreach (var garbage in this.lsT_ItemDragables) garbage.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var garbage in this.lsItems) garbage.InitBefore();
+        foreach (var garbage in this.lsT_ItemDragables) garbage.InitDefault();
     }
 }

@@ -24,7 +24,7 @@ public class L91_Item : BaseDraggableObject
         return false;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         // Logic để item quay về vị trí ban đầu (nếu cần)
     }

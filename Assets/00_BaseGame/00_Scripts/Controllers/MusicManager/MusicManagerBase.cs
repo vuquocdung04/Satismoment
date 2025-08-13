@@ -19,15 +19,15 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 
         public void Init()
         {
-            musicSource.volume = GameController.Instance.useProfile.OnMusic ? 0.15f : 0;
-            soundSource.volume = GameController.Instance.useProfile.OnSound ? 0.15f : 0;
+            musicSource.volume = GameController.Instance.useProfile.OnMusic ? 0.5f : 0;
+            soundSource.volume = GameController.Instance.useProfile.OnSound ? 0.5f : 0;
             PlayBgMusic();
         }
 
 
-        private float MusicVolume => GameController.Instance.useProfile.OnMusic ? 1 : 0;
+        private float MusicVolume => GameController.Instance.useProfile.OnMusic ? 0.5f : 0;
 
-        private float SoundVolume => GameController.Instance.useProfile.OnSound ? 1 : 0;
+        private float SoundVolume => GameController.Instance.useProfile.OnSound ? 0.5f : 0;
 
 
         private void PlayBgMusic()
@@ -38,7 +38,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 
         public void PlayWinLevelSound()
         {
-            if (!GameController.Instance.useProfile.OnMusic) return;
+            if (!GameController.Instance.useProfile.OnSound) return;
             PlaySingle(winMusic);
         }
         // ReSharper disable Unity.PerformanceAnalysis

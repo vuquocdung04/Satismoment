@@ -30,8 +30,8 @@ public class L133_RoomItems : BaseDraggableObject
             transform.DOMove(posCorrect, 0.2f).SetEase(Ease.Linear);
         
     }
-    
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
 
     }

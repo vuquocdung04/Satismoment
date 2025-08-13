@@ -8,7 +8,7 @@ public class Level_4Ctrl : MonoBehaviour
     Vector3 mousePos;
     Vector3 prevMousePos;
     Vector3 mousePosDelta;
-
+    [SerializeField] private bool isWin = false;
     public bool isDragging;
 
     public List<L4_Item> lsItems;
@@ -16,18 +16,18 @@ public class Level_4Ctrl : MonoBehaviour
     Coroutine coroutine;
     private void Update()
     {
+        if(isWin) return;
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         HandleDragItem();
     }
 
-    void HandleDragItem()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void HandleDragItem()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero);
+            var hit = Physics2D.Raycast(mousePos, Vector3.zero);
             if (hit.collider == null) return;
-            Debug.LogError(hit.collider.name);
-
             transItem = hit.collider.GetComponent<L4_Item>();
 
             if (transItem == null) return;
@@ -50,7 +50,7 @@ public class Level_4Ctrl : MonoBehaviour
 
     void CheckComplete()
     {
-        int amount = 0;
+        var amount = 0;
         foreach (var item in this.lsItems)
         {
             if (item.transform.position.x < 0.1f && item.transform.position.x > -0.1f)
@@ -63,8 +63,8 @@ public class Level_4Ctrl : MonoBehaviour
         if(amount > 4)
         {
             foreach(var item in this.lsItems) item.boxCollider2D.enabled = false;
-            Debug.LogError("Test");
             coroutine = StartCoroutine(PlayJumpAnimation());
+            isWin = true;
         }
         isDragging = false;
         transItem = null;
@@ -72,12 +72,12 @@ public class Level_4Ctrl : MonoBehaviour
 
     IEnumerator PlayJumpAnimation()
     {
-        int i = 0;
-        float longestDelay = 0f;
+        var i = 0;
+        var longestDelay = 0f;
 
         while (i < lsItems.Count)
         {
-            float delay = i * 0.2f;
+            var delay = i * 0.2f;
             longestDelay = delay;
 
             // Item i sẽ bắt đầu nhảy sau i*0.2 giây

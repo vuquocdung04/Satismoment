@@ -20,13 +20,13 @@ public class L100_Item : BaseDraggableObject
         return false;
     }
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }
-    public override void InitAfter()
+    public override void InitCorrect()
     {
-        base.InitAfter();
+        base.InitCorrect();
         posCorrect = transform.localPosition;
     }
 

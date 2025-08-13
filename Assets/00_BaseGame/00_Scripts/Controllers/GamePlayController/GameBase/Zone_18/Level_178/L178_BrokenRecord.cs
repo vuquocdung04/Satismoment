@@ -21,7 +21,8 @@ public class L178_BrokenRecord : BaseDraggableObject
             OnEndDrag();
         }
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
         
     }

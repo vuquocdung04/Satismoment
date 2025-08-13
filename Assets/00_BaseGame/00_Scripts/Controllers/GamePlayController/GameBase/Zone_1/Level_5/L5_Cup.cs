@@ -1,9 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class L5_Cup : MonoBehaviour
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_5
 {
-    public int idCup;
-    public CircleCollider2D circleCollider;
+    public class L5_Cup : BaseDraggableObject
+    {
+        public void CheckCorrectToDish(System.Action callback = null)
+        {
+            var distance = Vector2.Distance(transform.position, posCorrect);
+            if (distance < 0.3f)
+            {
+                transform.DOMove(posCorrect, 0.1f).SetEase(Ease.Linear).OnComplete(delegate
+                {
+                    callback?.Invoke();
+                });
+                objectCollider.enabled = false;
+            }
+            else
+            {
+                OnEndDrag();
+            }
+        }
+
+        protected override void ReturnToOriginalPosition()
+        {
+            
+        }
+    }
 }

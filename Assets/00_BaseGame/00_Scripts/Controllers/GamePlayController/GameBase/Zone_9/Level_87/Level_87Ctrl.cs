@@ -69,7 +69,7 @@ public class Level_87Ctrl : BaseDragController<L87_Stick>
     {
         foreach(var stick in this.lsSticks)
         {
-            stick.InitAfter();
+            stick.InitCorrect();
         }
     }
 
@@ -78,7 +78,7 @@ public class Level_87Ctrl : BaseDragController<L87_Stick>
     {
         foreach(var stick in this.lsSticks)
         {
-            stick.InitBefore();
+            stick.InitDefault();
         }
     }
 }

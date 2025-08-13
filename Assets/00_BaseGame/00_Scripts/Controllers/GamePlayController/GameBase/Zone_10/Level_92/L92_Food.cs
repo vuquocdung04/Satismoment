@@ -19,7 +19,8 @@ public class L92_Food : BaseDraggableObject
 
         return false;
     }
-    public override void ReturnToOriginalPosition()
+
+    protected override void ReturnToOriginalPosition()
     {
 
     }

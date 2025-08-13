@@ -32,14 +32,14 @@ public class Level_117Ctrl : BaseDragControllerVer2<L117_PieceGlass>
 
     bool CheckWin()
     {
-        if(winProgress == lsItems.Count)
+        if(winProgress == lsT_ItemDragables.Count)
         {
             return true;
         }
         return false;
     }
 
-    public override IEnumerator HandleWinCondition()
+    protected override IEnumerator HandleWinCondition()
     {
         isWin = true;
         yield return base.HandleWinCondition();
@@ -47,14 +47,14 @@ public class Level_117Ctrl : BaseDragControllerVer2<L117_PieceGlass>
 
 
     // Setup Odin
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var piece in this.lsItems) piece.InitAfter();
+        foreach (var piece in this.lsT_ItemDragables) piece.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var piece in this.lsItems) piece.InitBefore();
+        foreach (var piece in this.lsT_ItemDragables) piece.InitDefault();
     }
 
     

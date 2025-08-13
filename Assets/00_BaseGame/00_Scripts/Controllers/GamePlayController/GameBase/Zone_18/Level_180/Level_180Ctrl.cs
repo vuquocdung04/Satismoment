@@ -31,7 +31,7 @@ public class Level_180Ctrl : BaseDragControllerVer2<L180_Coin>
 
     public IEnumerator CheckWin()
     {
-        if(winProgress == lsItems.Count)
+        if(winProgress == lsT_ItemDragables.Count)
         {
             isWin = true;
             Tween moveBottle = bottle.DOMoveY(-2f, 0.5f).SetEase(Ease.Linear);
@@ -47,13 +47,13 @@ public class Level_180Ctrl : BaseDragControllerVer2<L180_Coin>
         lsPoints[winProgress].gameObject.SetActive(true);
     }
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var coin in this.lsItems) coin.InitAfter();
+        foreach(var coin in this.lsT_ItemDragables) coin.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach(var coin in this.lsItems) coin.InitBefore();
+        foreach(var coin in this.lsT_ItemDragables) coin.InitDefault();
     }
 }

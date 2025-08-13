@@ -8,7 +8,7 @@ public class Level_152Ctrl : BaseDragControllerVer2<L152_Item>
     protected override void OnDragEnded()
     {
         draggableComponent.HandleCorrectPosition(this);
-        if(winProgress == lsItems.Count)
+        if(winProgress == lsT_ItemDragables.Count)
         {
             isWin = true;
             StartCoroutine(HandleWinCondition());
@@ -25,21 +25,21 @@ public class Level_152Ctrl : BaseDragControllerVer2<L152_Item>
         draggableComponent.OnStartDrag();
     }
 
-    public override IEnumerator HandleWinCondition()
+    protected override IEnumerator HandleWinCondition()
     {
         yield return new WaitForSeconds(0.5f);
         valiLid.gameObject.SetActive(true);
         yield return base.HandleWinCondition();
     }
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var item in this.lsItems) item.InitAfter();
+        foreach (var item in this.lsT_ItemDragables) item.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems) item.InitBefore();
+        foreach (var item in this.lsT_ItemDragables) item.InitDefault();
         
     }
 

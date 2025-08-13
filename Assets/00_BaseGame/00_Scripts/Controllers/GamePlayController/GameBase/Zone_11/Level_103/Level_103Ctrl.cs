@@ -10,7 +10,7 @@ public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
         if (draggableComponent.CheckAngleCorrect())
         {
             winProgress++;
-            if (winProgress == lsItems.Count)
+            if (winProgress == lsT_ItemDragables.Count)
                 StartCoroutine(HandleWinCondition());
         }
     }
@@ -45,7 +45,7 @@ public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
         minDistance = float.MaxValue;
         distance = 0;
         // Tìm item gần chuột nhất
-        foreach (var item in this.lsItems)
+        foreach (var item in this.lsT_ItemDragables)
         {
             if (item.isDone) continue;
             distance = Vector2.Distance(item.transform.position, mouseWorldPos);
@@ -60,36 +60,36 @@ public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
         if (closestItem != null)
         {
             if (minDistance < 0.7f)
-                draggableComponent = lsItems[0]; 
+                draggableComponent = lsT_ItemDragables[0]; 
             else if (minDistance < 1f)
-                draggableComponent = lsItems[1];
+                draggableComponent = lsT_ItemDragables[1];
             else if (minDistance < 1.3f)
-                draggableComponent = lsItems[2];
+                draggableComponent = lsT_ItemDragables[2];
             else
                 draggableComponent = null;
         }
     }
 
-    public override IEnumerator HandleWinCondition()
+    protected override IEnumerator HandleWinCondition()
     {
         isWin = true;
         return base.HandleWinCondition();
     }
 
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach(var item in this.lsItems)
+        foreach(var item in this.lsT_ItemDragables)
         {
-            item.InitAfter();
+            item.InitCorrect();
         }
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems)
+        foreach (var item in this.lsT_ItemDragables)
         {
-            item.InitBefore();
+            item.InitDefault();
         }
     }
 

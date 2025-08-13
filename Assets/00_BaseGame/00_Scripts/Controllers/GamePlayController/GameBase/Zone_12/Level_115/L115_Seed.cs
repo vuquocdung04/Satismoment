@@ -23,7 +23,7 @@ public class L115_Seed : BaseDraggableObject
     }
 
 
-    public override void ReturnToOriginalPosition()
+    protected override void ReturnToOriginalPosition()
     {
         
     }

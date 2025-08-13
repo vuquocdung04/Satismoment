@@ -58,7 +58,7 @@ public class Level_133Ctrl : BaseDragControllerVer2<L133_RoomItems>
             }
             winProgress++;
             draggableComponent.MoveItemToCorrectPosition();
-            if (winProgress == lsItems.Count)
+            if (winProgress == lsT_ItemDragables.Count)
             {
                 isWin = true;
                 StartCoroutine(HandleWinCondition());
@@ -69,13 +69,13 @@ public class Level_133Ctrl : BaseDragControllerVer2<L133_RoomItems>
 
 
 
-    protected override void SetupAfter()
+    protected override void SetupComponent_PositionCorrect()
     {
-        foreach (var item in this.lsItems) item.InitAfter();
+        foreach (var item in this.lsT_ItemDragables) item.InitCorrect();
     }
 
-    protected override void SetupBefore()
+    protected override void SetupPositionDefault()
     {
-        foreach (var item in this.lsItems) item.InitBefore();
+        foreach (var item in this.lsT_ItemDragables) item.InitDefault();
     }
 }
