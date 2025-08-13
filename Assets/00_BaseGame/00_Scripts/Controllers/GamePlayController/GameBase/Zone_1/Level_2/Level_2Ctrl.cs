@@ -1,15 +1,13 @@
-using System;
+
 using UnityEngine;
 
 namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_2
 {
     public class Level_2Ctrl : BaseDragControllerVer2<L2_CakeItem>
     {
-        public AudioSource soundSource;
         public AudioClip soundCake;
         private void Start()
         {
-            soundSource = GameController.Instance.musicManager.soundSource;
             foreach (var cake in this.lsItems)
             {
                 cake.spriteRenderer.sprite = cake.spriteDragEnd;
@@ -19,8 +17,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
         protected override void OnDragStarted()
         {
             draggableComponent.OnStartDrag();
-            soundSource.clip = soundCake;
-            soundSource.Play();
+            GameController.Instance.musicManager.PlaySingle(soundCake);
         }
 
         protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)

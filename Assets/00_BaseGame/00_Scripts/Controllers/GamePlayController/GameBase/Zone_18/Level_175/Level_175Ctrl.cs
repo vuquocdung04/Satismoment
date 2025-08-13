@@ -8,7 +8,7 @@ public class Level_175Ctrl : BaseDragController<Transform>
     public L175_Dog dog;
     protected override void OnDragEnded()
     {
-        float angle = draggableComponent.transform.eulerAngles.z;
+        var angle = draggableComponent.transform.eulerAngles.z;
         Debug.LogError(angle);
         if(angle < 231f && angle > 228f)
         {
@@ -18,10 +18,11 @@ public class Level_175Ctrl : BaseDragController<Transform>
         }
 
     }
-    float angle;
-    Vector3 objectCenter;
-    Vector2 vectorToPrevMouse;
-    Vector2 vectorToCurrentMouse;
+
+    private float angle;
+    private Vector3 objectCenter;
+    private Vector2 vectorToPrevMouse;
+    private Vector2 vectorToCurrentMouse;
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
         objectCenter = draggableComponent.transform.position;

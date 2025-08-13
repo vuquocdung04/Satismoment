@@ -1,5 +1,4 @@
 
-using System;
 using DG.Tweening;
 using UnityEngine;
 using System.Collections;
@@ -10,13 +9,11 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
     {
         public Transform lightBulb;
         public Transform mask;
-        public AudioSource soundSource;
         public AudioClip btnClickSound;
 
         private void Start()
         {
             mask.gameObject.SetActive(false);
-            soundSource = GameController.Instance.musicManager.soundSource;
         }
 
         protected override void OnDragStarted()
@@ -25,8 +22,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_
             {
                 
                 isWin = true;
-                soundSource.clip = btnClickSound;
-                soundSource.Play();
+                GameController.Instance.musicManager.PlaySingle(btnClickSound);
                 StartCoroutine(HandleWinCondition());
             });
         }

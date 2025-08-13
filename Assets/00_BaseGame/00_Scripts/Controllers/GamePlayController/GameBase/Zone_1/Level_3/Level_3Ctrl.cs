@@ -1,82 +1,59 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class Level_3Ctrl : MonoBehaviour
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_3
 {
-    public L3_picture selectedPicture;
-    public bool isDragging = false;
-    [SerializeField] float rotationSpeed = 5f;
-    Vector3 mousePos;
-    Vector3 prevMousePos;
-    Vector3 mouseDelta;
-
-    float rotationAmount;
-    private void Update()
+    public class Level_3Ctrl : BaseDragController<L3_Picture>
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        SelectedPicture();
-        HandlePictureDragging();
-    }
-
-
-
-    void SelectedPicture()
-    {
-
-        if (Input.GetMouseButtonDown(0))
+        public AudioClip pictureCompletedSound;
+        protected override void OnDragStarted()
         {
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero);
-            if (hit.collider == null) return;
-            selectedPicture = hit.collider.GetComponent<L3_picture>();
+            
+        }
+        private float angle;
+        private Vector3 objectCenter;
+        private Vector2 vectorToPrevMouse;
+        private Vector2 vectorToCurrentMouse;
+        protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
+        {
+            objectCenter = draggableComponent.transform.position;
 
-            if(selectedPicture != null)
+            vectorToPrevMouse = (Vector2)prevMouseWorldPos - (Vector2)objectCenter;
+
+            vectorToCurrentMouse = (Vector2)currentMousePosition - (Vector2)objectCenter;
+
+            angle = Vector2.SignedAngle(vectorToPrevMouse, vectorToCurrentMouse);
+
+            draggableComponent.transform.Rotate(0, 0, angle / 2);
+        }
+
+        protected override void OnDragEnded()
+        {
+            var angleT = draggableComponent.transform.eulerAngles.z;
+    
+            // Kiểm tra góc gần 0 độ hoặc gần 360 độ (tương đương với 0 độ)
+            Debug.LogError(angleT);
+            if(angleT <= 5f && angleT >= -5f)
             {
-                isDragging = true;
-                prevMousePos = mousePos;
+                isWin = true;
+                var pictureClone = draggableComponent;
+                pictureClone.transform.DORotate(Vector3.zero, 0.2f).OnComplete(delegate
+                {
+                    GameController.Instance.musicManager.PlaySingle(pictureCompletedSound);
+                    pictureClone.ChangeSprite(delegate
+                    {
+                        StartCoroutine(HandleWinCondition());
+                    });
+                });
             }
         }
-
-        if (Input.GetMouseButtonUp(0))
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private IEnumerator HandleWinCondition()
         {
-            isDragging = false;
-            selectedPicture = null;
-        }
-    }
-
-    void HandlePictureDragging()
-    {
-        if (isDragging && selectedPicture != null)
-        {
-            mouseDelta = mousePos - prevMousePos;
-
-            rotationAmount = mouseDelta.y * rotationSpeed;
-            selectedPicture.transform.Rotate(0,0,rotationAmount);
-            prevMousePos = mousePos;
-
-            CheckWin();
-        }
-    }
-
-    void CheckWin()
-    {
-        // Lấy góc hiện tại
-        float currentAngle = selectedPicture.transform.eulerAngles.z;
-
-        // Chuyển đổi về khoảng -180 đến 180 độ để dễ so sánh
-        if (currentAngle > 180)
-            currentAngle -= 360;
-
-        // Debug để xem giá trị thực của góc
-        Debug.Log("Current angle (adjusted): " + currentAngle);
-
-        // Kiểm tra nếu góc gần với 0 (với sai số nhỏ)
-        if (Mathf.Abs(currentAngle) < 1.5f) // Cho phép sai số 5 độ
-        {
-            isDragging = false;
-            selectedPicture.circleCollider.enabled = false;
-            selectedPicture.AfterWin();
-            selectedPicture = null;
+            yield return new WaitForSeconds(1f);
+            WinBox.SetUp().Show();
         }
     }
 }

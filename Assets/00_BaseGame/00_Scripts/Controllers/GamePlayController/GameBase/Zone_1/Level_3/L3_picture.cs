@@ -1,33 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using System.Collections;
 
-public class L3_picture : MonoBehaviour
+namespace _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase.Zone_1.Level_3
 {
-    public Transform icon;
-
-    public SpriteRenderer spritePicture;
-    public Sprite sprite1;
-
-    public Coroutine coroutine;
-    public CircleCollider2D circleCollider;
-
-    public void AfterWin()
+    public class L3_Picture : MonoBehaviour
     {
-        coroutine = StartCoroutine(ChangeSprite());
-    }
-    IEnumerator ChangeSprite()
-    {
-        yield return new WaitForSeconds(0.5f);
-        icon.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.6f);
-        spritePicture.sprite = sprite1;
-        yield return new WaitForSeconds(0.6f);
-        WinBox.SetUp().Show();
-    }
+        public SpriteRenderer spriteRenderer;
+        public Sprite spriteWhenCompleted;
+        public Transform icon;
 
-    private void OnDestroy()
-    {
-        StopCoroutine(coroutine);
+        public void ChangeSprite(System.Action callback = null)
+        {
+            StartCoroutine(Animation(callback));
+        }
+
+        private IEnumerator Animation(System.Action callback = null)
+        {
+            icon.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            spriteRenderer.sprite = spriteWhenCompleted;
+            callback?.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
     }
 }

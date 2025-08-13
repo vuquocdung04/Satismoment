@@ -1,17 +1,19 @@
+
 using Sirenix.OdinInspector;
 using UnityEngine;
+
 
 namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 {
     public class MusicManagerBase : SerializedMonoBehaviour
     {
-        public enum SourceAudio { Music, UI, Effect};
+        public enum SourceAudio { Music, Sound};
 
         public AudioSource musicSource;
         public AudioSource soundSource;
         [Space(5)]
         public AudioClip clickSound;
-        public AudioClip BGMusic;
+        public AudioClip bgMusic;
         public AudioClip winMusic;
         public AudioClip startLevel;
 
@@ -19,42 +21,30 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         {
             musicSource.volume = GameController.Instance.useProfile.OnMusic ? 0.15f : 0;
             soundSource.volume = GameController.Instance.useProfile.OnSound ? 0.15f : 0;
-            PlayBGMusic();
+            PlayBgMusic();
         }
 
 
-        public float MusicVolume
-        {
-            get
-            {
-                return GameController.Instance.useProfile.OnMusic ? 1 : 0;
-            }
-        }
+        private float MusicVolume => GameController.Instance.useProfile.OnMusic ? 1 : 0;
 
-        public float SoundVolume
-        {
-            get
-            {
-                return GameController.Instance.useProfile.OnSound ? 1 : 0;
-            }
-        }
+        private float SoundVolume => GameController.Instance.useProfile.OnSound ? 1 : 0;
 
 
-        public void PlayBGMusic()
+        private void PlayBgMusic()
         {
-            musicSource.clip = BGMusic;
+            musicSource.clip = bgMusic;
             musicSource.Play();
         }
 
         public void PlayWinLevelSound()
         {
             if (!GameController.Instance.useProfile.OnMusic) return;
-            PlaySingle(winMusic, SourceAudio.UI);
+            PlaySingle(winMusic);
         }
         // ReSharper disable Unity.PerformanceAnalysis
         public void PlayClickSound()
         {
-            PlaySingle(clickSound, SourceAudio.UI);
+            PlaySingle(clickSound);
         }
 
         public void PlayStartLevelSound()
@@ -62,7 +52,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(startLevel,SourceAudio.Music);
         }
 
-        public void PlaySingle(AudioClip clip, SourceAudio source = SourceAudio.Effect)
+        public void PlaySingle(AudioClip clip, SourceAudio source = SourceAudio.Sound)
         {
             if (clip == null) return;
             switch (source)
@@ -72,7 +62,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
                     musicSource.clip = clip;
                     musicSource.Play();
                     break;
-                case SourceAudio.UI:
+                case SourceAudio.Sound:
                     if (SoundVolume == 0) return;
                     soundSource.clip = clip;
                     soundSource.Play();
