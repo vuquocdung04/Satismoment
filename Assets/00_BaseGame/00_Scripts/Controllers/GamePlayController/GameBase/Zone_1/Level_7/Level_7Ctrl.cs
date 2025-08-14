@@ -5,7 +5,7 @@ using DG.Tweening;
 public class Level_7Ctrl : MonoBehaviour
 {
     public L7_IceCream iceCream;
-
+    public AudioClip sound;
     Vector3 mousePos;
     Vector3 prevMousePos;
     Vector3 mouseDelta;
@@ -45,7 +45,10 @@ public class Level_7Ctrl : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            HandleWin();
+            if (iceCream != null)
+            {
+                HandleWin();
+            }
             isDragging = false;
             if (iceCream == null) return;
             iceCream = null;
@@ -70,7 +73,7 @@ public class Level_7Ctrl : MonoBehaviour
             iceCream.transform.eulerAngles = Vector3.zero;
             iceCream.StopCoroutine(iceCream.corotine);
             HandleAnimWin();
-            StartCoroutine(WaitShowPopup(iceCream));
+            StartCoroutine(WaitShowPopup());
             iceCream = null;
         }
     }
@@ -84,19 +87,23 @@ public class Level_7Ctrl : MonoBehaviour
         }
         lsItem[0].DOScale(Vector2.one, 0.5f).SetEase(Ease.InOutSine).OnComplete(delegate
         {
+            GameController.Instance.musicManager.PlaySingle(sound);
             lsItem[0].DOMove(new Vector2(-0.113f, 1.595f), 0.5f);
         });
         lsItem[1].DOScale(Vector2.one, 0.5f).SetEase(Ease.InOutSine).OnComplete(delegate
         {
+            GameController.Instance.musicManager.PlaySingle(sound);
             lsItem[1].DOMove(new Vector2(-0.306f, 1.652f), 0.5f);
         });
         lsItem[2].DOScale(Vector3.one,1f).SetEase(Ease.InOutSine);
+        GameController.Instance.musicManager.PlaySingle(sound);
     }
 
-    IEnumerator WaitShowPopup(L7_IceCream iceCream)
+    IEnumerator WaitShowPopup()
     {
+        var iceCreamClone = this.iceCream;
         yield return new WaitForSeconds(1.5f);
-        iceCream.spriteRenderer.sprite = iceCream.spriteWin;
+        iceCreamClone.spriteRenderer.sprite = iceCreamClone.spriteWin;
         foreach(var item in this.lsItem) item.gameObject.SetActive(false);
         yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();

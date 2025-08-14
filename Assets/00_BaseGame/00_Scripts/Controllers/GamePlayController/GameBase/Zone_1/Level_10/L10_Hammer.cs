@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class L10_Hammer : MonoBehaviour
 {
+    public AudioClip sound;
     public Rigidbody2D rb;
     public float nailDepth;
     int amount = 0;
@@ -14,6 +15,7 @@ public class L10_Hammer : MonoBehaviour
         if (nail == null) return;
         var pos = new Vector3(0,nailDepth);
         nail.transform.position -= pos;
+        GameController.Instance.musicManager.PlaySingle(sound);
         if(nail.transform.position.y <= -3.9f)
         {
             nail.boxCollider2D.enabled = false;

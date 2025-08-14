@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class L8_Razor : MonoBehaviour
 {
+    public AudioClip soundWhenRazor;
     public int amount = 0;
     public SpriteRenderer brother;
     public List<Sprite> lsSprites;
@@ -14,7 +15,7 @@ public class L8_Razor : MonoBehaviour
         if (hair == null) return;
         hair.TriggerFall();
         amount++;
-
+        GameController.Instance.musicManager.PlaySingle(soundWhenRazor);
         CheckWin();
     }
 

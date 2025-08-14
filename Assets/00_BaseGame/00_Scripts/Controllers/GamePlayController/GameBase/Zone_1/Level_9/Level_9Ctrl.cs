@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using DG.Tweening;
 public class Level_9Ctrl : MonoBehaviour
 {
+
+    public AudioClip soundCompleted;
     public Transform spriteMask;
     public Transform faceObj;
     Vector3 mousePos;
@@ -70,6 +71,7 @@ public class Level_9Ctrl : MonoBehaviour
         isDragging = false;
         zonePlay.enabled = false;
         faceObj.transform.gameObject.SetActive(false);
+        GameController.Instance.musicManager.PlaySingle(soundCompleted);
         DOVirtual.DelayedCall(0.5f, delegate
         {
             facialExpression.sprite = iconWin;
