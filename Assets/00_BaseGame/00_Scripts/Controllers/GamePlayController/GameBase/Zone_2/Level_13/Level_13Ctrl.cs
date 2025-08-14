@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using DG.Tweening;
 
 public class Level_13Ctrl : BaseDragController<L13_Pen>
 {
+    public AudioClip sound;
     [Tooltip("Chiều rộng của mỗi cây bút (đơn vị world space).")]
     public float penWidth = 0.5f;
     [Tooltip("Khoảng cách giữa các cây bút (đơn vị world space).")]
@@ -17,6 +17,8 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
     {
         HandleSortPen(null, true);
     }
+    
+    
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
         draggableComponent.transform.eulerAngles = Vector3.zero;
@@ -31,14 +33,14 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
             float clampedX = Mathf.Clamp(currentPosition.x, -1.5f, 1.5f);
 
             // Cập nhật lại vị trí của đối tượng kéo nếu tọa độ x bị giới hạn
-            if (currentPosition.x != clampedX)
+            if (!Mathf.Approximately(currentPosition.x, clampedX))
             {
                 draggableComponent.transform.position = new Vector3(clampedX, currentPosition.y, currentPosition.z);
             }
         }
 
 
-        HandleSortPen(draggableComponent, false);
+        HandleSortPen(draggableComponent);
     }
 
     protected override void OnDragEnded()
@@ -76,13 +78,10 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
             }
             lsPens.Insert(indexPen, pen);
         }
-
-        /// sap xep UI
-        /// 
+        
         // Xác định vị trí Y và Z mục tiêu dựa trên transform của GameObject này
         float targetY = this.transform.position.y;
         float targetZ = this.transform.position.z;
-        // Xác định X tham chiếu để căn giữa
         float referenceX = this.transform.position.x;
 
         // Tính toán vị trí bắt đầu (startX) để dãy bút được căn giữa
@@ -100,7 +99,11 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
 
             else
             {
-                if (snapPosition) p.transform.position = targetPosition;
+                if (snapPosition)
+                {
+                    GameController.Instance.musicManager.PlaySingle(sound);
+                    p.transform.position = targetPosition;
+                }
 
                 else
                     p.transform.position = Vector3.Lerp(p.transform.position, targetPosition, Time.deltaTime * 10f);
@@ -124,6 +127,6 @@ public class Level_13Ctrl : BaseDragController<L13_Pen>
 
     protected override void OnDragStarted()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
