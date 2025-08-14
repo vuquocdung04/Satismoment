@@ -1,12 +1,10 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_11Ctrl : BaseDragController<L11_Item> 
 {
-
+    public AudioClip sound;
     public int amount;
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -27,6 +25,6 @@ public class Level_11Ctrl : BaseDragController<L11_Item>
 
     protected override void OnDragStarted()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

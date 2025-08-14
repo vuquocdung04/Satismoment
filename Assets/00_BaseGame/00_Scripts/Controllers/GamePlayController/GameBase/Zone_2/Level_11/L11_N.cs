@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class L11_N : MonoBehaviour
@@ -16,6 +15,7 @@ public class L11_N : MonoBehaviour
         {
             item.gameObject.SetActive(false);
             dish.gameObject.SetActive(true);
+            GameController.Instance.musicManager.PlaySingle(levelCtrl.sound);
             levelCtrl.amount++;
         }
         levelCtrl.CheckWinShowPopup();

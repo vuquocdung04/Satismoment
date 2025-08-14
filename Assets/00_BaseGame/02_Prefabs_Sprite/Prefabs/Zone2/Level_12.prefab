@@ -98,6 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48070a1f8a2278947b7849162b44b632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stages:
+  - stainTransform: {fileID: 6873296661599436993}
+    targetSpriteRenderer: {fileID: 594406386690519705}
+    spriteMask: {fileID: 2075283962156843640}
+  drawRadius: 100
+  drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!61 &7981921005425462987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -191,14 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716bcf676caa89f46aa550cb41447efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlayerInteract: 0
-  spriteMask: {fileID: 2075283962156843640}
-  paintRenderer: {fileID: 594406386690519705}
-  maskTextureWidth: 512
-  maskTextureHeight: 512
-  eraserBrushRadiusOnMask: 25
-  maskPixelsPerUnit: 100
-  winPercentageThreshold: 0.9
+  isWin: 0
+  applyInterval: 0.05
 --- !u!1 &3937457421608564727
 GameObject:
   m_ObjectHideFlags: 0
