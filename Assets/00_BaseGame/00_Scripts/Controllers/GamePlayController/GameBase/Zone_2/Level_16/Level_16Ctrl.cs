@@ -61,10 +61,6 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
                     targetSlot = slot;
                     break;
                 }
-                else
-                {
-                    Debug.LogWarning($"Item chạm slot '{slot.gameObject.name}', nhưng ID KHÔNG KHỚP (Item Target: {currentDraggItem.idItem}, Slot ID: {slot.idCompartment}).");
-                }
             }
         }
         if(targetSlot != null)
@@ -87,7 +83,6 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
 
         if (!successfullyDropped)
         {
-            Debug.LogWarning($"Không tìm thấy slot cụ thể nào cho item '{currentDraggItem.gameObject.name}' (Target ID: {currentDraggItem.idItem}). Trả về vị trí cũ.");
             ReturnItemToDefault(currentDraggItem);
         }
 

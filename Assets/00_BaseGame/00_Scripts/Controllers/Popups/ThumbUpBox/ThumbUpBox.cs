@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 public class ThumbUpBox : BaseBox
 {
@@ -22,6 +20,7 @@ public class ThumbUpBox : BaseBox
 
     void Init()
     {
+        GameController.Instance.musicManager.PlayThumbsUpSound();
         AnimThumbUp();
     }
 

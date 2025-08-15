@@ -489,6 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9ef137f53fdb748a87254c7a347bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWin: 0
+  pickCandySound: {fileID: 8300000, guid: 5ef0a35c51a0aa549a4874627f66b3f1, type: 3}
   winProgress: 0
   animationDuration: 0.4
   efferversceneAmount: 20

@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-
 namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 {
     public class MusicManagerBase : SerializedMonoBehaviour
@@ -12,10 +11,16 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         public AudioSource musicSource;
         public AudioSource soundSource;
         [Space(5)]
-        public AudioClip clickSound;
+        [Header("Music"), Space(5)]
         public AudioClip bgMusic;
-        public AudioClip winMusic;
+        [Header("Sound UI"), Space(5)]
+        public AudioClip clickSound;
+        public AudioClip winSound;
+        public AudioClip thumbsUpSound;
         public AudioClip startLevel;
+        [Header("Sound GamePlay"), Space(5)]
+        public AudioClip pickItem;
+        public AudioClip placeItem;
 
         public void Init()
         {
@@ -39,7 +44,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         public void PlayWinLevelSound()
         {
             if (!GameController.Instance.useProfile.OnSound) return;
-            PlaySingle(winMusic);
+            PlaySingle(winSound);
         }
         // ReSharper disable Unity.PerformanceAnalysis
         public void PlayClickSound()
@@ -52,6 +57,21 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(startLevel,false,SourceAudio.Music);
         }
 
+        public void PlayPickItemSound()
+        {
+            PlaySingle(pickItem);
+        }
+
+        public void PlayPlaceItemSound()
+        {
+            PlaySingle(placeItem);
+        }
+
+        public void PlayThumbsUpSound()
+        {
+            PlaySingle(thumbsUpSound);
+        }
+        
         public void PlaySingle(AudioClip clip, bool isLoopSound = false ,SourceAudio source = SourceAudio.Sound)
         {
             if (clip == null) return;

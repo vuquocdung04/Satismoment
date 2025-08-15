@@ -510,10 +510,13 @@ MonoBehaviour:
     SerializationNodes: []
   musicSource: {fileID: 1327603938}
   soundSource: {fileID: 10690685}
-  clickSound: {fileID: 8300000, guid: c835ba5b1c4ad0845ba0f67d75663a06, type: 3}
   bgMusic: {fileID: 8300000, guid: 03ba125e4db901f4bacea108fa76b0f0, type: 3}
-  winMusic: {fileID: 8300000, guid: 15d1d327a28255f42a20c1d63b8cd7b6, type: 3}
+  clickSound: {fileID: 8300000, guid: c835ba5b1c4ad0845ba0f67d75663a06, type: 3}
+  winSound: {fileID: 8300000, guid: 15d1d327a28255f42a20c1d63b8cd7b6, type: 3}
+  thumbsUpSound: {fileID: 8300000, guid: 774e3d40328f43849a4d8dd09ed43518, type: 3}
   startLevel: {fileID: 8300000, guid: 3395374039055404eaba18b7db8c8739, type: 3}
+  pickItem: {fileID: 8300000, guid: 1f76d42ef023c9e469f3a1293318c63b, type: 3}
+  placeItem: {fileID: 8300000, guid: 85cc2e5e277d6ca4099cd6202ed95fd1, type: 3}
 --- !u!1 &1047419940
 GameObject:
   m_ObjectHideFlags: 0

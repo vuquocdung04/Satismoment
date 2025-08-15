@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Level_17Ctrl : BaseDragController<L17_Candy>
 {
-    public int winProgress = 0;
+    public AudioClip pickCandySound;
+    public int winProgress;
     public float animationDuration = 0.4f;
     public int efferversceneAmount = 20;
     public int turnSpam = 10;
@@ -22,6 +23,7 @@ public class Level_17Ctrl : BaseDragController<L17_Candy>
     {
         candy = draggableComponent;
         draggableComponent.spriteRenderer.sortingOrder = 3;
+        GameController.Instance.musicManager.PlaySingle(pickCandySound);
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -39,7 +41,7 @@ public class Level_17Ctrl : BaseDragController<L17_Candy>
         {
             candy.transform.DOMove(Vector3.zero, animationDuration)
             .SetEase(Ease.InQuad);
-            Debug.LogError("Drop coplete");
+            DOVirtual.DelayedCall(0.5f, () => coCa.AnimationScale());
             successfullyDropped = true;
             candy.spriteRenderer.sortingOrder = 1;
             HandleWin();
@@ -70,7 +72,7 @@ public class Level_17Ctrl : BaseDragController<L17_Candy>
     {
         var time = new WaitForSeconds(0.1f);
         int burstsCompleted = 0;
-        int rand = 0;
+        int rand;
         while(burstsCompleted < turnSpam)
         {
             for(int j = 0; j < efferversceneAmount; j++)

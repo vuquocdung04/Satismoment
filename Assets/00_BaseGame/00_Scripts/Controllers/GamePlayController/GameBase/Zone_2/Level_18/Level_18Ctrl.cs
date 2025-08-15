@@ -17,17 +17,18 @@ public class Level_18Ctrl : BaseDragController<L18_Piece>
 
     protected override void OnDragStarted()
     {
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     protected override void OnDragEnded()
     {
         draggableComponent.spriteRenderer.sortingOrder = draggableComponent.order;
         float distanceToTarget = Vector3.Distance(draggableComponent.transform.position, draggableComponent.trans.position);
-        Debug.LogError(distanceToTarget);
         if(distanceToTarget < snapDistance)
         {
             draggableComponent.transform.position = draggableComponent.trans.position;
             draggableComponent._collider.enabled = false;
+            GameController.Instance.musicManager.PlayPlaceItemSound();
             HandleWin();
         }
         else
