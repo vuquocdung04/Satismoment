@@ -10,5 +10,6 @@ public class L21_Pinecone : MonoBehaviour
         levelCtrl.isWin = true;
         levelCtrl.squirriel.ChangeAnimWin();
         Destroy(gameObject);
+        
     }
 }

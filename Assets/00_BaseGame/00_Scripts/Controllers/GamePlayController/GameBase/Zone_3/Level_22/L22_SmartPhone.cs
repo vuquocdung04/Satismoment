@@ -1,16 +1,16 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class L22_SmartPhone : MonoBehaviour
 {
+    public Level_22Ctrl levelCtrl;
     public Transform mask;
     public SpriteRenderer screen;
     public SpriteRenderer lemon;
-    public Transform low_Battery;
-    public Transform full_Battery;
-    public Transform Battery;
+    public Transform lowBattery;
+    public Transform fullBattery;
+    public Transform battery;
     bool isCharged;
     private void Start()
     {
@@ -22,9 +22,9 @@ public class L22_SmartPhone : MonoBehaviour
         var waitTime = new WaitForSeconds(1f);
         while (!isCharged)
         {
-            low_Battery.gameObject.SetActive(true);
+            lowBattery.gameObject.SetActive(true);
             yield return waitTime;
-            low_Battery.gameObject.SetActive(false);
+            lowBattery.gameObject.SetActive(false);
             yield return waitTime;
         }
     }
@@ -33,16 +33,18 @@ public class L22_SmartPhone : MonoBehaviour
     public void HandleBattery()
     {
         isCharged = true;
-        this.low_Battery.gameObject.SetActive(false);
+        this.lowBattery.gameObject.SetActive(false);
         StartCoroutine(WaitAnim());
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     IEnumerator WaitAnim()
     {
         mask.transform.DOLocalMoveY(1f, 3f);
         yield return new WaitForSeconds(3f);
-        full_Battery.gameObject.SetActive(false);
-        Battery.gameObject.SetActive(false);
+        levelCtrl.PlayingBatteryFullSound();
+        fullBattery.gameObject.SetActive(false);
+        battery.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
         lemon.DOFade(1f, 1f);
         yield return new WaitForSeconds(1.1f);

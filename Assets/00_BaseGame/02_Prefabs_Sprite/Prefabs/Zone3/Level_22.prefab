@@ -48,8 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76f01ce29655db4092a5acd32d5e8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smartPhone: {fileID: 2108048488231070716}
   isWin: 0
+  batteryFullSound: {fileID: 8300000, guid: f8e9382d5018d214caef4148c73f0461, type: 3}
+  smartPhone: {fileID: 2108048488231070716}
   followSpeed: 0.5
   objToMouseOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1469303267289471711
@@ -888,12 +889,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1032f73a0fc5e8346bee7002b7e1ea5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelCtrl: {fileID: 2270095949024969167}
   mask: {fileID: 3275722879886563123}
   screen: {fileID: 5574044131884276342}
   lemon: {fileID: 4481326705155345061}
-  low_Battery: {fileID: 1758824509967569998}
-  full_Battery: {fileID: 5758270567744916013}
-  Battery: {fileID: 6860343836214222781}
+  lowBattery: {fileID: 1758824509967569998}
+  fullBattery: {fileID: 5758270567744916013}
+  battery: {fileID: 6860343836214222781}
 --- !u!1 &7005673281308904467
 GameObject:
   m_ObjectHideFlags: 0

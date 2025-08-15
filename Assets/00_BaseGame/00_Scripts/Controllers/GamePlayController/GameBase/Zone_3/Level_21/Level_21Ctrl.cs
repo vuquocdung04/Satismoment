@@ -1,22 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Level_21Ctrl : MonoBehaviour
 {
+    public AudioClip clickSound;
     public L21_Squirrel squirriel;
     public L21_Btn currentBtn;
     public float speed = 2f;
     public float durationAnim = 0.3f;
     public float resetDurationAnim = 0.3f;
-    public bool isWin = false;
+    public bool isWin;
     Vector3 mousePos;
-    private int animationFrameIndex = 0;
+    private int animationFrameIndex;
     private void Update()
     {
         if (isWin) return;
 
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Camera.main != null) mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         if (Input.GetMouseButtonDown(0))
         {
@@ -27,7 +27,7 @@ public class Level_21Ctrl : MonoBehaviour
 
             if (currentBtn == null) return;
             currentBtn.spriteRenderer.sprite = currentBtn.spriteClick;
-
+            GameController.Instance.musicManager.PlaySingle(clickSound);
             if (squirriel.lsRunSprites != null && squirriel.lsRunSprites.Count > 0)
             {
                 animationFrameIndex = 0;
@@ -36,9 +36,8 @@ public class Level_21Ctrl : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && currentBtn != null)
         {
-            if (currentBtn == null) return;
             switch (currentBtn.btnType)
             {
                 case L21_BtnType.Left:
@@ -63,7 +62,10 @@ public class Level_21Ctrl : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             squirriel.rb.velocity = Vector2.zero;
-            currentBtn.spriteRenderer.sprite = currentBtn.spriteDefault;
+            if (currentBtn != null)
+            {
+                currentBtn.spriteRenderer.sprite = currentBtn.spriteDefault;
+            }
             currentBtn = null;
         }
     }

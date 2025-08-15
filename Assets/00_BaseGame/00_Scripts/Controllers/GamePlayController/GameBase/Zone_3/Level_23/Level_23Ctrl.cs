@@ -1,10 +1,9 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using DG.Tweening;
-using UnityEngine.XR;
 public class Level_23Ctrl : BaseDragController<L23_Picture>
 {
     public Transform mask;
@@ -24,7 +23,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     }
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -42,7 +41,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
         draggableComponent.transform.position = newPos;
         lsPictures.Sort((a, b) => a.transform.position.y.CompareTo(b.transform.position.y));
 
-        HandleSortPicture(draggableComponent, false);
+        HandleSortPicture(draggableComponent);
 
     }
 
@@ -61,7 +60,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     void HandleSortPicture(L23_Picture draggedPicture, bool snapPosition = false)
     {
         float currentEdgeY = this.startPosY;
-        L23_Picture picture = null;
+        L23_Picture picture;
         Vector3 targetPosition;
         for (int i = 0; i < lsPictures.Count; i++)
         {

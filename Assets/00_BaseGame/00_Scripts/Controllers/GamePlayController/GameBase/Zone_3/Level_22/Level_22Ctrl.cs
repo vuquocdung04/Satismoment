@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_22Ctrl : BaseDragController<L22_ChargingCable>
 {
+    public AudioClip batteryFullSound;
     public L22_SmartPhone smartPhone;
     public float followSpeed = 5f;
 
@@ -30,6 +30,9 @@ public class Level_22Ctrl : BaseDragController<L22_ChargingCable>
 
     }
 
-
+    public void PlayingBatteryFullSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(batteryFullSound);
+    }
 
 }
