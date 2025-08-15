@@ -1,6 +1,6 @@
-using DG.Tweening;
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -17,8 +17,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
     float t;
     protected override void OnDragStarted()
     {
-
-
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -26,7 +25,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
         newPos = draggableComponent.transform.position;
         newPos.y += deltaMousePosition.y;
         newPos.x = posPullCoreStart.x;
-
+        newPos.y = Mathf.Clamp(newPos.y, 0.15f, draggableComponent.transform.position.y);
         draggableComponent.transform.position = newPos;
 
         t = posPullCoreStart.y - draggableComponent.transform.position.y;

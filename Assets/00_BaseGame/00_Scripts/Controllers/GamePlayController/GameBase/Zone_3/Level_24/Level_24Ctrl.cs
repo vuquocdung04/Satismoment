@@ -1,11 +1,11 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_24Ctrl : BaseDragController<Transform>
 {
+    public AudioClip toiletPaperSound;
     public Transform toiletPaperRoll;
     public Transform toiletPaper;
     public Transform cardBoardTube;
@@ -16,7 +16,7 @@ public class Level_24Ctrl : BaseDragController<Transform>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -34,8 +34,9 @@ public class Level_24Ctrl : BaseDragController<Transform>
 
         if(toiletPaperRoll.transform.localScale.y < 0.77f)
         {
-            StartCoroutine(HandleWin());
             isWin = true;
+            GameController.Instance.musicManager.PlaySingle(toiletPaperSound);
+            StartCoroutine(HandleWin());
         }
     }
 

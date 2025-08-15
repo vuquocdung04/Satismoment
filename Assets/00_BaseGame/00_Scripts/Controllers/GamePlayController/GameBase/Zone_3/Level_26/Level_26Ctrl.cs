@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -12,11 +11,10 @@ public class Level_26Ctrl : BaseDragController<Transform>
     public Transform ornamentBall_Left;
     public Transform ornamentBall_Right;
     Vector3 newPos;
-    [Space(10)]
-    public Transform posSpawnEffect;
     protected override void OnDragStarted()
     {
         DoShakeOrnamentBall();
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     float yChange;
@@ -49,8 +47,7 @@ public class Level_26Ctrl : BaseDragController<Transform>
         ornamentBall.transform.eulerAngles = Vector3.zero;
         ornamentBall_Left.transform.eulerAngles = new Vector3(0,0,-15);
         ornamentBall_Right.transform.eulerAngles = new Vector3(0,0,15);
-
-        //GameController.Instance.confettiEffectController.SpawmEffect_Drop_UI(posSpawnEffect);
+        
         yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();
     }

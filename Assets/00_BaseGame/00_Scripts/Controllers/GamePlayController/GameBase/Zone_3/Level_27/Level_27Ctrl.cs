@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 public class Level_27Ctrl : MonoBehaviour
 {
+    public AudioClip eatSound;
     public Transform bread;
     public SpriteMask spriteMask;
     public int textureWidth = 256;
@@ -12,8 +13,8 @@ public class Level_27Ctrl : MonoBehaviour
     private Texture2D maskTexture;
     private Sprite maskSprite;
     private Vector3 mousePos;
-    private bool ninetyPercentReached = false; // Biến cờ
-    public bool isWin = false;
+    private bool ninetyPercentReached; // Biến cờ
+    public bool isWin;
     void Start()
     {
         if (spriteMask == null)
@@ -91,6 +92,7 @@ public class Level_27Ctrl : MonoBehaviour
                 // Kiểm tra tỷ lệ sau khi vẽ và áp dụng
                 if (!ninetyPercentReached) // Chỉ kiểm tra nếu chưa đạt ngưỡng
                 {
+                    GameController.Instance.musicManager.PlaySingle(eatSound);
                     CheckDrawingCoverage();
                 }
             }
@@ -124,8 +126,14 @@ public class Level_27Ctrl : MonoBehaviour
             ninetyPercentReached = true;
             isWin = true;
             bread.gameObject.SetActive(false);
-            WinBox.SetUp().Show();
+            StartCoroutine(HandleWinCondition());
         }
+    }
+
+    System.Collections.IEnumerator HandleWinCondition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
     }
 
     void OnDestroy()
