@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_15Ctrl : MonoBehaviour
@@ -10,12 +8,12 @@ public class Level_15Ctrl : MonoBehaviour
     public Transform mask;
     public Transform eggShell;
     public int eggShellSpamCount = 2;
-    public int winProgress = 0;
-    
-    RaycastHit2D hit;
-    Vector3 mousePos;
-    Tween wobbleTween;
-
+    public int winProgress;
+    private RaycastHit2D hit;
+    private Vector3 mousePos;
+    private Tween wobbleTween;
+    [Space(5)]
+    [SerializeField] AudioClip brokenEggSound;
 
     private void Start()
     {
@@ -25,16 +23,17 @@ public class Level_15Ctrl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Camera.main != null) mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-            if (hit.collider == null) return;
+            if (!hit.collider) return;
 
             StopWobble();
 
             winProgress++;
             if(winProgress % 3 == 0)
             {
+                GameController.Instance.musicManager.PlaySingle(brokenEggSound);
                 mask.transform.position += new Vector3(0.7f, 0, 0);
                 SpamEggShell();
             }

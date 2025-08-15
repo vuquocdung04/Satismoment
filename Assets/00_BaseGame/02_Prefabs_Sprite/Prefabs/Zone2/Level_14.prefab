@@ -514,7 +514,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a3fc10f28c3544f846afc13263e87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWin: 0
   winProgress: 0
+  soundWater: {fileID: 8300000, guid: ceaf3b3f3cd97a049a61625d1ceb2a75, type: 3}
 --- !u!1 &7365382063745976780
 GameObject:
   m_ObjectHideFlags: 0

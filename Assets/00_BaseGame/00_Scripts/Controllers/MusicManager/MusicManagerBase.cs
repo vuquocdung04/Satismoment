@@ -49,10 +49,10 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 
         public void PlayStartLevelSound()
         {
-            PlaySingle(startLevel,SourceAudio.Music);
+            PlaySingle(startLevel,false,SourceAudio.Music);
         }
 
-        public void PlaySingle(AudioClip clip, SourceAudio source = SourceAudio.Sound)
+        public void PlaySingle(AudioClip clip, bool isLoopSound = false ,SourceAudio source = SourceAudio.Sound)
         {
             if (clip == null) return;
             switch (source)
@@ -64,12 +64,45 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
                     break;
                 case SourceAudio.Sound:
                     if (SoundVolume == 0) return;
+                    soundSource.loop = isLoopSound;
                     soundSource.clip = clip;
                     soundSource.Play();
                     break;
             }
         }
 
+        // Pause Stop Music
+        public void PauseMusic(bool isPause = false)
+        {
+            if (musicSource.isPlaying)
+            {
+                if (!isPause) musicSource.Pause();
+                else musicSource.Stop();
+            }
+        }
+
+        public void PauseSound(bool isPause = false)
+        {
+            if (soundSource.isPlaying)
+            {
+                if (!isPause) soundSource.Pause();
+                else soundSource.Stop();
+            }
+        }
+        public void ResumeMusic()
+        {
+            if (!musicSource.isPlaying && musicSource.clip != null)
+                musicSource.UnPause();
+        }
+
+        public void ResumeSound()
+        {
+            if (!soundSource.isPlaying && soundSource.clip != null)
+                soundSource.UnPause();
+        }
+
+        
+        #region  SetVolume
         public void SetMusicVolume(float volume)
         {
             musicSource.volume = volume;
@@ -79,5 +112,6 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         {
             soundSource.volume = volume;
         }
+        #endregion
     }
 }
