@@ -86,7 +86,6 @@ MonoBehaviour:
   posDefault: {x: -0.89, y: -2.19}
   spriteRenderer: {fileID: 3376180570397517707}
   orderInLayer: 3
-  posDrop: 0
 --- !u!212 &3376180570397517707
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -508,9 +507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e047dcf05f3e54c8be4b67df6c7b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWin: 0
   winProgress: 0
   dropAnimationDuration: 0.4
-  snapDistance: 1.3
   allWalletSlots:
   - {fileID: 564323696757446496}
   - {fileID: 4995969044274943528}
@@ -521,6 +520,9 @@ MonoBehaviour:
   - {fileID: 3722073892006995363}
   - {fileID: 5811190285270569081}
   - {fileID: 4754680667407943549}
+  coinSound: {fileID: 8300000, guid: b5b368b73abbdf046b57a53cdaaf2a91, type: 3}
+  moneySound: {fileID: 8300000, guid: eef1a7282e14eb84abce1a08c5ee4670, type: 3}
+  cardSound: {fileID: 8300000, guid: 7f80a0f51c035af4386470b6063cc4bd, type: 3}
 --- !u!1 &2152595053349095726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1184,6 @@ MonoBehaviour:
   posDefault: {x: -0.19, y: -3.03}
   spriteRenderer: {fileID: 1023965390264388057}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &1023965390264388057
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1322,7 +1323,6 @@ MonoBehaviour:
   posDefault: {x: 1.86, y: -2.72}
   spriteRenderer: {fileID: 1288730369615875003}
   orderInLayer: 7
-  posDrop: 0
 --- !u!212 &1288730369615875003
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1556,7 +1556,6 @@ MonoBehaviour:
   posDefault: {x: -0.33, y: -3.47}
   spriteRenderer: {fileID: 6577949102339866830}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &6577949102339866830
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1961,7 +1960,6 @@ MonoBehaviour:
   posDefault: {x: 0.91625553, y: -2.390899}
   spriteRenderer: {fileID: 4042833411798194537}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &4042833411798194537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2248,7 +2246,6 @@ MonoBehaviour:
   posDefault: {x: 1.64, y: -2.81}
   spriteRenderer: {fileID: 6823302834333973331}
   orderInLayer: 9
-  posDrop: 0
 --- !u!212 &6823302834333973331
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2398,7 +2395,6 @@ MonoBehaviour:
   posDefault: {x: 1.66, y: -2.58}
   spriteRenderer: {fileID: 48250764215252389}
   orderInLayer: 5
-  posDrop: 0
 --- !u!212 &48250764215252389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2548,7 +2544,6 @@ MonoBehaviour:
   posDefault: {x: 1.45, y: -2.7}
   spriteRenderer: {fileID: 2347920773199926423}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &2347920773199926423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2688,7 +2683,6 @@ MonoBehaviour:
   posDefault: {x: -1.68, y: -2.99}
   spriteRenderer: {fileID: 1877565575966599612}
   orderInLayer: 5
-  posDrop: 0
 --- !u!212 &1877565575966599612
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2838,7 +2832,6 @@ MonoBehaviour:
   posDefault: {x: 0.58, y: -4.64}
   spriteRenderer: {fileID: 7849468364853842145}
   orderInLayer: 3
-  posDrop: 0
 --- !u!212 &7849468364853842145
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2988,7 +2981,6 @@ MonoBehaviour:
   posDefault: {x: -0.67703474, y: -3.2362962}
   spriteRenderer: {fileID: 4825060367700284179}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &4825060367700284179
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3128,7 +3120,6 @@ MonoBehaviour:
   posDefault: {x: 0.64, y: -2.93}
   spriteRenderer: {fileID: 8229595535752103305}
   orderInLayer: 13
-  posDrop: 0
 --- !u!212 &8229595535752103305
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3268,7 +3259,6 @@ MonoBehaviour:
   posDefault: {x: -1.66, y: -3.16}
   spriteRenderer: {fileID: 2004471080544516242}
   orderInLayer: 7
-  posDrop: 0
 --- !u!212 &2004471080544516242
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3796,7 +3786,6 @@ MonoBehaviour:
   posDefault: {x: -1.46, y: -2.21}
   spriteRenderer: {fileID: 6121815615897285570}
   orderInLayer: 9
-  posDrop: 0
 --- !u!212 &6121815615897285570
 SpriteRenderer:
   m_ObjectHideFlags: 0

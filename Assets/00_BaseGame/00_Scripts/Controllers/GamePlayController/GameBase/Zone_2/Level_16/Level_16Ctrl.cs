@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -12,15 +11,33 @@ public enum L16Type
 
 public class Level_16Ctrl : BaseDragController<L16_Item>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public float dropAnimationDuration = 0.4f;
     public L16_Compartment[] allWalletSlots;
     private L16_Item currentDraggItem;
+
+    [Header("Sound"), Space(10)] 
+    [SerializeField] AudioClip coinSound;
+    [SerializeField] AudioClip moneySound;
+    [SerializeField] AudioClip cardSound;
     protected override void OnDragStarted()
     {
         currentDraggItem = draggableComponent;
-        draggableComponent.transform.DORotate(Vector3.zero, dropAnimationDuration, RotateMode.Fast);
+        draggableComponent.transform.DORotate(Vector3.zero, dropAnimationDuration);
         draggableComponent.spriteRenderer.sortingOrder = 20;
+
+        switch (currentDraggItem.type)
+        {
+            case L16Type.Coin:
+                GameController.Instance.musicManager.PlaySingle(coinSound);
+                break;
+            case L16Type.Card:
+                GameController.Instance.musicManager.PlaySingle(cardSound);
+                break;
+            case L16Type.Money:
+                GameController.Instance.musicManager.PlaySingle(moneySound);
+                break;
+        }
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -52,7 +69,7 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
         }
         if(targetSlot != null)
         {
-            Vector3 dropPos = Vector2.zero; // Lấy vị trí thả từ compartment
+            Vector3 dropPos; // Lấy vị trí thả từ compartment
             switch (currentDraggItem.type)
             {
                 case L16Type.Coin:
@@ -65,7 +82,7 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
             currentDraggItem.transform.DOMove(dropPos, dropAnimationDuration)
                     .SetEase(Ease.InQuad);
             successfullyDropped = true;
-            HandleWin();
+            StartCoroutine(HandleWin());
         }
 
         if (!successfullyDropped)
@@ -83,7 +100,7 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
         if (item != null && item.transform != null)
         {
             item.transform.DOMove(item.posDefault, dropAnimationDuration).SetEase(Ease.OutQuad);
-            item.transform.DORotate(new Vector3(0,0,item.angleDefault), dropAnimationDuration, RotateMode.Fast);
+            item.transform.DORotate(new Vector3(0,0,item.angleDefault), dropAnimationDuration);
         }
     }
 
@@ -95,9 +112,13 @@ public class Level_16Ctrl : BaseDragController<L16_Item>
         }
     }
 
-    private void HandleWin()
+    private IEnumerator HandleWin()
     {
         winProgress++;
-        if (winProgress > 13) WinBox.SetUp().Show();
+        if (winProgress > 13)
+        {
+            yield return new WaitForSeconds(0.5f);
+            WinBox.SetUp().Show();
+        }
     }
 }
