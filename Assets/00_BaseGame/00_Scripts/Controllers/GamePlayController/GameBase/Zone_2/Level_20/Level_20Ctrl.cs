@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Level_20Ctrl : MonoBehaviour
 {
-    public int winProgress = 0;
+    public AudioClip hitSound;
+    public int winProgress;
 
     [Header("Hammer Prefab")]
     public Transform hammerPrefab;
@@ -16,7 +16,7 @@ public class Level_20Ctrl : MonoBehaviour
     Vector3 mousePos;
     private void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Camera.main != null) mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         if (Input.GetMouseButtonDown(0))
         {
@@ -25,11 +25,12 @@ public class Level_20Ctrl : MonoBehaviour
             holeUnit = hit.collider.GetComponentInParent<L20_HoleUnit>();
             if (holeUnit == null) return;
             SpawnHammerEffect();
+            GameController.Instance.musicManager.PlaySingle(hitSound);
             holeUnit.HandleHit();
             winProgress++;
         }
 
-        if (Input.GetMouseButtonUp(0)) HandleWin();
+        if (Input.GetMouseButtonUp(0)) StartCoroutine(HandleWin());
     }
     void SpawnHammerEffect()
     {
@@ -38,10 +39,11 @@ public class Level_20Ctrl : MonoBehaviour
         SimplePool2.Spawn(hitPrefab.gameObject, mousePos, Quaternion.identity);
     }
 
-    void HandleWin()
+    System.Collections.IEnumerator HandleWin()
     {
         if(winProgress > 9)
         {
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }

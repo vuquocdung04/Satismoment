@@ -14,13 +14,13 @@ public class GameScene : MonoBehaviour
 
         btnSetting.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             OnClickSetting();
         });
 
         btnSkip.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             HandleSkipButton();
         });
 

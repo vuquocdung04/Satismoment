@@ -17,7 +17,7 @@ public class HomeScene : MonoBehaviour
         btnSetting.onClick.AddListener(delegate
         {
             SettingBox.SetUp().Show();
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
     }
 

@@ -914,6 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1082c54d2180b384799aca640a1358fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWin: 0
+  takeBookSound: {fileID: 8300000, guid: 761c62df0b880d2448a5aac7a024100f, type: 3}
   hand: {fileID: 5903171149332150620}
   bookRed: {fileID: 21300000, guid: 5b1d45355c34ce044b5919c33ae81d8a, type: 3}
   animationDuration: 2

@@ -34,32 +34,32 @@ public class SettingGameBox : BaseBox
         btnClose.onClick.AddListener(delegate
         {
             Close();
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
 
         btnHome.onClick.AddListener(delegate
         {
             Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
 
         btnNextLevelWithAds.onClick.AddListener(delegate
         {
             Debug.LogError("Ads");
             OnClickNextLevelWithAds();
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
 
         btnRestart.onClick.AddListener(delegate
         {
             Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
 
         btnSound.onClick.AddListener(delegate
         {
             OnClickSound();
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
         });
     }
 

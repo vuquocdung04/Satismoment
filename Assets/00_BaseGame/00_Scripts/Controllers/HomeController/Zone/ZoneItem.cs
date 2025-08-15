@@ -14,7 +14,7 @@ public class ZoneItem : LoadAutoComponents
     {
         btnPlay.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             OnClickPlay();
         });
     }

@@ -37,17 +37,17 @@ public class SettingBox : BaseBox
         InitDisplaySoundAndMusic();
         btnClose.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             Close();
         });
         btnSound.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             OnClickSound();
         });
         btnMusic.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSound();
+            GameController.Instance.musicManager.PlayClickSoundUI();
             OnMusicSound();
         });
     }

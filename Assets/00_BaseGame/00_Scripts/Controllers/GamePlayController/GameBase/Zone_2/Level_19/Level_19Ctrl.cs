@@ -6,6 +6,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 public class Level_19Ctrl : BaseDragController<L19_Book>
 {
+    public AudioClip takeBookSound;
     public Transform hand;
     public Sprite bookRed;
     public float animationDuration = 1f;
@@ -27,7 +28,7 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
         draggableComponent.transform.position = newPos;
         lsBooks.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
 
-        HandleSortBook(draggableComponent,false);
+        HandleSortBook(draggableComponent);
     }
 
     protected override void OnDragEnded()
@@ -45,7 +46,7 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
     private void HandleSortBook(L19_Book draggedBook, bool snapPosition = false)
     {
         float currentEdgeX = this.startPosX;
-        L19_Book book = null;
+        L19_Book book;
         Vector3 targetPosition;
         for (int i =0; i < lsBooks.Count; i++)
         {
@@ -78,6 +79,7 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
 
         hand.DOMoveY(-3.5f, animationDuration).SetEase(Ease.InQuad).OnComplete(delegate
         {
+            GameController.Instance.musicManager.PlaySingle(takeBookSound);
             lsBooks[lsBooks.Count - 1].spriteRenderer.sprite = bookRed;
             lsBooks[lsBooks.Count - 1].transform.SetParent(hand);
             hand.DOMoveY(-11f, animationDuration).SetEase(Ease.OutQuad);
@@ -121,6 +123,6 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
 
     protected override void OnDragStarted()
     {
-        throw new System.NotImplementedException();
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 }

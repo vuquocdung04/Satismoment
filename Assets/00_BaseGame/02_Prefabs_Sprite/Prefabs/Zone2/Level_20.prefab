@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60978d7159fcda94b9c3a2506a7b0318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 3600f66ec3e4ba44bb36ceee8ecd2d3f, type: 3}
   winProgress: 0
   hammerPrefab: {fileID: 5974349641473114769, guid: c857c5c384c3bf84ba83e6576b8db314, type: 3}
   hitPrefab: {fileID: 838187478954572827, guid: f00ea47fafd5a054b80f66d842a51724, type: 3}

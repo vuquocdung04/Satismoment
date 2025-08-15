@@ -47,7 +47,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(winSound);
         }
         // ReSharper disable Unity.PerformanceAnalysis
-        public void PlayClickSound()
+        public void PlayClickSoundUI()
         {
             PlaySingle(clickSound);
         }
