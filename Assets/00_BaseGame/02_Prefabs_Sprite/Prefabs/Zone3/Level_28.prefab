@@ -2565,6 +2565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  stickerPeelSound: {fileID: 8300000, guid: 23b20386dcb183b40b841362fd11f318, type: 3}
+  pickHopSound: {fileID: 8300000, guid: 02115b8179ae24c4284ec79821490ec7, type: 3}
   winProgress: 0
   snapDistance: 0.4
   durationAnim: 1.5

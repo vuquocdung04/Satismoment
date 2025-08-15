@@ -1,13 +1,14 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_28Ctrl : BaseDragController<L28_Bottle>
 {
-    public int winProgress = 0;
+    public AudioClip stickerPeelSound; 
+    public AudioClip pickHopSound;
+    public int winProgress;
     public float snapDistance = 0.4f;
     public float durationAnim = 2f;
     public Transform parent;
@@ -19,7 +20,7 @@ public class Level_28Ctrl : BaseDragController<L28_Bottle>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlaySingle(pickHopSound);
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -148,6 +149,7 @@ public class Level_28Ctrl : BaseDragController<L28_Bottle>
             handSequense.Append(hand.DOMove(lsPosSetupCosts[i].transform.position, durationAnim).SetEase(Ease.InQuad));
             handSequense.AppendCallback(delegate
             {
+                GameController.Instance.musicManager.PlaySingle(stickerPeelSound);
                 lsObjCosts[index].SetParent(parent);
                 lsObjCosts[index].position = lsPosSetupCosts[index].position;
             });
