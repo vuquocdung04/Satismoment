@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using DG.Tweening;
 public class L30_UILeft : MonoBehaviour
 {
-    public int amountHit = 0;
+    public int amountHit;
     public Color32 colorDefault;
     public Color32 colorUsed;
     public List<SpriteRenderer> lsKnifes;
@@ -36,7 +36,7 @@ public class L30_UILeft : MonoBehaviour
 
             piece.DOScale(Vector3.zero, duration).SetEase(Ease.InBack); // Co lại sau khi bay
             piece.DOLocalMove(targetPos, duration).SetEase(Ease.OutQuad);
-            piece.DORotate(new Vector3(0, 0, Random.Range(-180, 180)), duration, RotateMode.Fast);
+            piece.DORotate(new Vector3(0, 0, Random.Range(-180, 180)), duration);
         }
     }
 

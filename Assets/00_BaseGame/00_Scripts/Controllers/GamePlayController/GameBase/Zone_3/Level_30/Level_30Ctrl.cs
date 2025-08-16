@@ -1,14 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_30Ctrl : MonoBehaviour
 {
+    
+    public AudioClip knifeHitWoodSound;
+    public AudioClip knifeHitKnifeSound;
     public int winProgess;
-    public bool isWin = false;
+    public bool isWin;
     public L30_UILeft ui_Left;
     public L30_SpinLog spinLog;
-    public Transform knifePrefabs;
+    public L30_ThrowKnife knifePrefabs;
     public Transform pointSpawnKnife;
     private void Start()
     {
@@ -22,7 +24,8 @@ public class Level_30Ctrl : MonoBehaviour
         {
             ui_Left.RegisterHit();
             StartCoroutine(OnOffPoint());
-            Instantiate(knifePrefabs, pointSpawnKnife.position, Quaternion.identity);
+            var knifeClone = Instantiate(knifePrefabs, pointSpawnKnife.position, Quaternion.identity);
+            knifeClone.levelCtrl = this;
         }
     }
 
@@ -37,18 +40,41 @@ public class Level_30Ctrl : MonoBehaviour
     {
         if(ui_Left.amountHit == 0 && winProgess < 3)
         {
-            isWin = true;
-            Debug.LogError("Lose");
-            spinLog.gameObject.SetActive(false);
-            ui_Left.BreakPieces();
-            Initiate.Fade(SceneName.GAME_PLAY,Color.black,3f);
+            StartCoroutine(HandleLoseCondition());
         }
         else if( winProgess > 3)
         {
-            isWin = true;
-            ui_Left.BreakPieces();
-            spinLog.gameObject.SetActive(false);
-            WinBox.SetUp().Show();
+            StartCoroutine(HandleWinCondition());
         }
+    }
+
+    IEnumerator HandleLoseCondition()
+    {
+        isWin = true;
+        Debug.LogError("Lose");
+        spinLog.ResetTween();
+        spinLog.gameObject.SetActive(false);
+        ui_Left.BreakPieces();
+        yield return new WaitForSeconds(1.1f);
+        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+    }
+    
+    IEnumerator HandleWinCondition()
+    {
+        isWin = true;
+        ui_Left.BreakPieces();
+        spinLog.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
+    }
+
+    public void PlayingKnifeHitWoodSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(knifeHitWoodSound);
+    }
+
+    public void PlayingKnifeHitKnifeSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(knifeHitKnifeSound);
     }
 }

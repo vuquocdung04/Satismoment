@@ -1,5 +1,5 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
+﻿using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public class NailInfo
 
     [HideInInspector] public Texture2D maskTexture;
     [HideInInspector] public Sprite runtimeMaskSprite;
-    [HideInInspector] public bool isComplete = false;
+    [HideInInspector] public bool isComplete;
     [HideInInspector] public int textureWidth;
     [HideInInspector] public int textureHeight;
     [HideInInspector] public float pixelsPerUnit = 220f; // Giá trị mặc định, có thể tùy chỉnh nếu cần
@@ -28,7 +28,7 @@ public class Level_29Ctrl : MonoBehaviour
     // THÊM MỚI HOẶC THAY ĐỔI CÁC BIẾN NÀY:
     private Vector3 initialNailBrushPosition; // Vị trí ban đầu của cọ
     private float nailBrushOperatingZ;      // Độ sâu Z khi cọ di chuyển
-    private bool isBrushDragging = false;   // Cờ báo hiệu đang kéo cọ
+    private bool isBrushDragging;   // Cờ báo hiệu đang kéo cọ
 
 
     public List<NailInfo> nails = new List<NailInfo>(); // Danh sách các móng tay
@@ -36,8 +36,8 @@ public class Level_29Ctrl : MonoBehaviour
     public int drawRadius = 20; // Giảm bán kính vẽ một chút so với code gốc là 10
     public Color drawColor = Color.white; // Màu dùng để vẽ (alpha = 1)
 
-    private bool allNailsComplete = false;
-    public bool isWin = false; // Có thể vẫn giữ biến này nếu logic game chung cần đến
+    private bool allNailsComplete;
+    public bool isWin; // Có thể vẫn giữ biến này nếu logic game chung cần đến
 
     void Start()
     {
@@ -254,11 +254,15 @@ public class Level_29Ctrl : MonoBehaviour
         allNailsComplete = true;
         isWin = true; // Đặt cờ chiến thắng chung
         nail.gameObject.SetActive(false);
-        Debug.Log("Tất cả các móng tay đã hoàn thành! CHIẾN THẮNG!");
-
-        WinBox.SetUp().Show();
-
+        StartCoroutine(HandleWinCondition());
     }
+
+    IEnumerator HandleWinCondition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
+    }
+    
 
     void OnDestroy()
     {

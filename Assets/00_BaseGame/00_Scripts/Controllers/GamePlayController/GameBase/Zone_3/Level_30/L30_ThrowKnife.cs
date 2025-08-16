@@ -1,18 +1,17 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class L30_ThrowKnife : MonoBehaviour
 {
+    public Level_30Ctrl levelCtrl;
     public float speedFly = 5f;
-    public bool isFly = false;
-    public bool isCollide = false;
+    public bool isFly ;
+    public bool isCollide;
     public BoxCollider2D knifeCollider2D;
     private void Update()
     {
         if (isFly) return;
-        transform.Translate(Vector3.up * speedFly * Time.deltaTime);
+        transform.Translate(Vector3.up * (speedFly * Time.deltaTime));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +24,8 @@ public class L30_ThrowKnife : MonoBehaviour
             transform.position = collision.ClosestPoint(transform.position);
             transform.SetParent(log.transform);
             log.IncreaseWinProgress();
-            
+            levelCtrl.PlayingKnifeHitWoodSound();
+
         }
         else
         {
@@ -38,9 +38,9 @@ public class L30_ThrowKnife : MonoBehaviour
             transform.DOMove(targetPos, 1f).SetEase(Ease.InQuad);
             transform.DORotate(new Vector3(0, 0, 720), 1f, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear);
-
+            levelCtrl.PlayingKnifeHitKnifeSound();
         }
-
+        levelCtrl.HandleStatusGame();
     }
 
 }

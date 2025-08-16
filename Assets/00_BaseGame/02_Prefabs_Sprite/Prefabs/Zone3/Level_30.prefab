@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7877881481238526859}
-  - component: {fileID: 7508461637499800749}
+  - component: {fileID: 5946414937538063980}
   m_Layer: 0
   m_Name: PointSpawn
   m_TagString: Untagged
@@ -169,7 +169,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7838078686837933277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7508461637499800749
+--- !u!212 &5946414937538063980
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,7 +215,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.585, y: 1.66}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1574,11 +1574,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f03f44dcbfea145b9260151deec653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knifeHitWoodSound: {fileID: 8300000, guid: a96d8f610f8e05f40b9476a02e7aa2c0, type: 3}
+  knifeHitKnifeSound: {fileID: 8300000, guid: 5212a0560995ad04688366d22edea09e, type: 3}
   winProgess: 0
   isWin: 0
   ui_Left: {fileID: 4066361143803540204}
   spinLog: {fileID: 5840698035914509297}
-  knifePrefabs: {fileID: 5274212332068097163, guid: f95ebd3f2a1f7bb42ba9710acc82667c, type: 3}
+  knifePrefabs: {fileID: 5548533954241484578, guid: f95ebd3f2a1f7bb42ba9710acc82667c, type: 3}
   pointSpawnKnife: {fileID: 7877881481238526859}
 --- !u!1 &7752904197976515905
 GameObject:
