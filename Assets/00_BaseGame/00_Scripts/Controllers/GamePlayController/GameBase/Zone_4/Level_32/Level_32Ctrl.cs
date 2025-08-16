@@ -1,9 +1,11 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_32Ctrl : MonoBehaviour
 {
+    public AudioClip rotateCardSound;
     L32_PiceCard pieceCard;
     Vector3 mousePos;
     public List<L32_PiceCard> lsCards;
@@ -19,7 +21,7 @@ public class Level_32Ctrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Camera.main != null) mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
 
         if (Input.GetMouseButtonDown(0))
@@ -29,20 +31,23 @@ public class Level_32Ctrl : MonoBehaviour
             pieceCard = hit.collider.GetComponent<L32_PiceCard>();
 
             if (pieceCard == null) return;
-            pieceCard.DoRotatingCard();
+            pieceCard.DoRotatingCard(delegate
+            {
+                GameController.Instance.musicManager.PlaySingle(rotateCardSound);
+                if (CheckWin())
+                {
+                    StartCoroutine(HandleWinCondition());
+                }
+            });
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             pieceCard = null;
-            if (HandleWinCodition())
-            {
-                WinBox.SetUp().Show();
-            }
         }
     }
 
-    bool HandleWinCodition()
+    private bool CheckWin()
     {
         foreach(var card in this.lsCards)
         {
@@ -52,5 +57,11 @@ public class Level_32Ctrl : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private IEnumerator HandleWinCondition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
     }
 }

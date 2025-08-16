@@ -6,27 +6,29 @@ public class L32_PiceCard : MonoBehaviour
 {
     public bool isComplete;
     public int angle = 90;
-    private bool isClick = false;
+    private bool isClick;
 
-    public void DoRotatingCard()
+    public void DoRotatingCard(System.Action callback = null)
     {
         if (isComplete || isClick) return;
-        StartCoroutine(RotateCard());
+        StartCoroutine(RotateCard(callback));
     }
 
-    IEnumerator RotateCard()
+    IEnumerator RotateCard(System.Action callback = null)
     {
         isClick = true;
         float targetZ = transform.eulerAngles.z + angle;
-        transform.DORotate(new Vector3(0, 0, targetZ), 0.3f, RotateMode.Fast);
-
-        yield return new WaitForSeconds(0.31f);
-        if(transform.eulerAngles.z < 0.5f && transform.eulerAngles.z > - 0.5f)
+        var cardRotate = transform.DORotate(new Vector3(0, 0, targetZ), 0.3f);
+        // Normalize targetZ về khoảng [0, 360) để so sánh
+        float normalizedTargetZ = targetZ % 360f;
+        if (normalizedTargetZ < 0) normalizedTargetZ += 360f;
+    
+        if(normalizedTargetZ < 0.5f || normalizedTargetZ > 359.5f)
         {
             isComplete = true;
+            callback?.Invoke();
         }
-
-        yield return new WaitForSeconds(0.3f);
+        yield return cardRotate.WaitForCompletion();
         isClick = false;
     }
 }

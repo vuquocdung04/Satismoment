@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using System.Linq;
 using DG.Tweening; // Cần thêm để sử dụng OrderBy/Sort
 
@@ -12,8 +11,8 @@ public class Level_31Ctrl : Singleton<Level_31Ctrl>
         base.OnAwake();
         m_DontDestroyOnLoad = false;
     }
-    public bool isWin = false;
-    public int progressWin = 0;
+    public bool isWin;
+    public int progressWin;
     public Transform starPrefab;
     public Transform progressBar;
     public float spacingX = 0.35f;
@@ -76,6 +75,7 @@ public class Level_31Ctrl : Singleton<Level_31Ctrl>
 
         if (blocksToDestroy.Count > 1)
         {
+            GameController.Instance.musicManager.PlayPickItemSound();
             DestroyBlocks(blocksToDestroy);
         }
     }
@@ -149,11 +149,16 @@ public class Level_31Ctrl : Singleton<Level_31Ctrl>
             {
                 isWin = true;
                 targetX = 0;
+                var progressMove = progressBar.DOMoveX(targetX,0.75f).SetEase(Ease.Linear);
+                yield return progressMove.WaitForCompletion();
+                yield return new WaitForSeconds(0.5f);
                 foreach (var block in this.lsBlocks) DestroyWithAnimation(block);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 WinBox.SetUp().Show();
             }
-            progressBar.DOMoveX(targetX, 0.75f).SetEase(Ease.OutQuad);
+
+            if (targetX > 0)
+                progressBar.DOMoveX(targetX, 0.75f).SetEase(Ease.OutQuad);
         }
 
         //
