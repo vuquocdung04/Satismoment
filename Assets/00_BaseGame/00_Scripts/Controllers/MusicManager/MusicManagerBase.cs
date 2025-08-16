@@ -20,8 +20,8 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         public AudioClip startLevel;
         [Header("Sound GamePlay"), Space(5)]
         public AudioClip pickItem;
-        public AudioClip placeItem;
-
+        public AudioClip placeItemTrue;
+        public AudioClip placeItemFalse;
         public void Init()
         {
             musicSource.volume = GameController.Instance.useProfile.OnMusic ? 0.5f : 0;
@@ -62,11 +62,16 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(pickItem);
         }
 
-        public void PlayPlaceItemSound()
+        public void PlayPlaceItemSoundTrue()
         {
-            PlaySingle(placeItem);
+            PlaySingle(placeItemTrue);
         }
 
+        public void PlayPlaceItemSoundFalse()
+        {
+            PlaySingle(placeItemFalse);
+        }
+        
         public void PlayThumbsUpSound()
         {
             PlaySingle(thumbsUpSound);

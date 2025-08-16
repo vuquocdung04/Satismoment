@@ -1,18 +1,19 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_34Ctrl : BaseDragController<L34_Lid>
 {
+    public AudioClip pickLidSound;
+    public AudioClip placeLidSound;
     public float swapDistance = 0.2f;
     public List<L34_Lid> lsLids;
     public List<Vector2> lsPosWins;
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlaySingle(pickLidSound);
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -36,6 +37,7 @@ public class Level_34Ctrl : BaseDragController<L34_Lid>
             if(distance < swapDistance)
             {
                 closesLidToSwapWith = otherLid;
+                GameController.Instance.musicManager.PlaySingle(placeLidSound);
             }
         }
 
@@ -69,7 +71,7 @@ public class Level_34Ctrl : BaseDragController<L34_Lid>
 
     bool CheckWin()
     {
-        float distance = 0;
+        float distance;
         for (int i = 0; i < lsLids.Count; i++)
         {
             distance = Vector2.Distance(lsLids[i].posDefault, lsPosWins[i]);

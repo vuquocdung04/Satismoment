@@ -1,13 +1,11 @@
 ﻿using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_35Ctrl : MonoBehaviour
 {
-    public int winProgress = 0;
-    public bool isWin = false;
+    public int winProgress;
+    public bool isWin;
     public Transform prefabCandySugar;
     public Transform curCandySugar;
     L35_pieceCandy curCandy;
@@ -39,6 +37,7 @@ public class Level_35Ctrl : MonoBehaviour
             {
                 winProgress++;
                 Explode(0.5f,0.5f);
+                GameController.Instance.musicManager.PlayPickItemSound();
             }
             else
             {

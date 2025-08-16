@@ -28,7 +28,7 @@ public class Level_18Ctrl : BaseDragController<L18_Piece>
         {
             draggableComponent.transform.position = draggableComponent.trans.position;
             draggableComponent._collider.enabled = false;
-            GameController.Instance.musicManager.PlayPlaceItemSound();
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
             HandleWin();
         }
         else

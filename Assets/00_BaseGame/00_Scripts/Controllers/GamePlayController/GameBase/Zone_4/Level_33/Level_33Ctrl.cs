@@ -6,7 +6,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 public class Level_33Ctrl : BaseDragController<L33_Item>
 {
-    public int winProgress = 0;
+    public AudioClip closeValiSound;
+    public int winProgress;
     public Sprite spriteValiWin;
     public SpriteRenderer srVali;
     public Transform hand;
@@ -14,7 +15,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -26,6 +27,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
         float distance = Vector2.Distance(draggableComponent.transform.position, draggableComponent.targetPosition);
         if (distance < 0.2f && distance > -0.2f)
         {
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
             draggableComponent.transform.position = draggableComponent.targetPosition;
             draggableComponent.colli.enabled = false;
             winProgress++;
@@ -33,7 +35,10 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
             {
                 StartCoroutine(HandleWinCodition());
             }
-
+        }
+        else
+        {
+            GameController.Instance.musicManager.PlayPlaceItemSoundFalse();
         }
     }
 
@@ -42,6 +47,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
         isWin = true;
         yield return new WaitForSeconds(0.1f);
         srVali.sprite = spriteValiWin;
+        GameController.Instance.musicManager.PlaySingle(closeValiSound);
         foreach (var item in this.lsItems)
         {
             Destroy(item.gameObject);

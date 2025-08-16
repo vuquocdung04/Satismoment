@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  pickLidSound: {fileID: 8300000, guid: 199ca2e3347023e449765769f7e1d34a, type: 3}
+  placeLidSound: {fileID: 8300000, guid: a8266463d3940894b9cc4f56ac0cf612, type: 3}
   swapDistance: 0.5
   lsLids:
   - {fileID: 8673335999570720595}
