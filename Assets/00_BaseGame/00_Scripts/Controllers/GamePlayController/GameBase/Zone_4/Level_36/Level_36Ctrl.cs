@@ -1,13 +1,12 @@
 ﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_36Ctrl : MonoBehaviour
 {
+    public AudioClip popitSound;
     public Transform popIt;
-    public int winProgress = 0;
-    public bool isWin = false;
+    public int winProgress;
+    public bool isWin;
     Vector3 posMouse;
     private void Update()
     {
@@ -23,6 +22,7 @@ public class Level_36Ctrl : MonoBehaviour
             if (hit.collider == null) return;
             hit.collider.gameObject.SetActive(false);
             winProgress++;
+            GameController.Instance.musicManager.PlaySingle(popitSound);
             PlayPopAnimation();
         }
         if (Input.GetMouseButtonUp(0))

@@ -19,6 +19,8 @@ public class Level_37Ctrl : MonoBehaviour
 
     public float spacingX;
     public float spacingY;
+
+    public int indexSpriteDefault = 2;
     [Space(10)]
     public List<L37_Card> lsCardPrefabs;
     [Header("Card Matrix")]
@@ -56,7 +58,6 @@ public class Level_37Ctrl : MonoBehaviour
             {
                 selectedCard1 = curSelectedCard;
                 selectedCard1.DoFlipingCard();
-                return;
             }
             else
             {
@@ -67,6 +68,7 @@ public class Level_37Ctrl : MonoBehaviour
                     StartCoroutine(HandleCheckMardMatch(selectedCard1, selectedCard2));
                 }
             }
+            GameController.Instance.musicManager.PlayPickItemSound();
         }
     }
     
@@ -76,8 +78,10 @@ public class Level_37Ctrl : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         if(IsCardDuplicate(cardA, cardB))
         {
-            cardA.DoFlyingAfterDuplicate();
-            cardB.DoFlyingAfterDuplicate();
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            indexSpriteDefault++;
+            cardA.DoFlyingAfterDuplicate(indexSpriteDefault);
+            cardB.DoFlyingAfterDuplicate(indexSpriteDefault);
             selectedCard1 = null;
             selectedCard2 = null;
             curSelectedCard = null;

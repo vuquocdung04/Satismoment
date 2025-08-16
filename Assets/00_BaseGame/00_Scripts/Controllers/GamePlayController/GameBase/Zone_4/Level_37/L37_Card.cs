@@ -29,9 +29,9 @@ public class L37_Card : MonoBehaviour
         });
     }
 
-    public void DoFlyingAfterDuplicate()
+    public void DoFlyingAfterDuplicate( int indexSpriteDefault)
     {
         transform.DOMove(new Vector2(2,-4.2f),0.4f).SetEase(Ease.Linear);
-        spriteRenderer.sortingOrder += 1;
+        spriteRenderer.sortingOrder = indexSpriteDefault;
     }
 }
