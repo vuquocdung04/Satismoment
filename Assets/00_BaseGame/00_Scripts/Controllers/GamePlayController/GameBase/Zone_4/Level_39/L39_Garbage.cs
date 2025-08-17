@@ -10,7 +10,6 @@ public class L39_Garbage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         levelCtrl.isWin = true;
-        Debug.LogError(collision.name);
         var paper = collision.transform;
         paper.DOKill();
         // Tạo hiệu ứng lăn về điểm (0,0)

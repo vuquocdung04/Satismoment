@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
@@ -7,6 +6,7 @@ using Sirenix.OdinInspector;
 
 public class Level_25Ctrl : BaseDragController<Transform>
 {
+    public AudioClip pullWindowBlindSound;
     public Transform pullCore;
     public Transform windowBlind;
     public Vector2 posPullCoreStart;
@@ -17,7 +17,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
     float t;
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlaySingle(pullWindowBlindSound, true);
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -41,7 +41,7 @@ public class Level_25Ctrl : BaseDragController<Transform>
 
     protected override void OnDragEnded()
     {
-
+        GameController.Instance.musicManager.PauseSound();
     }
 
 

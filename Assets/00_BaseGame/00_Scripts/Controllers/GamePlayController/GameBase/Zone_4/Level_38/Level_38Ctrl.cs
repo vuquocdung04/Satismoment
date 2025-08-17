@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class Level_38Ctrl : BaseDragController<L38_Car>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public List<L38_Car> lsCars;
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -24,6 +24,7 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
         if (IsInCorrectPosition())
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
             draggableComponent.colli.enabled = false;
         }
         else
@@ -49,10 +50,17 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
         if (winProgress == lsCars.Count)
         {
             isWin = true;
-            WinBox.SetUp().Show();
+            StartCoroutine(HandleWinCondition());
         }
     }
 
+    IEnumerator HandleWinCondition()
+    {
+        yield return new WaitForSeconds(0.5f);
+        WinBox.SetUp().Show();
+
+    }
+    
 
     [Button("setup", ButtonSizes.Large)]
     void Setup()
