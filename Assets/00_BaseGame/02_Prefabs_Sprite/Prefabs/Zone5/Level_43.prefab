@@ -1311,6 +1311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  rotateSound: {fileID: 8300000, guid: d37c5571b849957499d00cfdb06b6615, type: 3}
+  waterSound: {fileID: 8300000, guid: 75f3e25b894cd39438a944fb77acf8a1, type: 3}
   mask: {fileID: 4045384003303056410}
   waterPipe: {fileID: 3938039895086475293}
   waterValve: {fileID: 7157368141117808225}

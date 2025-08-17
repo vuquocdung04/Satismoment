@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Level_43Ctrl : BaseDragController<L43_pipe>
 {
+    public AudioClip rotateSound;
+    public AudioClip waterSound;
     public Transform mask;
     public Transform waterPipe;
     public Transform waterValve;
@@ -23,6 +25,7 @@ public class Level_43Ctrl : BaseDragController<L43_pipe>
     protected override void OnDragStarted()
     {
         draggableComponent.DoRotating();
+        GameController.Instance.musicManager.PlaySingle(rotateSound);
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -52,9 +55,10 @@ public class Level_43Ctrl : BaseDragController<L43_pipe>
     IEnumerator HandleWinCodition()
     {
         isWin = true;
-        waterValve.DORotate(new Vector3(0, 0, 180), 1f, RotateMode.Fast);
+        waterValve.DORotate(new Vector3(0, 0, 180), 1f);
         yield return new WaitForSeconds(0.4f);
         waterPipe.DOLocalMoveY(1f, 1f);
+        GameController.Instance.musicManager.PlaySingle(waterSound);
         yield return new WaitForSeconds(0.6f);
         mask.DOLocalMoveY(1.36f, 1f);
         yield return new WaitForSeconds(0.5f);

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class Level_41Ctrl : BaseDragController<L41_Screw>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {

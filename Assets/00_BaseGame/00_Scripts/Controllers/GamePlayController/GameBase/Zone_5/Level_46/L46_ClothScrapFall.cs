@@ -6,9 +6,6 @@ public class L46_ClothScrapFall : MonoBehaviour
     public bool isClear;
     public float fallDuration = 2f;         // thời gian rơi
     public float rotateAngle = 180f;        // góc xoay khi rơi
-    public float horizontalShake = 0.5f;    // dao động ngang
-
-
     public void PlayFallAnimation()
     {
         // Rơi xuống

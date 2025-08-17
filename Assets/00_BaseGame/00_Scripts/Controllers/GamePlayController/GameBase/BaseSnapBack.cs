@@ -8,7 +8,7 @@ public abstract class BaseSnapBack : LoadAutoComponents
 {
     [Title("Cài đặt hiển thị")]
     [SerializeField]
-    private bool showTransform = false;
+    private bool showTransform;
     [ShowIf("showTransform")]
     public Transform pointCorrect;
     [Header("Snap back Base")]

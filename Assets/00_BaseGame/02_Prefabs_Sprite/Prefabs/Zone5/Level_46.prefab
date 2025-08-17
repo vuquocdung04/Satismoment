@@ -48,7 +48,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &5905341602942010557
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -233,7 +232,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &6819546703885051131
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -334,7 +332,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &5950065586723668842
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -435,7 +432,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &9048088758132487154
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -536,7 +532,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &838961621602959705
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -646,6 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  cutSound: {fileID: 8300000, guid: 5abb7e20fa4f78b4484dd9c16745cb53, type: 3}
   winProgress: 0
   lsClothScraps:
   - {fileID: 4283102963817078496}
@@ -886,7 +882,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &3336084891292962209
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1071,7 +1066,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &284564811732686905
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1256,7 +1250,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &2796124497376218781
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1357,7 +1350,6 @@ MonoBehaviour:
   isClear: 0
   fallDuration: 2
   rotateAngle: 180
-  horizontalShake: 0.5
 --- !u!212 &7046359501901994981
 SpriteRenderer:
   m_ObjectHideFlags: 0

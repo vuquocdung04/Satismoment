@@ -1,22 +1,22 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class L45_Cup : MonoBehaviour
 {
     [Title("Setting Show")]
     [SerializeField]
-    private bool showBall = false;
+    private bool showBall;
     [ShowIf("showBall")]
     public Transform ball;
     public Vector2 pos;
-    public void DoOpeningCup()
+    public void DoOpeningCup(System.Action callback = null)
     {
         if(showBall) ball.SetParent(null);
         transform.DOMoveY(this.transform.position.y + 0.5f, 0.5f).OnComplete(delegate
         {
+            callback?.Invoke();
             StartCoroutine(OpenBall());
         });
     }

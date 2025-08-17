@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -10,7 +8,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
     protected override void OnDragEnded()
     {
         CheckDistanceDraggedComponent();
-        HandleWinCodition();
+        StartCoroutine(HandleWinCodition());
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -20,6 +18,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
 
     protected override void OnDragStarted()
     {
+        GameController.Instance.musicManager.PlayPickItemSound();
         draggableComponent.RotateToZero();
 
     }
@@ -29,6 +28,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
         if(draggableComponent.GetDistance() < 0.3f)
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
             draggableComponent.transform.position = draggableComponent.pointCorrect.localPosition;
             draggableComponent._collider.enabled = false;
             draggableComponent.transform.DOShakePosition(0.5f, 0.1f, vibrato: 10, randomness: 90, snapping: false, fadeOut: true);
@@ -40,10 +40,11 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
         }
     }
 
-    void HandleWinCodition()
+    System.Collections.IEnumerator HandleWinCodition()
     {
         if(winProgress > 3)
         {
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }

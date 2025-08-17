@@ -6,8 +6,9 @@ using DG.Tweening;
 
 public class Level_45Ctrl : MonoBehaviour
 {
-    public bool isWin = false;
-    public bool isPlay = false;
+    public AudioClip tryAgainSound;
+    public bool isWin;
+    public bool isPlay;
     public int amountSwap = 5;
     public int amountCupWithLevel = 3;
 
@@ -33,6 +34,7 @@ public class Level_45Ctrl : MonoBehaviour
             curCup = hit.collider.GetComponent<L45_Cup>();
             if (curCup == null) return;
             curCup.DoOpeningCup();
+            GameController.Instance.musicManager.PlayPickItemSound();
             if(curCup == lsCups[0])
             {
                 if (amountCupWithLevel < 5)
@@ -41,13 +43,12 @@ public class Level_45Ctrl : MonoBehaviour
                 {
                     isWin = true;
                     isPlay = false;
-                    WinBox.SetUp().Show();
+                    StartCoroutine(HandleWinCondition());
                 }
             }
             else
             {
                 StartCoroutine(HandleFailCup());
-
             }
         }
     }
@@ -55,14 +56,24 @@ public class Level_45Ctrl : MonoBehaviour
     IEnumerator HandleFailCup()
     {
         isPlay = true;
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.2f);
+        GameController.Instance.musicManager.PlaySingle(tryAgainSound);
+        yield return new WaitForSeconds(0.9f);
         SwapCup();
 
     }
 
+    IEnumerator HandleWinCondition()
+    {
+        yield return new WaitForSeconds(1f);
+        WinBox.SetUp().Show();
+    }
+    
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.2f);
+        GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+        yield return new WaitForSeconds(0.9f);
         amountCupWithLevel++;
         switch (amountCupWithLevel)
         {

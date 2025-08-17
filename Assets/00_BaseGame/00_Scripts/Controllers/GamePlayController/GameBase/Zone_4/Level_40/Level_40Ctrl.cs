@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Level_40Ctrl : MonoBehaviour
 {
-    public bool isWin = false;
+    public bool isWin;
     public Transform prefab;
     public Transform mask;
     public float speedMask = 0.2f;
@@ -14,12 +14,14 @@ public class Level_40Ctrl : MonoBehaviour
     public List<Transform> lsFruice;
     public List<L40_Item> lsItems;
     public List<Sprite> lsRabbit;
-    public int i = 0;
-    public int j = 0;
+    public int i;
+    public int j;
     private void Update()
     {
+        if(isWin) return;
         if (Input.GetMouseButtonDown(0))
         {
+            GameController.Instance.musicManager.PlayPickItemSound();
             if(j < 2)
             {
                 lsItems[i].DoFalling();
@@ -62,6 +64,7 @@ public class Level_40Ctrl : MonoBehaviour
 
     IEnumerator HandleWinCodition()
     {
+        isWin = true;
         var waitTime = new WaitForSeconds(0.3f);
         int i = 0;
         while(i < lsFruice.Count)

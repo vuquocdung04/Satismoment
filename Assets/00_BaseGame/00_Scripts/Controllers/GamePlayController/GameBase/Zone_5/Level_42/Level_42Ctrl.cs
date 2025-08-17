@@ -1,17 +1,16 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_42Ctrl : BaseDragController<L42_item>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public List<L42_item> lsItems;
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -30,6 +29,7 @@ public class Level_42Ctrl : BaseDragController<L42_item>
 
         if(distance < 0.2f)
         {
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
             winProgress++;
             draggableComponent.transform.position = draggableComponent.positionCorrect;
             draggableComponent._collider.enabled = false;

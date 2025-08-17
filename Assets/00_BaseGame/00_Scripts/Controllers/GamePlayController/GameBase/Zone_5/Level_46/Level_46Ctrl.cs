@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Level_46Ctrl : BaseDragController<L46_Scissors>
 {
+    public AudioClip cutSound;
     public int winProgress;
     public List<L46_ClothScrapFall> lsClothScraps;
     protected override void OnDragEnded()
     {
         draggableComponent.DoAnimation();
+        GameController.Instance.musicManager.PlaySingle(cutSound);
         foreach(var cloth in this.lsClothScraps)
         {
             if (cloth.isClear) continue;
@@ -26,7 +28,7 @@ public class Level_46Ctrl : BaseDragController<L46_Scissors>
             }
         }
 
-        HandleWinCodition();
+        StartCoroutine(HandleWinCodition());
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -36,14 +38,15 @@ public class Level_46Ctrl : BaseDragController<L46_Scissors>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
-    void HandleWinCodition()
+    IEnumerator HandleWinCodition()
     {
         if(winProgress == lsClothScraps.Count)
         {
             isWin=  true;
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }
