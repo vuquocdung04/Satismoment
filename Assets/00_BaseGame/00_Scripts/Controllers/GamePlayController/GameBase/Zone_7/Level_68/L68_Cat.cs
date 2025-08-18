@@ -121,5 +121,9 @@ public class L68_Cat : MonoBehaviour
     private void OnDestroy()
     {
         StopCatLogic();
+    
+        // Thêm dòng này để chắc chắn kill tất cả DOTween của transform này
+        transform.DOKill();
     }
+
 }

@@ -1,6 +1,6 @@
-﻿using DG.Tweening;
+﻿
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_68Ctrl : MonoBehaviour
@@ -46,6 +46,7 @@ public class Level_68Ctrl : MonoBehaviour
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public IEnumerator HandleLoseGame()
     {
         // Dừng DOTween di chuyển map
@@ -53,9 +54,8 @@ public class Level_68Ctrl : MonoBehaviour
         {
             moveMap.Kill(); // hoặc moveMap.Pause();
         }
-
         mouse.StopRunningAnimation();
-
+        timingBar.DOKill();
         yield return new WaitForSeconds(0.5f);
 
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
@@ -66,4 +66,5 @@ public class Level_68Ctrl : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         WinBox.SetUp().Show();
     }
+    
 }

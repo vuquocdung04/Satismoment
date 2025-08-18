@@ -42,6 +42,7 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
             isWin = true;
             yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
+            
         }
     }
 
