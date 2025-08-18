@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 884164784649532186}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.48, y: -0.972, z: 0}
+  m_LocalPosition: {x: 1.82, y: -1.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,6 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24191438080a056498b5afd6e528c51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stages:
+  - stainTransform: {fileID: 8991348546426293498}
+    targetSpriteRenderer: {fileID: 2296822422945904852}
+    spriteMask: {fileID: 1029623547851252947}
+  - stainTransform: {fileID: 231010455660534774}
+    targetSpriteRenderer: {fileID: 815945498999204049}
+    spriteMask: {fileID: 1029623547851252947}
+  drawRadius: 100
+  drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &5267023289644974166
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,7 +139,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.16959426, y: -0.23359206}
   serializedVersion: 2
   m_Radius: 0.39166668
 --- !u!1 &4643514393648879317
@@ -351,17 +360,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
-  board: {fileID: 3029413369052942131}
-  winProgress: 0
-  textureWidth: 1020
-  textureHeight: 720
-  pixelsPerUnit: 300
-  brushRadius: 100
-  brushColor: {r: 1, g: 1, b: 1, a: 0}
-  lsFaceBoards:
-  - {fileID: 8991348546426293498}
-  - {fileID: 231010455660534774}
-  spriteMask: {fileID: 1029623547851252947}
+  eraserBoardSound: {fileID: 8300000, guid: f3fa9c8f6ed5d9c479c2cd9de514c2bc, type: 3}
+  cleanCount: 0
 --- !u!1 &7772847677217257560
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 231010455660534774}
   - component: {fileID: 815945498999204049}
   - component: {fileID: 1281628254380177535}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Face_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 2
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &1281628254380177535
 BoxCollider2D:
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 8991348546426293498}
   - component: {fileID: 2296822422945904852}
   - component: {fileID: 6210257953231553431}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Face_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!61 &6210257953231553431
 BoxCollider2D:
