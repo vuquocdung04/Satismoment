@@ -1,11 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
-
 public enum L50_ItemType
 {
     Treasure_Chest,
@@ -20,7 +14,7 @@ public class L50_Item : MonoBehaviour
     public Tween currentLineMovement;
 
     float distance;
-    private bool facingRight = false;
+    private bool facingRight;
     private Vector3 startPos;
     private void Start()
     {
@@ -58,8 +52,8 @@ public class L50_Item : MonoBehaviour
 
     public void StopMovement()
     {
-        if(currentLineMovement != null && currentLineMovement.IsActive())
-        currentLineMovement.Kill();
+        if (currentLineMovement != null && currentLineMovement.IsActive())
+            currentLineMovement.Kill();
     }
 
     void OnDestroy()

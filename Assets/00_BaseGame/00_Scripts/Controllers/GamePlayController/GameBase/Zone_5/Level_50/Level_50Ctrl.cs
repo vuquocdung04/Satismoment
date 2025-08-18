@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level_50Ctrl : MonoBehaviour
@@ -40,17 +38,23 @@ public class Level_50Ctrl : MonoBehaviour
         Tween upTween = fishingLine.DOLocalMoveY(3f,1f);
         yield return upTween.WaitForCompletion();
 
-        if (hook.item.itemType != L50_ItemType.Treasure_Chest)
+        if (hook.item != null)
         {
-            Destroy(hook.item?.gameObject);
-            hook._collider.enabled = true;
-            fishingRod.rotationEnabled = true;
-            isClick = true;
+            if (hook.item.itemType != L50_ItemType.Treasure_Chest)
+            {
+                if (hook.item != null)
+                {
+                    Destroy(hook.item.gameObject);
+                }
+            }
+            else
+            {
+                StartCoroutine(HandleWinCodition());
+            }
         }
-        else
-        {
-            StartCoroutine(HandleWinCodition());
-        }
+        hook._collider.enabled = true;
+        fishingRod.rotationEnabled = true;
+        isClick = true;
     }
 
 
