@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
@@ -7,6 +6,7 @@ using UnityEngine;
 
 public class Level_55Ctrl : BaseDragController<L55_Item>
 {
+    
     public int winProgress;
     public L55_Item itemPrefab;
     public List<L55_Btn> lsBtns;
@@ -40,6 +40,7 @@ public class Level_55Ctrl : BaseDragController<L55_Item>
     {
         currentItem = draggableComponent;
         StartCoroutine(HandleAnim());
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -57,16 +58,11 @@ public class Level_55Ctrl : BaseDragController<L55_Item>
         var itemClone = currentItem;
         Tween moveTween = currentItem.transform.DOMove(GetPosBtnById(draggableComponent.idItem).GetWorldPosition(), 0.5f);
         yield return moveTween.WaitForCompletion();
-
+        itemClone.gameObject.SetActive(false);
         var image = GetPosBtnById(itemClone.idItem).progress;
-        Tween fillTween = DOVirtual.Float(
-            image.fillAmount,
-            1,
-            0.5f,
-            value => image.fillAmount = value
-        );
-        GetPosBtnById(itemClone.idItem).gameObject.SetActive( false );
+        Tween fillTween = image.DOFillAmount(1, 0.5f);
         yield return fillTween.WaitForCompletion();
+        GetPosBtnById(itemClone.idItem).gameObject.SetActive( false );
         winProgress++;
         if(winProgress == lsBtns.Count)
         {

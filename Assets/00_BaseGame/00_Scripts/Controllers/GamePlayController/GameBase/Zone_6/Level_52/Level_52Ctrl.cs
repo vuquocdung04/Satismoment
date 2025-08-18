@@ -24,6 +24,7 @@ public class Level_52Ctrl : BaseDragController<L52_Picture>
 
     protected override void OnDragStarted()
     {
+        GameController.Instance.musicManager.PlayPickItemSound();
         int closestPointIndex = 0;
         Vector2 pos = draggableComponent.lsCollider[0].offset + (Vector2)draggableComponent.transform.position;
         float minDistance = Vector2.Distance(pos, mouseWorldPos);

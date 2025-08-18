@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -49,19 +48,19 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
         switch (draggableComponent.type)
         {
             case TurntablePartType.vinylDisc:
-                if(!draggableComponent.isMovevinylDisc)
-                draggableComponent.transform.position += mouseDelta;
+                if (!draggableComponent.isMovevinylDisc)
+                    draggableComponent.transform.position += mouseDelta;
                 break;
             case TurntablePartType.turntableArm:
-                if(vinylDiscClone.isMovevinylDisc)
-                draggableComponent.transform.Rotate(0, 0, -mouseDelta.y * 15f);
+                if (vinylDiscClone.isMovevinylDisc)
+                    draggableComponent.transform.Rotate(0, 0, -mouseDelta.y * 15f);
                 break;
         }
     }
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     IEnumerator HandleWinCodition()

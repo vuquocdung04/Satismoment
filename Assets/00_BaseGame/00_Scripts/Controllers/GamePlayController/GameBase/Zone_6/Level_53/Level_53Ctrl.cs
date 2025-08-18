@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Level_53Ctrl : BaseDragController<L53_Wiper>
 {
-    public int winProgress = 0;
+    public AudioClip hitSound;
+    public int winProgress;
     public L53_HookRod hookRod;
     public float tiltSmoothTime = 0.2f;
 
@@ -24,7 +25,7 @@ public class Level_53Ctrl : BaseDragController<L53_Wiper>
         }
     }
 
-    float countTime = 0;
+    float countTime;
     Vector3 wiperPos;
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -60,7 +61,7 @@ public class Level_53Ctrl : BaseDragController<L53_Wiper>
     float hookRodSpeed;
     Vector3 hookPos;
     float newAngle;
-    private bool isLimitReached = false;
+    private bool isLimitReached;
     void MoveHookRod()
     {
         hookRodSpeed = draggableComponent.transform.position.x - draggableComponent.posDefault.x;

@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
@@ -63,6 +62,7 @@ public class Level_58Ctrl : BaseDragController<L58_Pencil>
     protected override void OnDragStarted()
     {
         draggableComponent.RotateToZero();
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
     private void CheckCorrectOrder()
     {
@@ -95,7 +95,7 @@ public class Level_58Ctrl : BaseDragController<L58_Pencil>
     IEnumerator HandleWinCodition()
     {
         isWin = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         WinBox.SetUp().Show();
     }
 }

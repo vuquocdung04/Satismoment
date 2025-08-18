@@ -1,12 +1,11 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Level_56Ctrl : BaseDragController<L56_ShakerCup>
 {
+    public AudioClip shakeSound;
     public int winProgress;
     public Transform maskTiming;
     public Transform maskMartini;
@@ -33,12 +32,15 @@ public class Level_56Ctrl : BaseDragController<L56_ShakerCup>
     void DoCupShaking()
     {
         cup = draggableComponent;
-
+        GameController.Instance.musicManager.PlaySingle(shakeSound);
         winProgress++;
         maskTiming.transform.DOMoveX(winProgress / 2f, 0.6f);
         cup.transform.DORotate(new Vector3(0, 0, -10f), 0.3f).OnComplete(delegate
         {
-            cup.transform.DORotate(new Vector3(0, 0, 10f), 0.3f);
+            cup.transform.DORotate(new Vector3(0, 0, 10f), 0.3f).OnComplete(delegate
+            {
+                GameController.Instance.musicManager.PauseSound();
+            });
         });
     }
     IEnumerator HandleWinCodition()
@@ -51,7 +53,7 @@ public class Level_56Ctrl : BaseDragController<L56_ShakerCup>
             Tween cupMove = cup.transform.DOMove(new Vector2(-0.33f, 0.6f),0.4f);
             yield return cupMove.WaitForCompletion();
             Tween cupRotate = cup.transform.DORotate(new Vector3(0,0,-60f),0.4f);
-            yield return cupMove.WaitForCompletion();
+            yield return cupRotate.WaitForCompletion();
             Tween maskMove = maskMartini.DOMoveY(1.3f,1f);
             yield return maskMove.WaitForCompletion();
             hand.DOMove(new Vector2(2.18f, -0.05f),1f);

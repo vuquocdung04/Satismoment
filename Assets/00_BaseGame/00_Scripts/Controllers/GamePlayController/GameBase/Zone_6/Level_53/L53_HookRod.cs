@@ -6,14 +6,14 @@ using UnityEngine;
 public class L53_HookRod : MonoBehaviour
 {
     public Level_53Ctrl levelCtrl;
-    public bool isPullReady = false;
+    public bool isPullReady;
     public float minXPosition;
     public float maxXPosition;
 
     public Transform hookLeft;
     public Transform hookRight;
     public List<Vector3> lsAngle;
-    private bool isCollided = false;
+    private bool isCollided;
 
     private Transform currentToy;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,6 +21,7 @@ public class L53_HookRod : MonoBehaviour
         currentToy = collision.GetComponent<Transform>();
         currentToy.SetParent(transform);
         currentToy.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        GameController.Instance.musicManager.PlaySingle(levelCtrl.hitSound);
         isCollided = true;
     }
 

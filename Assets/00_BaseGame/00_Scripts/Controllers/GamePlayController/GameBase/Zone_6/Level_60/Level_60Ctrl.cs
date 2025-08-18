@@ -1,6 +1,5 @@
-using Sirenix.OdinInspector;
+
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -15,9 +14,11 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
             draggableComponent.transform.position = draggableComponent.posCorrect;
             draggableComponent._collider2d.enabled = false;
             winProgress++;
+            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
         }
         else
         {
+            GameController.Instance.musicManager.PlayPlaceItemSoundFalse();
             draggableComponent.DoMovingDefaultPos();
         }
 
@@ -31,7 +32,7 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     IEnumerator HandleWinCodition()
@@ -39,7 +40,7 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
         if(winProgress == 7)
         {
             isWin = true;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }

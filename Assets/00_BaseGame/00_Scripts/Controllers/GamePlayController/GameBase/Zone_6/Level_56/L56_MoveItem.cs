@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class L56_MoveItem : BaseDragController<L56_Item>
     public Sprite iconCup;
     public Transform mask;
     private L56_Item curItem;
-    private int winProgress = 0;
+    private int winProgress;
     protected override void OnDragEnded()
     {
         if (curItem._collider.IsTouching(shakerCup._collider1))
@@ -46,6 +45,7 @@ public class L56_MoveItem : BaseDragController<L56_Item>
     protected override void OnDragStarted()
     {
         curItem = draggableComponent;
+        GameController.Instance.musicManager.PlayPickItemSound();
     }
 
     IEnumerator DoMovingSharkerLid()
@@ -60,7 +60,7 @@ public class L56_MoveItem : BaseDragController<L56_Item>
     {
         Tween moveMask = mask.transform.DOMoveX(targetXMove,0.5f);
         yield return moveMask.WaitForCompletion();
-        if(targetXMove == 3)
+        if(Mathf.Approximately(targetXMove, 3))
         {
             mask.transform.localPosition = Vector2.zero;
         }
