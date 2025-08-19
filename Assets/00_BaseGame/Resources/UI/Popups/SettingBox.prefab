@@ -499,12 +499,12 @@ MonoBehaviour:
   imgSound: {fileID: 899134509082121917}
   imgMusic: {fileID: 5858947781186537460}
   imgVib: {fileID: 2250998139488577007}
-  imgSoundOn: {fileID: 21300000, guid: d5266a1ad185bbb4a93cc1502e0a50d5, type: 3}
-  imgSoundOff: {fileID: 21300000, guid: 89501de19640f29449cb1d5d716ee799, type: 3}
+  imgSoundOn: {fileID: 21300000, guid: 0d57257de2141494cb7e51dbaef15b9e, type: 3}
+  imgSoundOff: {fileID: 21300000, guid: 47fb21bf43a305145834d8aae0511637, type: 3}
   imgMusicOn: {fileID: 21300000, guid: ce1b00b3f29a7f24cb697b12a0c36635, type: 3}
   imgMusicOff: {fileID: 21300000, guid: c905db18d31f7d54b9e6d69d27850189, type: 3}
-  imgVibOn: {fileID: 21300000, guid: bb673f83c5c8eb9428a6e881fc8c7f1f, type: 3}
-  imgVibOff: {fileID: 21300000, guid: 5d6a9d0536400c047ad325c16d6ff55d, type: 3}
+  imgVibOn: {fileID: 21300000, guid: 8d580a60cff4a854d8317359f88579a2, type: 3}
+  imgVibOff: {fileID: 21300000, guid: f680bfc3ebfaaef4492c68e417bfa78d, type: 3}
 --- !u!223 &2566634538849920303
 Canvas:
   m_ObjectHideFlags: 0
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d5266a1ad185bbb4a93cc1502e0a50d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d57257de2141494cb7e51dbaef15b9e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb673f83c5c8eb9428a6e881fc8c7f1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d580a60cff4a854d8317359f88579a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
