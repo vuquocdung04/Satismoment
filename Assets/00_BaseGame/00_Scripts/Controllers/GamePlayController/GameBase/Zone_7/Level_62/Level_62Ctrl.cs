@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Level_62Ctrl : BaseDragController<L62_Food>
 {
+    public AudioClip closeLidSound;
     public Transform foodContainerLid;
     public int winProgress;
     public List<L62_Food> lsFoods;
@@ -31,6 +32,7 @@ public class Level_62Ctrl : BaseDragController<L62_Food>
     protected override void OnDragStarted()
     {
         draggableComponent.transform.SetParent(transform);
+        GameController.Instance.musicManager.PlayUIClick();
     }
 
     IEnumerator HandleWinCodition()
@@ -40,7 +42,8 @@ public class Level_62Ctrl : BaseDragController<L62_Food>
             isWin = true;
             Tween moveLid = foodContainerLid.DOMoveY(-1.37f, 1f).SetEase(Ease.InBack);
             yield return moveLid.WaitForCompletion();
-            yield return new WaitForSeconds(0.1f);
+            GameController.Instance.musicManager.PlayMultiple(closeLidSound);
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }

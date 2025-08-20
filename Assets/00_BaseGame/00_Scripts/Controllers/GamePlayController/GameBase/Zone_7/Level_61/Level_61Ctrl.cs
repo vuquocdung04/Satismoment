@@ -21,13 +21,13 @@ public class Level_61Ctrl : BaseDragController<L61_Petal>
     private Vector3 dragStartMousePos;
     private Vector3 initialScale;
     private Quaternion initialRotation;
-    private bool isPetalPlucked = false;
+    private bool isPetalPlucked;
 
     protected override void OnDragStarted()
     {
         dragStartMousePos = mouseWorldPos;
         isPetalPlucked = false;
-
+        GameController.Instance.musicManager.PlayUIClick();
         // Lưu lại trạng thái ban đầu để có thể reset
         initialScale = draggableComponent.transform.localScale;
         initialRotation = draggableComponent.transform.rotation;
