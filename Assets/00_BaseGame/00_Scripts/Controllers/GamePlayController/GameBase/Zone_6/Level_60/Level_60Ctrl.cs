@@ -14,11 +14,11 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
             draggableComponent.transform.position = draggableComponent.posCorrect;
             draggableComponent._collider2d.enabled = false;
             winProgress++;
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
         }
         else
         {
-            GameController.Instance.musicManager.PlayPlaceItemSoundFalse();
+            GameController.Instance.musicManager.PlayWrong();
             draggableComponent.DoMovingDefaultPos();
         }
 
@@ -32,7 +32,7 @@ public class Level_60Ctrl : BaseDragController<L60_Picture>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()

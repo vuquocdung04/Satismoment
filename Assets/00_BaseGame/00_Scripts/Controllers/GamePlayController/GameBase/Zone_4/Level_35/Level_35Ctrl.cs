@@ -37,7 +37,7 @@ public class Level_35Ctrl : MonoBehaviour
             {
                 winProgress++;
                 Explode(0.5f,0.5f);
-                GameController.Instance.musicManager.PlayPickItemSound();
+                GameController.Instance.musicManager.PlayPick();
             }
             else
             {

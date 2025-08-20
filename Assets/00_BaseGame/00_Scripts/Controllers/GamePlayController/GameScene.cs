@@ -12,19 +12,19 @@ public class GameScene : MonoBehaviour
 
         btnSetting.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
             OnClickSetting();
         });
 
         btnSkip.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
             HandleSkipButton();
         });
         
         btnShowHint.onClick.AddListener(delegate
         {
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
             OnClickShowHint(); 
         });
 

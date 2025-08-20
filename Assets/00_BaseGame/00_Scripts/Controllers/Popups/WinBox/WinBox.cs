@@ -65,7 +65,7 @@ public class WinBox : BaseBox
                 UseProfile.MaxUnlockedLevel++;
             }
             UseProfile.CurrentLevel++;
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
             Initiate.Fade(SceneName.GAME_PLAY,Color.black,2f);
         }
     }
@@ -73,14 +73,14 @@ public class WinBox : BaseBox
     // ReSharper disable Unity.PerformanceAnalysis
     private void OnClickHome()
     {
-        GameController.Instance.musicManager.PlayClickSoundUI();
+        GameController.Instance.musicManager.PlayUIClick();
         Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void OnClickRestart()
     {
-        GameController.Instance.musicManager.PlayClickSoundUI();
+        GameController.Instance.musicManager.PlayUIClick();
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
     }
 }

@@ -42,7 +42,7 @@ public class Level_51Ctrl : BaseDragController<L51_Bush>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()

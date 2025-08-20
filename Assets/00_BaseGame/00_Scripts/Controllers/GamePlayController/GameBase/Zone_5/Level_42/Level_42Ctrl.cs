@@ -10,7 +10,7 @@ public class Level_42Ctrl : BaseDragController<L42_item>
     public List<L42_item> lsItems;
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -29,7 +29,7 @@ public class Level_42Ctrl : BaseDragController<L42_item>
 
         if(distance < 0.2f)
         {
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             winProgress++;
             draggableComponent.transform.position = draggableComponent.positionCorrect;
             draggableComponent._collider.enabled = false;

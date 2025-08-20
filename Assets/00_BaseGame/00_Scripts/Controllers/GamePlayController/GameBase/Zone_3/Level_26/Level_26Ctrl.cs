@@ -14,7 +14,7 @@ public class Level_26Ctrl : BaseDragController<Transform>
     protected override void OnDragStarted()
     {
         DoShakeOrnamentBall();
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     float yChange;

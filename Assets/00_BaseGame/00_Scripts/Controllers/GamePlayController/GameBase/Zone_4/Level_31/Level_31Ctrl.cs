@@ -75,7 +75,7 @@ public class Level_31Ctrl : Singleton<Level_31Ctrl>
 
         if (blocksToDestroy.Count > 1)
         {
-            GameController.Instance.musicManager.PlayPickItemSound();
+            GameController.Instance.musicManager.PlayPick();
             DestroyBlocks(blocksToDestroy);
         }
     }

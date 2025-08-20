@@ -36,7 +36,7 @@ public class Level_59Ctrl : MonoBehaviour
         {
             pig.transform.position += Vector3.up * spaceMovePig;
             pig.transform.SetParent(null);
-            GameController.Instance.musicManager.PlayPickItemSound();
+            GameController.Instance.musicManager.PlayPick();
         }
     }
 

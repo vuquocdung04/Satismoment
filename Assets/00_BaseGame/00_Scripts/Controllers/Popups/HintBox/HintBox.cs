@@ -21,7 +21,11 @@ public class HintBox : BaseBox
     
     void Init()
     {
-        btnClose.onClick.AddListener(Close);
+        btnClose.onClick.AddListener(delegate
+        {
+            GameController.Instance.musicManager.PlayUIClick();
+            Close();
+        });
         SetHintImage();
     }
     void InitState()

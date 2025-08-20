@@ -32,7 +32,7 @@ public class Level_39Ctrl : MonoBehaviour
     IEnumerator Create(Vector3 arcTarget)
     {
         isReady = true;
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
         Transform paperPre = Instantiate(paper, startPos, Quaternion.identity);
         paperPre.localScale = Vector3.one;
         paper = paperPre;

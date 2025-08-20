@@ -62,7 +62,7 @@ public class Level_58Ctrl : BaseDragController<L58_Pencil>
     protected override void OnDragStarted()
     {
         draggableComponent.RotateToZero();
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
     private void CheckCorrectOrder()
     {

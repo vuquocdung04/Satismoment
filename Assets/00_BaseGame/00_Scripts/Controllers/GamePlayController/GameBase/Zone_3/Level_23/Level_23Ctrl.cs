@@ -23,7 +23,7 @@ public class Level_23Ctrl : BaseDragController<L23_Picture>
     }
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)

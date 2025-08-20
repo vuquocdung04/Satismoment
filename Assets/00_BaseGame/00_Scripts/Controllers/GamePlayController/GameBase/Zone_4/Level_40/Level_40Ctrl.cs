@@ -21,7 +21,7 @@ public class Level_40Ctrl : MonoBehaviour
         if(isWin) return;
         if (Input.GetMouseButtonDown(0))
         {
-            GameController.Instance.musicManager.PlayPickItemSound();
+            GameController.Instance.musicManager.PlayPick();
             if(j < 2)
             {
                 lsItems[i].DoFalling();

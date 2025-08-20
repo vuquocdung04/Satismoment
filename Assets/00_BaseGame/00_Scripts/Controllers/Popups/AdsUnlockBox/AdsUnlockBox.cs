@@ -24,14 +24,14 @@ public class AdsUnlockBox : BaseBox
         btnClose.onClick.AddListener(delegate
         {
             Close();
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
         });
 
         btnAdsUnlock.onClick.AddListener(delegate
         {
             Debug.LogError("Ads");
             OnClickAdsUnlock();
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
         });
     }
 

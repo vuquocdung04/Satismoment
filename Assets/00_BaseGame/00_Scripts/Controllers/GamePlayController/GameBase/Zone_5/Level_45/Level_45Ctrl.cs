@@ -34,7 +34,7 @@ public class Level_45Ctrl : MonoBehaviour
             curCup = hit.collider.GetComponent<L45_Cup>();
             if (curCup == null) return;
             curCup.DoOpeningCup();
-            GameController.Instance.musicManager.PlayPickItemSound();
+            GameController.Instance.musicManager.PlayPick();
             if(curCup == lsCups[0])
             {
                 if (amountCupWithLevel < 5)
@@ -72,7 +72,7 @@ public class Level_45Ctrl : MonoBehaviour
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(0.2f);
-        GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+        GameController.Instance.musicManager.PlayPlace();
         yield return new WaitForSeconds(0.9f);
         amountCupWithLevel++;
         switch (amountCupWithLevel)

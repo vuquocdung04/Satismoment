@@ -68,7 +68,7 @@ public class Level_37Ctrl : MonoBehaviour
                     StartCoroutine(HandleCheckMardMatch(selectedCard1, selectedCard2));
                 }
             }
-            GameController.Instance.musicManager.PlayPickItemSound();
+            GameController.Instance.musicManager.PlayPick();
         }
     }
     
@@ -78,7 +78,7 @@ public class Level_37Ctrl : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         if(IsCardDuplicate(cardA, cardB))
         {
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             indexSpriteDefault++;
             cardA.DoFlyingAfterDuplicate(indexSpriteDefault);
             cardB.DoFlyingAfterDuplicate(indexSpriteDefault);

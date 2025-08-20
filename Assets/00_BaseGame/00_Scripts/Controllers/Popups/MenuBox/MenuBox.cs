@@ -22,7 +22,7 @@ public class MenuBox : BaseBox
         btnClose.onClick.AddListener(delegate
         {
             Close();
-            GameController.Instance.musicManager.PlayClickSoundUI();
+            GameController.Instance.musicManager.PlayUIClick();
         });
 
     }

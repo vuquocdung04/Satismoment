@@ -35,6 +35,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         private float SoundVolume => GameController.Instance.useProfile.OnSound ? 0.5f : 0;
 
 
+        #region UISound
         private void PlayBgMusic()
         {
             musicSource.clip = bgMusic;
@@ -47,36 +48,40 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(winSound);
         }
         // ReSharper disable Unity.PerformanceAnalysis
-        public void PlayClickSoundUI()
+        public void PlayUIClick()
         {
             PlaySingle(clickSound);
         }
 
-        public void PlayStartLevelSound()
+        public void PlayUIStart()
         {
             PlaySingle(startLevel,false,SourceAudio.Music);
         }
-
-        public void PlayPickItemSound()
-        {
-            PlaySingle(pickItem);
-        }
-
-        public void PlayPlaceItemSoundTrue()
-        {
-            PlaySingle(placeItemTrue);
-        }
-
-        public void PlayPlaceItemSoundFalse()
-        {
-            PlaySingle(placeItemFalse);
-        }
-        
         public void PlayThumbsUpSound()
         {
             PlaySingle(thumbsUpSound);
         }
+        #endregion
         
+
+        #region GameSound
+        public void PlayPick()
+        {
+            PlaySingle(pickItem);
+        }
+
+        public void PlayPlace()
+        {
+            PlaySingle(placeItemTrue);
+        }
+
+        public void PlayWrong()
+        {
+            PlaySingle(placeItemFalse);
+        }
+        #endregion
+        
+        // Control
         public void PlaySingle(AudioClip clip, bool isLoopSound = false ,SourceAudio source = SourceAudio.Sound)
         {
             if (clip == null) return;
@@ -95,6 +100,18 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
                     break;
             }
         }
+
+        public void PlayMultiple(AudioClip clip, float? volumeScale = null)
+        {
+            if (clip == null) return;
+            if (SoundVolume == 0) return;
+    
+            float actualVolume = volumeScale ?? (SoundVolume / 2f);
+            soundSource.PlayOneShot(clip, actualVolume);
+        }
+
+        
+        
 
         // Pause Stop Music
         public void PauseMusic(bool isPause = false)

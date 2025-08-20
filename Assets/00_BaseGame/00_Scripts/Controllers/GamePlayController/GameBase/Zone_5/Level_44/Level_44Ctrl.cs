@@ -18,7 +18,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
         draggableComponent.RotateToZero();
 
     }
@@ -28,7 +28,7 @@ public class Level_44Ctrl : BaseDragController<L44_Clue>
         if(draggableComponent.GetDistance() < 0.3f)
         {
             winProgress++;
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.transform.position = draggableComponent.pointCorrect.localPosition;
             draggableComponent._collider.enabled = false;
             draggableComponent.transform.DOShakePosition(0.5f, 0.1f, vibrato: 10, randomness: 90, snapping: false, fadeOut: true);

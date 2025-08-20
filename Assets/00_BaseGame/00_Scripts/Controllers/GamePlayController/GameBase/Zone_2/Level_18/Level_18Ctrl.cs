@@ -17,7 +17,7 @@ public class Level_18Ctrl : BaseDragController<L18_Piece>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     protected override void OnDragEnded()
@@ -28,7 +28,7 @@ public class Level_18Ctrl : BaseDragController<L18_Piece>
         {
             draggableComponent.transform.position = draggableComponent.trans.position;
             draggableComponent._collider.enabled = false;
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             HandleWin();
         }
         else

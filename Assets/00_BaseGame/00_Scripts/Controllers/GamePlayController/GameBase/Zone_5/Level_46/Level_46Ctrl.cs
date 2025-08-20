@@ -38,7 +38,7 @@ public class Level_46Ctrl : BaseDragController<L46_Scissors>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()

@@ -10,7 +10,7 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
     public List<L38_Car> lsCars;
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -24,7 +24,7 @@ public class Level_38Ctrl : BaseDragController<L38_Car>
         if (IsInCorrectPosition())
         {
             winProgress++;
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.colli.enabled = false;
         }
         else

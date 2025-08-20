@@ -60,7 +60,7 @@ public class Level_57Ctrl : BaseDragController<L57_TurntablePart>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()

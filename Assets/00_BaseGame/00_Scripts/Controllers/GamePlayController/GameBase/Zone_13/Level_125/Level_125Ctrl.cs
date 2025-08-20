@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Level_125Ctrl : BaseDragController<L125_Food>
 {
+    public AudioClip eatSound;
+    public AudioClip cookSound;
     public int foodConsumedTotal;
     public int foodNeededTotal = 10;
     public L125_Charcoal charCoal;
@@ -20,6 +22,7 @@ public class Level_125Ctrl : BaseDragController<L125_Food>
             float randPosX = Random.Range(-1.75f,1.75f);
             float randPosY = Random.Range(-2.3f,-4.3f);
             var foodClone = SimplePool2.Spawn(lsFoodPrefabs[rand], new Vector2(randPosX,randPosY), Quaternion.identity);
+            foodClone.InitState(this);
             foodClone.defaultPosition = new Vector2(randPosX,randPosY);
         }
     }
@@ -48,11 +51,22 @@ public class Level_125Ctrl : BaseDragController<L125_Food>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()
     {
         yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();
+    }
+
+    public void PlaySoundCook()
+    {
+        GameController.Instance.musicManager.PlayMultiple(cookSound);
+    }
+
+    public void PlaySoundEat()
+    {
+        GameController.Instance.musicManager.PlaySingle(eatSound);
     }
 }

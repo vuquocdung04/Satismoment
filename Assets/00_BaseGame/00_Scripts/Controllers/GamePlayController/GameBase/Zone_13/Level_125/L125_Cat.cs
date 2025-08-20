@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class L125_Cat : MonoBehaviour
 {
+    public Level_125Ctrl levelCtrl;
     public BoxCollider2D catCollider;
     public SpriteRenderer catRenrerer;
     public Sprite spriteCatMountOpen;
@@ -11,8 +12,8 @@ public class L125_Cat : MonoBehaviour
     public List<Sprite> lsSprites;
 
     private Coroutine chewCoroutine;
-    private bool isAnimating = false;
-    private bool isPauseChewing = false;
+    private bool isAnimating ;
+    private bool isPauseChewing ;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,10 +45,12 @@ public class L125_Cat : MonoBehaviour
         chewCoroutine = StartCoroutine(AnimateCatChewing());
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public IEnumerator AnimateCatChewing()
     {
         isAnimating = true;
         var waitTime = new WaitForSeconds(0.2f);
+        levelCtrl.PlaySoundEat();
         for (int i = 0; i < lsSprites.Count; i++)
         {
             catRenrerer.sprite = lsSprites[i];

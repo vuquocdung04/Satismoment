@@ -15,7 +15,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
@@ -27,7 +27,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
         float distance = Vector2.Distance(draggableComponent.transform.position, draggableComponent.targetPosition);
         if (distance < 0.2f && distance > -0.2f)
         {
-            GameController.Instance.musicManager.PlayPlaceItemSoundTrue();
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.transform.position = draggableComponent.targetPosition;
             draggableComponent.colli.enabled = false;
             winProgress++;
@@ -38,7 +38,7 @@ public class Level_33Ctrl : BaseDragController<L33_Item>
         }
         else
         {
-            GameController.Instance.musicManager.PlayPlaceItemSoundFalse();
+            GameController.Instance.musicManager.PlayWrong();
         }
     }
 

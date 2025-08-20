@@ -123,6 +123,6 @@ public class Level_19Ctrl : BaseDragController<L19_Book>
 
     protected override void OnDragStarted()
     {
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 }

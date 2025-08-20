@@ -1,18 +1,25 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class L125_Food : MonoBehaviour
 {
+    public Level_125Ctrl levelCtrl;
     public L125_Effect smokeEffect;
     public BoxCollider2D foodCollider;
-    public Transform mask;
+    public SpriteRenderer foodDoneRenderer;
     public Vector2 defaultPosition;
     public float durationCook;
     public bool isCooked;
     bool isOnGrillFirstTime;
-    bool isConsumed = false;
+    bool isConsumed;
+
+    public void InitState(Level_125Ctrl levelController)
+    {
+        foodDoneRenderer.color = new Color(1, 1, 1, 0);
+        this.levelCtrl = levelController;
+    }
+    
     public void HandleConllisionWithGrill(Collider2D colli)
     {
         if (isConsumed)
@@ -33,7 +40,7 @@ public class L125_Food : MonoBehaviour
             }
             else
             {
-                MoveMask();
+                Cooking();
                 isOnGrillFirstTime = true;
             }
         }
@@ -64,14 +71,14 @@ public class L125_Food : MonoBehaviour
 
 
 
-    public void MoveMask()
+    public void Cooking()
     {
         if (isCooked) return;
-        mask.DOLocalMoveY(0, durationCook).SetEase(Ease.Linear).OnComplete(delegate
+        levelCtrl.PlaySoundCook();
+        foodDoneRenderer.DOFade(1, durationCook).SetEase(Ease.Linear).OnComplete(delegate
         {
             isCooked = true;
             StartSpawningSmoke();
-            
         });
     }
     private Coroutine smokeCoroutine;
@@ -100,20 +107,22 @@ public class L125_Food : MonoBehaviour
 
             yield return waiTime;
         }
+        // ReSharper disable once IteratorNeverReturns
     }
+    
     void PauseMoveMask()
     {
-        mask.DOPause();
+        foodDoneRenderer.DOPause();
     }
 
     void ResumeMoveMask()
     {
-        mask.DOPlay();
+        foodDoneRenderer.DOPlay();
     }
 
     private void OnDestroy()
     {
-        mask.DOKill();
+        foodDoneRenderer.DOKill();
         StopAllCoroutines();
     }
 

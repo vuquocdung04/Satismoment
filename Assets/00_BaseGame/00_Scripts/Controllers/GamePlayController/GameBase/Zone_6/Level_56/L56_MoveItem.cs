@@ -45,7 +45,7 @@ public class L56_MoveItem : BaseDragController<L56_Item>
     protected override void OnDragStarted()
     {
         curItem = draggableComponent;
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator DoMovingSharkerLid()

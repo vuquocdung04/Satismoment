@@ -40,7 +40,7 @@ public class Level_55Ctrl : BaseDragController<L55_Item>
     {
         currentItem = draggableComponent;
         StartCoroutine(HandleAnim());
-        GameController.Instance.musicManager.PlayPickItemSound();
+        GameController.Instance.musicManager.PlayPick();
     }
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
     {
