@@ -20,7 +20,7 @@ public class ZoneItem : LoadAutoComponents
     }
     void OnClickPlay()
     {
-        UseProfile.SelectedLevel = idLevel;
+        UseProfile.CurrentLevel = idLevel;
         if (idLevel <= UseProfile.MaxUnlockedLevel)
             Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
         else if(idLevel == UseProfile.MaxUnlockedLevel + 1)

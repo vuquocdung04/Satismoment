@@ -5,7 +5,7 @@ using UnityEngine;
 public static class StringHelper
 {
     public const string MAX_UNLOCK_LEVEL = "MAX_UNLOCK_LEVEL";
-    public const string SELECTED_LEVEL = "SELECTED_LEVEL";
+    public const string CURRENT_LEVEL = "CURRENT_LEVEL";
     public const string ONOFF_MUSIC = "ONOFF_MUSIC";
     public const string ONOFF_SOUND = "ONOFF_SOUND";
 }
@@ -23,4 +23,6 @@ public class PathPrefabs
     public const string SETTING_GAME_BOX = "UI/Popups/SettingGameBox";
     public const string ADS_UNLOCK_BOX = "UI/Popups/AdsUnlockBox";
     public const string THUMB_UP_BOX = "UI/Popups/ThumbUpBox";
+    public const string HINT_BOX = "UI/Popups/HintBox";
+    
 }

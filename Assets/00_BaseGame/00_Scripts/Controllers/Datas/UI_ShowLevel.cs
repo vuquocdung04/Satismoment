@@ -39,8 +39,11 @@ namespace _00_BaseGame._00_Scripts.Controllers.Datas
     public class UI_ShowZoneItem
     {
         public int level;
-        [PreviewField(50)]
-        public Sprite iconLevel;
+        [HorizontalGroup("Sprites"),Space(5)]
+        [PreviewField(50),LabelText("Icon Level")] public Sprite iconLevel;
+        [HorizontalGroup("Sprites"), Space(5)]
+        [PreviewField(50),LabelText("Hint Level")] public Sprite hintLevel;
+        [Space(5)]
         public GameObject levelGame;
     }
 }

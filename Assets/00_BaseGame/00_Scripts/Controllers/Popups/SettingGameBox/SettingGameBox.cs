@@ -76,11 +76,11 @@ public class SettingGameBox : BaseBox
     }
     void OnClickNextLevelWithAds()
     {
-        if (UseProfile.SelectedLevel == UseProfile.MaxUnlockedLevel)
+        if (UseProfile.CurrentLevel == UseProfile.MaxUnlockedLevel)
         {
             UseProfile.MaxUnlockedLevel++;
         }
-        UseProfile.SelectedLevel++;
+        UseProfile.CurrentLevel++;
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
     }
 

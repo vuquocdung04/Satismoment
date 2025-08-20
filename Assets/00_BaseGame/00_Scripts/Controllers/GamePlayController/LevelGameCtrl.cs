@@ -7,7 +7,7 @@ public class LevelGameCtrl : MonoBehaviour
     public void Init()
     {
         var levelData = GameController.Instance.dataContain.dataLevel;
-        int selectedLevel = UseProfile.SelectedLevel;
+        int selectedLevel = UseProfile.CurrentLevel;
 
         int levelPerZone = 10;
 

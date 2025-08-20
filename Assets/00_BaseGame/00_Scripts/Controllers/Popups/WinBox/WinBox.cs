@@ -60,11 +60,11 @@ public class WinBox : BaseBox
 
         void Next()
         {
-            if(UseProfile.SelectedLevel == UseProfile.MaxUnlockedLevel)
+            if(UseProfile.CurrentLevel == UseProfile.MaxUnlockedLevel)
             {
                 UseProfile.MaxUnlockedLevel++;
             }
-            UseProfile.SelectedLevel++;
+            UseProfile.CurrentLevel++;
             GameController.Instance.musicManager.PlayClickSoundUI();
             Initiate.Fade(SceneName.GAME_PLAY,Color.black,2f);
         }

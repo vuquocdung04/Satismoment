@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameScene : MonoBehaviour
 {
     public Button btnSetting;
     public Button btnSkip;
+    public Button btnShowHint;
     public void Init()
     {
 
@@ -23,18 +21,31 @@ public class GameScene : MonoBehaviour
             GameController.Instance.musicManager.PlayClickSoundUI();
             HandleSkipButton();
         });
+        
+        btnShowHint.onClick.AddListener(delegate
+        {
+            GameController.Instance.musicManager.PlayClickSoundUI();
+            OnClickShowHint(); 
+        });
 
     }
 
-    public void HandleSkipButton()
+    private void HandleSkipButton()
     {
         WinBox.SetUp().Show();
     }
-    public void OnClickSetting()
+
+    private void OnClickSetting()
     {
         SettingGameBox.SetUp().Show();
     }
 
+    private void OnClickShowHint()
+    {
+        HintBox.SetUp().Show();
+    }
+    
+    
     public void HiddenAllButton()
     {
         btnSetting.gameObject.SetActive(false);
