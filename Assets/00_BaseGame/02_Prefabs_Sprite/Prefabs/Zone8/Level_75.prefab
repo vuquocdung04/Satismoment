@@ -228,6 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  spraySound: {fileID: 8300000, guid: 0a53f0053f6999c4180d115199612b98, type: 3}
+  mosquitoSound: {fileID: 8300000, guid: 95178b675b9636441bcd6413f6ab25d3, type: 3}
   winProgress: 0
 --- !u!1 &2222749153092857778
 GameObject:
@@ -351,7 +353,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.08, y: 1.03}
+    oldSize: {x: 0.54, y: 0.515}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -8,7 +8,7 @@ public class L75_mosquitoAnim : MonoBehaviour
     public List<Sprite> lsSpriteFlys; // Có 3 sprite cho animation bay
     public Sprite spriteDie;
 
-    private int currentFrame = 0;
+    private int currentFrame;
     private bool goingForward = true;
     private Coroutine flyingAnimCoroutine;
 
@@ -50,5 +50,6 @@ public class L75_mosquitoAnim : MonoBehaviour
 
             yield return waitTime;
         }
+        // ReSharper disable once IteratorNeverReturns
     }
 }

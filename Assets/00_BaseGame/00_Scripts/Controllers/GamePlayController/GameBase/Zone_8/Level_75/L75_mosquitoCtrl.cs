@@ -32,6 +32,10 @@ public class L75_mosquitoCtrl : MonoBehaviour
                 {
                     Die();
                     levelCtrl.winProgress++;
+                    if (levelCtrl.winProgress == 3)
+                    {
+                        levelCtrl.StopMosquitoSound();
+                    }
                 }
             }
         }

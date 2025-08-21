@@ -6,10 +6,12 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
 {
     public class MusicManagerBase : SerializedMonoBehaviour
     {
-        public enum SourceAudio { Music, Sound};
+        public enum SourceAudio { Music, Sound, SoundBackup};
 
         public AudioSource musicSource;
         public AudioSource soundSource;
+        [Header("Du phong")]
+        public AudioSource soundBackupSource;
         [Space(5)]
         [Header("Music"), Space(5)]
         public AudioClip bgMusic;
@@ -98,6 +100,12 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
                     soundSource.clip = clip;
                     soundSource.Play();
                     break;
+                case SourceAudio.SoundBackup:
+                    if (SoundVolume == 0) return;
+                    soundBackupSource.loop = isLoopSound;
+                    soundBackupSource.clip = clip;
+                    soundBackupSource.Play();
+                    break;
             }
         }
 
@@ -123,13 +131,26 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             }
         }
 
-        public void PauseSound(bool isPause = false)
+        public void PauseSound(bool isPause = false, SourceAudio source = SourceAudio.Sound)
         {
-            if (soundSource.isPlaying)
+            switch (source)
             {
-                if (!isPause) soundSource.Pause();
-                else soundSource.Stop();
+                case SourceAudio.Sound:
+                    if (soundSource.isPlaying)
+                    {
+                        if (!isPause) soundSource.Pause();
+                        else soundSource.Stop();
+                    }
+                    break;
+                case SourceAudio.SoundBackup:
+                    if (soundBackupSource.isPlaying)
+                    {
+                        if (!isPause) soundBackupSource.Pause();
+                        else soundBackupSource.Stop();
+                    }
+                    break;
             }
+            
         }
         public void ResumeMusic()
         {
@@ -153,6 +174,7 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
         public void SetSoundVolume(float volume)
         {
             soundSource.volume = volume;
+            soundBackupSource.volume = volume;
         }
         #endregion
     }

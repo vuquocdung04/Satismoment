@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class L73_bread : MonoBehaviour
@@ -13,9 +11,12 @@ public class L73_bread : MonoBehaviour
     }
 
 
-    public void DoActionBeforeToasting()
+    public void DoActionBeforeToasting(System.Action callback = null)
     {
-        transform.DOMoveY(1.146f,0.5f).SetEase(Ease.OutBounce);
+        transform.DOMoveY(1.146f,0.5f).SetEase(Ease.OutBounce).OnComplete(delegate
+        {
+            callback?.Invoke();
+        });
         spriteRenderer.sprite = sprite;
     }
 }

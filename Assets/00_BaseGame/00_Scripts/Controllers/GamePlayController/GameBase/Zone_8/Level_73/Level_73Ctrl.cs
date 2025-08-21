@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_73Ctrl : BaseDragController<L73_toasterSwitch>
 {
+    public AudioClip doneSound;
     public Transform effect;
     public L73_bread bread;
     protected override void OnDragEnded()
@@ -42,7 +42,10 @@ public class Level_73Ctrl : BaseDragController<L73_toasterSwitch>
     {
         isWin = true;
         yield return new WaitForSeconds(1f);
-        bread.DoActionBeforeToasting();
+        bread.DoActionBeforeToasting(delegate
+        {
+            GameController.Instance.musicManager.PlaySingle(doneSound);
+        });
         yield return new WaitForSeconds(1f);
         effect.gameObject.SetActive(true);
         StartCoroutine(HandleWinCodition());
