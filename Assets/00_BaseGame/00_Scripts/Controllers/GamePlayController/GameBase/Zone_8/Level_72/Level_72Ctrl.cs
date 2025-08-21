@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Level_72Ctrl : MonoBehaviour
 {
+    public AudioClip missSound;
+    public AudioClip hitSound;
+    
     public int winProgress;
 
     // Biến isWin được quản lý qua property để xử lý khi có thay đổi
-    private bool _isWin = false;
-    public bool isWin
+    private bool isWin;
+    public bool IsWin
     {
-        get { return _isWin; }
+        get { return isWin; }
         set
         {
-            if (_isWin == value) return;
-            _isWin = value;
+            if (isWin == value) return;
+            isWin = value;
 
-            if (_isWin)
+            if (isWin)
             {
                 StopTableLoop();
             }
@@ -29,7 +32,7 @@ public class Level_72Ctrl : MonoBehaviour
 
     public Transform hammer;
     public Transform effectBeat;
-    private bool hasBeat = false;
+    private bool hasBeat;
 
     public Transform table;
 
@@ -66,7 +69,7 @@ public class Level_72Ctrl : MonoBehaviour
     {
         while (true)
         {
-            if (_isWin) yield break;
+            if (isWin) yield break;
 
             // Set vị trí ban đầu về -8 trước mỗi lần chạy
             table.position = new Vector3(-8f, table.position.y, table.position.z);
@@ -76,10 +79,9 @@ public class Level_72Ctrl : MonoBehaviour
             yield return moveTableTween.WaitForCompletion();
 
             // Nếu không thắng thì tiếp tục loop
-            if (!_isWin)
+            if (!isWin)
             {
                 moveTableTween = null; // Reset tween cũ
-                continue;
             }
             else
             {
@@ -97,19 +99,27 @@ public class Level_72Ctrl : MonoBehaviour
             StartCoroutine(HandleHammerAction());
         }
     }
-
+    int prevWinProgress;
     IEnumerator HandleHammerAction()
     {
         hasBeat = true;
 
-        Tween hammerBeat = hammer.DORotate(Vector3.zero, 0.07f, RotateMode.Fast);
+        Tween hammerBeat = hammer.DORotate(Vector3.zero, 0.07f);
         yield return hammerBeat.WaitForCompletion();
-
+        if (prevWinProgress < winProgress)
+        {
+            PlayHitSound();
+            prevWinProgress = winProgress;
+        }
+        else
+        {
+            PlayMissSound();
+        }
         effectBeat.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.03f);
         effectBeat.gameObject.SetActive(false);
 
-        Tween hammerBeat2 = hammer.DORotate(new Vector3(0, 0, -45f), 0.07f, RotateMode.Fast);
+        Tween hammerBeat2 = hammer.DORotate(new Vector3(0, 0, -45f), 0.07f);
         yield return hammerBeat2.WaitForCompletion();
 
         hasBeat = false;
@@ -117,8 +127,19 @@ public class Level_72Ctrl : MonoBehaviour
 
     public IEnumerator HandleWinCondition()
     {
-        isWin = true; // Gọi setter -> Kill tween
+        IsWin = true; // Gọi setter -> Kill tween
         yield return new WaitForSeconds(0.5f);
         WinBox.SetUp().Show();
     }
+
+    private void PlayHitSound()
+    {
+        GameController.Instance.musicManager.PlayMultiple(hitSound);
+    }
+
+    private void PlayMissSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(missSound);
+    }
+    
 }

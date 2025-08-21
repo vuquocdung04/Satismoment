@@ -950,6 +950,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98edd4dded090d1458200453e697b2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missSound: {fileID: 8300000, guid: ea521d24bea193c4f9b3807081de6426, type: 3}
+  hitSound: {fileID: 8300000, guid: 9352e83e9c8525749a1e0403cfce6d92, type: 3}
   winProgress: 0
   hammer: {fileID: 2862631315616152132}
   effectBeat: {fileID: 4508036245470543998}
