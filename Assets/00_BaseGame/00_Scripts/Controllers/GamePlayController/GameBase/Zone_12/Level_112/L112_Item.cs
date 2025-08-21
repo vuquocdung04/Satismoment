@@ -25,7 +25,7 @@ public class L112_Item : MonoBehaviour
 
     public void SetParen(Transform parent)
     {
-        transform.SetParent(parent);
+        transform.SetParent(parent, true);
     }
     public void Init()
     {

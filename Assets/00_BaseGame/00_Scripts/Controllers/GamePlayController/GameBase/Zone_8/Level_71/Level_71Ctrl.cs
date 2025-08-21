@@ -5,45 +5,29 @@ using System.Collections;
 
 public class Level_71Ctrl : Singleton<Level_71Ctrl>
 {
-    public int winProgress;
+    
+    [Header("Slots")]
     public List<Transform> lsPoints; // Danh sách các slot (transform trống)
-    public List<L71_Fruit> placedFruits;
+
+    [Header("Gameplay")]
+    public List<L71_Fruit> placedFruits = new List<L71_Fruit>(); // Những quả đã được đặt
+    public int winProgress; // Số lần match thành công
+    public int maxPlacedFruits = 7; // Giới hạn số quả có thể đặt trước khi thua
+
+    [Header("Win/Lose Conditions")]
     public bool hasLost;
     
-    // Queue system để xử lý tuần tự
-    private Queue<L71_Fruit> fruitQueue = new Queue<L71_Fruit>();
-    private bool isProcessing;
-    
-    public void AddFruit(L71_Fruit fruit)
+    public void OnFruitClicked(L71_Fruit clickedFruit)
     {
-        if (placedFruits.Contains(fruit)) return;
-        
-        // Thêm vào queue thay vì xử lý ngay
-        fruitQueue.Enqueue(fruit);
-        
-        // Nếu không đang xử lý thì bắt đầu xử lý
-        if (!isProcessing)
-        {
-            ProcessNextFruit();
-        }
+        AddFruit(clickedFruit);
     }
-    
-    private void ProcessNextFruit()
-    {
-        // Nếu hết quả trong queue thì dừng
-        if (fruitQueue.Count == 0)
-        {
-            isProcessing = false;
-            return;
-        }
-        
-        isProcessing = true;
-        L71_Fruit fruit = fruitQueue.Dequeue();
-        
-        // Logic thêm quả vào list (giống như cũ)
-        int insertIndex = placedFruits.Count;
 
-        // Tìm vị trí cuối cùng của bất kỳ quả nào có cùng idFruit
+    private void AddFruit(L71_Fruit fruit)
+    {
+        if (placedFruits.Contains(fruit) || hasLost)
+            return;
+        
+        int insertIndex = placedFruits.Count;
         for (int i = placedFruits.Count - 1; i >= 0; i--)
         {
             if (placedFruits[i].idFruit == fruit.idFruit)
@@ -52,61 +36,61 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
                 break;
             }
         }
-
+        
         placedFruits.Insert(insertIndex, fruit);
-        UpdateSlots(); // Cập nhật vị trí cho từng quả
+        UpdateSlots();
     }
     
     private void UpdateSlots()
     {
-        // Tạo một sequence lớn để quản lý tất cả chuyển động
         Sequence masterSequence = DOTween.Sequence();
 
         for (int i = 0; i < placedFruits.Count && i < lsPoints.Count; i++)
         {
-            L71_Fruit fruit = placedFruits[i];
+            L71_Fruit currentFruit = placedFruits[i];
             Transform targetSlot = lsPoints[i];
 
-            // Lấy tween di chuyển từ mỗi quả và thêm vào sequence lớn
-            // Dùng Join() để tất cả các quả di chuyển cùng lúc
-            masterSequence.Join(fruit.GetMoveTween(targetSlot));
+            masterSequence.Join(currentFruit.GetMoveTween(targetSlot));
         }
 
         masterSequence.OnComplete(() =>
         {
             CheckAndRemoveTriple();
-            
-            // Check win/lose conditions
-            if (placedFruits.Count >= 7 && !hasLost)
-            {
-                hasLost = true;
-                StartCoroutine(HandleLoseCodition());
-                return; // Không xử lý quả tiếp theo nếu thua
-            }
-            if (winProgress == 7)
-            {
-                StartCoroutine(HandleWinCodition());
-                return; // Không xử lý quả tiếp theo nếu thắng
-            }
-            
-            // Tiếp tục xử lý quả tiếp theo trong queue
-            ProcessNextFruit();
+            CheckLoseCondition();
+            CheckWinCodition();
         });
     }
 
-    IEnumerator HandleWinCodition()
+    private void CheckLoseCondition()
+    {
+        if (placedFruits.Count >= maxPlacedFruits && !hasLost)
+        {
+            hasLost = true;
+            StartCoroutine(HandleLoseCodition());
+        }
+    }
+
+    private void CheckWinCodition()
+    {
+        if (winProgress == 7)
+        {
+            StartCoroutine(HandleWinCodition());
+        }
+    }
+
+    private IEnumerator HandleWinCodition()
     {
         yield return new WaitForSeconds(0.5f);
         WinBox.SetUp().Show(); 
     }
-    
-    IEnumerator HandleLoseCodition()
+
+    private IEnumerator HandleLoseCodition()
     {
         yield return new WaitForSeconds(0.5f);
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
     }
 
-    public List<L71_Fruit> fruitsToRemove = new List<L71_Fruit>();
+    public List<L71_Fruit> fruitsToRemove = new();
     
     private void CheckAndRemoveTriple()
     {
@@ -119,9 +103,9 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
 
             if (fruit1.idFruit == fruit2.idFruit && fruit1.idFruit == fruit3.idFruit)
             {
-                if (!fruitsToRemove.Contains(fruit1)) fruitsToRemove.Add(fruit1);
-                if (!fruitsToRemove.Contains(fruit2)) fruitsToRemove.Add(fruit2);
-                if (!fruitsToRemove.Contains(fruit3)) fruitsToRemove.Add(fruit3);
+                fruitsToRemove.Add(fruit1);
+                fruitsToRemove.Add(fruit2);
+                fruitsToRemove.Add(fruit3);
 
                 i += 2;
             }
@@ -134,8 +118,9 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         }
     }
 
-    void HandleRemoveMatch()
+    private void HandleRemoveMatch()
     {
+        // Gỡ bỏ các quả khỏi danh sách ngay lập tức
         foreach (L71_Fruit fruit in fruitsToRemove)
         {
             placedFruits.Remove(fruit);
@@ -145,23 +130,31 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
 
         foreach (L71_Fruit fruit in fruitsToRemove)
         {
-            // Tạo tween co nhỏ và tự hủy.
-            Tween scaleTween = fruit.transform.DOScale(Vector3.zero, 0.35f)
-                .SetEase(Ease.InBack);
-
+            // Tạo tween co nhỏ. Bỏ việc destroy object trong callback của từng tween riêng lẻ
+            Tween scaleTween = fruit.transform.DOScale(Vector3.zero, 0.35f).SetEase(Ease.InBack);
             destroySequence.Join(scaleTween);
         }
         
         destroySequence.OnComplete(() =>
         {
-            // Destroy objects
+            // Hủy các đối tượng sau khi toàn bộ hiệu ứng đã hoàn tất
             foreach (L71_Fruit fruit in fruitsToRemove)
             {
-                Destroy(fruit.gameObject);
+                // Thêm kiểm tra null để chắc chắn đối tượng chưa bị hủy
+                if (fruit != null) 
+                {
+                    Debug.LogError("Destroy");
+                    fruit.transform.DOKill();
+                    Destroy(fruit.gameObject);
+                }
+                else
+                {
+                    Debug.LogError("fruit is null");
+                }
             }
             fruitsToRemove.Clear();
             
-            // Update lại vị trí các quả còn lại
+            // Cập nhật lại vị trí các quả còn lại
             UpdateSlots();
         });
     }
