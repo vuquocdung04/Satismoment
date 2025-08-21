@@ -17,13 +17,16 @@ public class L71_Fruit : MonoBehaviour
         {
             return;
         }
+        GameController.Instance.musicManager.PlayPick();
         Level_71Ctrl.Instance.AddFruit(this);
     }
+    
     public Tween GetMoveTween(Transform targetSlot)
     {
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
         // Tạo một sequence nhỏ cho việc di chuyển và set parent
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOMove(targetSlot.position, 0.5f).SetEase(Ease.OutQuad));
@@ -35,5 +38,4 @@ public class L71_Fruit : MonoBehaviour
 
         return seq;
     }
-
 }

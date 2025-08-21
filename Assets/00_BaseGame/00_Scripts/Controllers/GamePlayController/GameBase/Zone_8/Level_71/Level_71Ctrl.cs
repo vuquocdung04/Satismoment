@@ -1,18 +1,46 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using System.Collections;
 
 public class Level_71Ctrl : Singleton<Level_71Ctrl>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public List<Transform> lsPoints; // Danh sách các slot (transform trống)
     public List<L71_Fruit> placedFruits;
+    public bool hasLost;
+    
+    // Queue system để xử lý tuần tự
+    private Queue<L71_Fruit> fruitQueue = new Queue<L71_Fruit>();
+    private bool isProcessing;
+    
     public void AddFruit(L71_Fruit fruit)
     {
         if (placedFruits.Contains(fruit)) return;
-
+        
+        // Thêm vào queue thay vì xử lý ngay
+        fruitQueue.Enqueue(fruit);
+        
+        // Nếu không đang xử lý thì bắt đầu xử lý
+        if (!isProcessing)
+        {
+            ProcessNextFruit();
+        }
+    }
+    
+    private void ProcessNextFruit()
+    {
+        // Nếu hết quả trong queue thì dừng
+        if (fruitQueue.Count == 0)
+        {
+            isProcessing = false;
+            return;
+        }
+        
+        isProcessing = true;
+        L71_Fruit fruit = fruitQueue.Dequeue();
+        
+        // Logic thêm quả vào list (giống như cũ)
         int insertIndex = placedFruits.Count;
 
         // Tìm vị trí cuối cùng của bất kỳ quả nào có cùng idFruit
@@ -26,10 +54,9 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         }
 
         placedFruits.Insert(insertIndex, fruit);
-
         UpdateSlots(); // Cập nhật vị trí cho từng quả
     }
-    public bool hasLost = false;
+    
     private void UpdateSlots()
     {
         // Tạo một sequence lớn để quản lý tất cả chuyển động
@@ -48,15 +75,22 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         masterSequence.OnComplete(() =>
         {
             CheckAndRemoveTriple();
+            
+            // Check win/lose conditions
             if (placedFruits.Count >= 7 && !hasLost)
             {
                 hasLost = true;
                 StartCoroutine(HandleLoseCodition());
+                return; // Không xử lý quả tiếp theo nếu thua
             }
             if (winProgress == 7)
             {
                 StartCoroutine(HandleWinCodition());
+                return; // Không xử lý quả tiếp theo nếu thắng
             }
+            
+            // Tiếp tục xử lý quả tiếp theo trong queue
+            ProcessNextFruit();
         });
     }
 
@@ -65,13 +99,15 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         yield return new WaitForSeconds(0.5f);
         WinBox.SetUp().Show(); 
     }
+    
     IEnumerator HandleLoseCodition()
     {
         yield return new WaitForSeconds(0.5f);
-        Initiate.Fade(SceneName.GAME_PLAY,Color.black, 3f);
+        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
     }
 
-    public List<L71_Fruit> fruitsToRemove;
+    public List<L71_Fruit> fruitsToRemove = new List<L71_Fruit>();
+    
     private void CheckAndRemoveTriple()
     {
         fruitsToRemove.Clear();
@@ -104,6 +140,7 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
         {
             placedFruits.Remove(fruit);
         }
+        
         Sequence destroySequence = DOTween.Sequence();
 
         foreach (L71_Fruit fruit in fruitsToRemove)
@@ -114,8 +151,17 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
 
             destroySequence.Join(scaleTween);
         }
+        
         destroySequence.OnComplete(() =>
         {
+            // Destroy objects
+            foreach (L71_Fruit fruit in fruitsToRemove)
+            {
+                Destroy(fruit.gameObject);
+            }
+            fruitsToRemove.Clear();
+            
+            // Update lại vị trí các quả còn lại
             UpdateSlots();
         });
     }
