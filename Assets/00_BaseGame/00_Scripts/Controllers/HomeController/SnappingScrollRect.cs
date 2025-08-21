@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHandler
 {
+    public TextMeshProUGUI textLevel;
     [Tooltip("Component ScrollRect mà script này điều khiển.")]
     public ScrollRect scrollRect;
 
@@ -18,12 +20,12 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
     public float[] snapTargetContentXPositions;
 
     [Tooltip("Chỉ số của zone sẽ được snap tới ban đầu khi Start.")]
-    public int startingZoneIndex = 0;
+    public int startingZoneIndex;
 
-    private bool isDragging = false;
-    private int currentSnappedZoneIndex = 0;
+    private bool isDragging;
+    private int currentSnappedZoneIndex;
     private Vector2 targetContentAnchoredPosition;
-    private bool hasInitialized = false;
+    private bool hasInitialized;
 
     void Start()
     {
@@ -52,15 +54,6 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
 
             // Nếu rất gần, snap vào vị trí chính xác và dừng chuyển động của ScrollRect.
             if (Vector2.Distance(contentPanel.anchoredPosition, targetContentAnchoredPosition) < 0.01f)
-            {
-                contentPanel.anchoredPosition = targetContentAnchoredPosition;
-                if (scrollRect != null) scrollRect.velocity = Vector2.zero;
-            }
-        }
-        else
-        {
-            // Đảm bảo nó ở chính xác vị trí mục tiêu nếu vòng lặp trên không làm được
-            if (contentPanel.anchoredPosition != targetContentAnchoredPosition)
             {
                 contentPanel.anchoredPosition = targetContentAnchoredPosition;
                 if (scrollRect != null) scrollRect.velocity = Vector2.zero;
@@ -103,12 +96,7 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
             }
         }
 
-        currentSnappedZoneIndex = closestIndex;
-        targetContentAnchoredPosition = new Vector2(closestTargetX, contentPanel.anchoredPosition.y);
-
-        // Dừng mọi vận tốc hiện có ngay lập tức để bắt đầu snap mượt mà
-        if (scrollRect != null) scrollRect.velocity = Vector2.zero;
-        // Việc Lerp trong Update sẽ xử lý chuyển động.
+        SnapToZone(closestIndex);
     }
 
     // Phương thức public để cho phép snap đến một zone cụ thể thông qua code (ví dụ: nút bấm)
@@ -119,39 +107,48 @@ public class SnappingScrollRect : MonoBehaviour, IEndDragHandler, IBeginDragHand
             if (hasInitialized) Debug.LogWarning("SnapToZone: Chỉ số zone không hợp lệ hoặc có vấn đề cài đặt: " + zoneIndex);
             return;
         }
+        
+        // Chỉ cập nhật và chạy hiệu ứng nếu chỉ số thay đổi
+        if (currentSnappedZoneIndex != zoneIndex || immediate)
+        {
+            currentSnappedZoneIndex = zoneIndex;
+            UpdateTextLevel();
+        }
 
         isDragging = false; // Đảm bảo snap xảy ra
         if (scrollRect != null) scrollRect.inertia = false;
 
-        currentSnappedZoneIndex = zoneIndex;
         targetContentAnchoredPosition = new Vector2(snapTargetContentXPositions[zoneIndex], contentPanel.anchoredPosition.y);
         if (scrollRect != null) scrollRect.velocity = Vector2.zero;
 
         if (immediate)
         {
             contentPanel.anchoredPosition = targetContentAnchoredPosition;
+            if (scrollRect != null) scrollRect.velocity = Vector2.zero; // Đảm bảo vận tốc là 0
         }
-
     }
     public void SnapToNextZone()
     {
         if (!hasInitialized) return;
-        int nextZoneIndex = currentSnappedZoneIndex + 1;
-        if (nextZoneIndex >= snapTargetContentXPositions.Length)
+        if (currentSnappedZoneIndex + 1 < snapTargetContentXPositions.Length)
         {
-            return; 
+            SnapToZone(currentSnappedZoneIndex + 1);
         }
-        SnapToZone(nextZoneIndex);
     }
 
     public void SnapToPreviousZone()
     {
         if (!hasInitialized) return;
-        int prevZoneIndex = currentSnappedZoneIndex - 1;
-        if (prevZoneIndex < 0)
+        if (currentSnappedZoneIndex - 1 >= 0)
         {
-            return; 
+            SnapToZone(currentSnappedZoneIndex - 1);
         }
-        SnapToZone(prevZoneIndex);
     }
+    
+    private void UpdateTextLevel()
+    {
+        if (textLevel != null)
+            textLevel.text = "- " + (currentSnappedZoneIndex + 1) + " -";
+    }
+
 }

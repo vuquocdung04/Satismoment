@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3dc19e3b1434544393f25b1c9732307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCtrl: {fileID: 5911305130030759582}
-  targetSprite: {fileID: 9159779030905502323}
-  spriteMask: {fileID: 1810455068701169603}
-  textureWidth: 256
-  textureHeight: 256
+  type: 0
+  stages:
+  - stainTransform: {fileID: 3538280436987703298}
+    targetSpriteRenderer: {fileID: 9159779030905502323}
+    spriteMask: {fileID: 1810455068701169603}
   drawRadius: 60
   drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &148525355673553201
@@ -202,10 +202,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  brushSound: {fileID: 8300000, guid: 09a1c79a673417549ab5f9f8598a1dd0, type: 3}
   toothpasteFoamPrefab: {fileID: 8622247768785702689, guid: 3e7b4d7fce021aa4e8a7cc44f024f021, type: 3}
   foamParent: {fileID: 6997080976189207076}
   spawnInterval: 0.1
   isComplete: 0
+  applyInterval: 0.05
 --- !u!1 &2068087902135463113
 GameObject:
   m_ObjectHideFlags: 0

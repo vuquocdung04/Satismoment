@@ -47,5 +47,6 @@ public class L76_Tile : MonoBehaviour
         if (Level_76Ctrl.Instance.hasLost || isMoving) return;
         boxCollider2D.enabled = false;
         Level_76Ctrl.Instance.OnTileClicked(this);
+        GameController.Instance.musicManager.PlayPick();
     }
 }

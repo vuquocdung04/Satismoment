@@ -17,5 +17,6 @@ public class L78_Corocodie : MonoBehaviour
         Move();
         colliTouch.enabled = false;
         colliTriger.enabled = true;
+        GameController.Instance.musicManager.PlayPick();
     }
 }

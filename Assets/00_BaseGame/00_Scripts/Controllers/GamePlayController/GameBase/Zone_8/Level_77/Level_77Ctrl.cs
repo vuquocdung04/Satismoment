@@ -31,20 +31,21 @@ public class Level_77Ctrl : BaseDragController<L77_Picture>
         newPicturePos.y = Mathf.Clamp(newPicturePos.y, -4f, 4f);
         draggableComponent.transform.position = newPicturePos;
 
-        HandleArrange(draggableComponent, false);
+        HandleArrange(draggableComponent);
 
     }
 
     protected override void OnDragStarted()
     {
         draggableComponent.spriteRenderer.sortingOrder = 3;
+        GameController.Instance.musicManager.PlayPick();
 
     }
     void HandleArrange(L77_Picture draggedPicture, bool snapPosition = false)
     {
         // Sắp xếp lại danh sách theo Y tăng dần
         lsPictures.Sort((a, b) => a.transform.position.y.CompareTo(b.transform.position.y));
-        L77_Picture picture  = null;
+        L77_Picture picture;
         Vector3 targetPosition;
         float currentY = startPosY;
 
@@ -106,7 +107,7 @@ public class Level_77Ctrl : BaseDragController<L77_Picture>
         // Bước 2: Xáo trộn danh sách vị trí
         for (int i = 0; i < originalPositions.Count; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(i, originalPositions.Count);
+            int randomIndex = Random.Range(i, originalPositions.Count);
             Vector3 temp = originalPositions[i];
             originalPositions[i] = originalPositions[randomIndex];
             originalPositions[randomIndex] = temp;

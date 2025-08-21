@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class HomeController : Singleton<HomeController>
 {
@@ -15,5 +15,18 @@ public class HomeController : Singleton<HomeController>
     private void Start()
     {
         homeScene.Init();
+    }
+    
+    [Button("Test level", ButtonSizes.Large)]
+    private void NextLevel(int levelID)
+    {
+        var levelMax = UseProfile.MaxUnlockedLevel;
+        if (levelID > levelMax)
+        {
+            Debug.LogError("Error max level");
+            return;
+        }
+        UseProfile.CurrentLevel = levelID;
+        Initiate.Fade(SceneName.GAME_PLAY,Color.black, 3f);
     }
 }

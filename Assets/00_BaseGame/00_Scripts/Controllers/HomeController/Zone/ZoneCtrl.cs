@@ -1,10 +1,11 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class ZoneCtrl : MonoBehaviour
 {
+    
     public List<ZonesCategory> lsZoneCategorys;
     public void Init()
     {
