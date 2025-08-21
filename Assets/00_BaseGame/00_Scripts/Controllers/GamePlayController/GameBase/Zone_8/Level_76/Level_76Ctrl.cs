@@ -12,11 +12,11 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
     [Header("Gameplay")]
     public List<L76_Tile> placedTiles = new List<L76_Tile>(); // Những Tile đã được đặt
-    public int winProgress = 0; // Số lần match thành công
+    public int winProgress; // Số lần match thành công
     public int maxPlacedTiles = 7; // Giới hạn số Tile có thể đặt trước khi thua
 
     [Header("Win/Lose Conditions")]
-    public bool hasLost = false;
+    public bool hasLost;
 
     public List<L76_Tile> allTiles = new List<L76_Tile>(); // Tất cả Tile trong scene
 
@@ -47,10 +47,10 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
             }
         }
 
+        // Bật cờ isMoving cho tile được click
+        tile.isMoving = true;
         placedTiles.Insert(insertIndex, tile);
         UpdateSlots(); // Bắt đầu hiệu ứng di chuyển
-        DarkenOverlappedTiles(); // Cập nhật màu sau khi xoá
-
     }
 
     private void UpdateSlots()
@@ -67,9 +67,11 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
         masterSequence.OnComplete(() =>
         {
+            // Sau khi tất cả tile đã di chuyển xong, mới bắt đầu kiểm tra
             CheckAndRemoveTriple();
             CheckLoseCondition();
             CheckWinCodition();
+            DarkenOverlappedTiles(); // Cập nhật màu sau khi các tile đã ở vị trí mới
         });
     }
 
@@ -101,6 +103,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
     private void HandleRemoveMatch(List<L76_Tile> toRemove)
     {
+        // Gỡ bỏ các tile khỏi danh sách ngay lập tức
         foreach (var tile in toRemove)
         {
             placedTiles.Remove(tile);
@@ -112,13 +115,18 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         foreach (var tile in toRemove)
         {
             Tween scaleTween = tile.transform.DOScale(Vector3.zero, 0.35f)
-                .SetEase(Ease.InBack);
+                .SetEase(Ease.InBack)
+                .OnComplete(() =>
+                {
+                    Destroy(tile.gameObject);
+                });
 
             destroySequence.Join(scaleTween);
         }
 
         destroySequence.OnComplete(() =>
         {
+            // Sau khi hiệu ứng xóa hoàn tất, gọi lại UpdateSlots() để dồn các tile còn lại
             UpdateSlots();
         });
     }
@@ -180,7 +188,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
                 if (backTile.isMoving) continue;
 
                 // Kiểm tra xem hai Tile có chồng lên nhau không bằng Collider
-                if (IsOverlapping(frontTile._collider2d, backTile._collider2d))
+                if (IsOverlapping(frontTile.boxCollider2D, backTile.boxCollider2D))
                 {
                     // Nếu backTile nằm dưới frontTile theo sortingOrder thì làm tối nó
                     if (backTile.spriteRenderer.sortingOrder < frontTile.spriteRenderer.sortingOrder)
@@ -203,9 +211,9 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     {
         foreach (var tile in this.allTiles)
         {
-            tile._collider2d = tile.transform.GetComponent<BoxCollider2D>();
-            tile._collider2d.size = new Vector2(0.54f, 0.54f);
-            tile._collider2d.offset = new Vector2(-0.04218856f, 0.04073071f);
+            tile.boxCollider2D = tile.transform.GetComponent<BoxCollider2D>();
+            tile.boxCollider2D.size = new Vector2(0.54f, 0.54f);
+            tile.boxCollider2D.offset = new Vector2(-0.04218856f, 0.04073071f);
         }
     }
 }

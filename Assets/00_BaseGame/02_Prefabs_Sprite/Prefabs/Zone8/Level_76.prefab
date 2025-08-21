@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 5870984944399039074}
-  _collider2d: {fileID: 8033606346583496472}
+  boxCollider2D: {fileID: 8033606346583496472}
   isMoving: 0
 --- !u!212 &5870984944399039074
 SpriteRenderer:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 1026868111179626194}
-  _collider2d: {fileID: 3459284894131521408}
+  boxCollider2D: {fileID: 3459284894131521408}
   isMoving: 0
 --- !u!212 &1026868111179626194
 SpriteRenderer:
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 1406398900641723194}
-  _collider2d: {fileID: 3450635704791537147}
+  boxCollider2D: {fileID: 3450635704791537147}
   isMoving: 0
 --- !u!212 &1406398900641723194
 SpriteRenderer:
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 4590371435650501684}
-  _collider2d: {fileID: 7042729273937386461}
+  boxCollider2D: {fileID: 7042729273937386461}
   isMoving: 0
 --- !u!212 &4590371435650501684
 SpriteRenderer:
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 727388715062672957}
-  _collider2d: {fileID: 6200556357175591977}
+  boxCollider2D: {fileID: 6200556357175591977}
   isMoving: 0
 --- !u!212 &727388715062672957
 SpriteRenderer:
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 3621972384854808616}
-  _collider2d: {fileID: 6030077258275550030}
+  boxCollider2D: {fileID: 6030077258275550030}
   isMoving: 0
 --- !u!212 &3621972384854808616
 SpriteRenderer:
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 4402261028096925490}
-  _collider2d: {fileID: 5510333349356964437}
+  boxCollider2D: {fileID: 5510333349356964437}
   isMoving: 0
 --- !u!212 &4402261028096925490
 SpriteRenderer:
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 8984877216640830409}
-  _collider2d: {fileID: 4205809481475429398}
+  boxCollider2D: {fileID: 4205809481475429398}
   isMoving: 0
 --- !u!212 &8984877216640830409
 SpriteRenderer:
@@ -1344,7 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 5
   spriteRenderer: {fileID: 5433709130020481421}
-  _collider2d: {fileID: 1546231212388718128}
+  boxCollider2D: {fileID: 1546231212388718128}
   isMoving: 0
 --- !u!212 &5433709130020481421
 SpriteRenderer:
@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 7
   spriteRenderer: {fileID: 8654732463975321949}
-  _collider2d: {fileID: 85498716522541830}
+  boxCollider2D: {fileID: 85498716522541830}
   isMoving: 0
 --- !u!212 &8654732463975321949
 SpriteRenderer:
@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 566222797563466474}
-  _collider2d: {fileID: 4773751667547936705}
+  boxCollider2D: {fileID: 4773751667547936705}
   isMoving: 0
 --- !u!212 &566222797563466474
 SpriteRenderer:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 1472565041612295064}
-  _collider2d: {fileID: 3105636288413673868}
+  boxCollider2D: {fileID: 3105636288413673868}
   isMoving: 0
 --- !u!212 &1472565041612295064
 SpriteRenderer:
@@ -1977,7 +1977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 469296068568852931}
-  _collider2d: {fileID: 9111917973555954879}
+  boxCollider2D: {fileID: 9111917973555954879}
   isMoving: 0
 --- !u!212 &469296068568852931
 SpriteRenderer:
@@ -2124,7 +2124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 7685115479255886250}
-  _collider2d: {fileID: 8543937705489709078}
+  boxCollider2D: {fileID: 8543937705489709078}
   isMoving: 0
 --- !u!212 &7685115479255886250
 SpriteRenderer:
@@ -2271,7 +2271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 4948000136222316731}
-  _collider2d: {fileID: 7856543160901874466}
+  boxCollider2D: {fileID: 7856543160901874466}
   isMoving: 0
 --- !u!212 &4948000136222316731
 SpriteRenderer:
@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 5204631727820799479}
-  _collider2d: {fileID: 3299096712029331124}
+  boxCollider2D: {fileID: 3299096712029331124}
   isMoving: 0
 --- !u!212 &5204631727820799479
 SpriteRenderer:
@@ -2565,7 +2565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 5
   spriteRenderer: {fileID: 4574195354654821892}
-  _collider2d: {fileID: 6274506835069537842}
+  boxCollider2D: {fileID: 6274506835069537842}
   isMoving: 0
 --- !u!212 &4574195354654821892
 SpriteRenderer:
@@ -2712,7 +2712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 7143500142508046946}
-  _collider2d: {fileID: 5138382257213267701}
+  boxCollider2D: {fileID: 5138382257213267701}
   isMoving: 0
 --- !u!212 &7143500142508046946
 SpriteRenderer:
@@ -2859,7 +2859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 9108822234491456857}
-  _collider2d: {fileID: 4804889856487498384}
+  boxCollider2D: {fileID: 4804889856487498384}
   isMoving: 0
 --- !u!212 &9108822234491456857
 SpriteRenderer:
@@ -3121,7 +3121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 7
   spriteRenderer: {fileID: 4985981788543319242}
-  _collider2d: {fileID: 881211415509211999}
+  boxCollider2D: {fileID: 881211415509211999}
   isMoving: 0
 --- !u!212 &4985981788543319242
 SpriteRenderer:
@@ -3268,7 +3268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 4113478439473464323}
-  _collider2d: {fileID: 6674018946459419481}
+  boxCollider2D: {fileID: 6674018946459419481}
   isMoving: 0
 --- !u!212 &4113478439473464323
 SpriteRenderer:
@@ -3415,7 +3415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 8948428155255509128}
-  _collider2d: {fileID: 1505999119218469487}
+  boxCollider2D: {fileID: 1505999119218469487}
   isMoving: 0
 --- !u!212 &8948428155255509128
 SpriteRenderer:
@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 4
   spriteRenderer: {fileID: 419323233374833165}
-  _collider2d: {fileID: 7144019949017370159}
+  boxCollider2D: {fileID: 7144019949017370159}
   isMoving: 0
 --- !u!212 &419323233374833165
 SpriteRenderer:
@@ -3709,7 +3709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 2771327120229282476}
-  _collider2d: {fileID: 1977464709180209608}
+  boxCollider2D: {fileID: 1977464709180209608}
   isMoving: 0
 --- !u!212 &2771327120229282476
 SpriteRenderer:
@@ -3956,7 +3956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 8536748538755961986}
-  _collider2d: {fileID: 1308836035962566360}
+  boxCollider2D: {fileID: 1308836035962566360}
   isMoving: 0
 --- !u!212 &8536748538755961986
 SpriteRenderer:
@@ -4103,7 +4103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 4545657308285527149}
-  _collider2d: {fileID: 675973646731423085}
+  boxCollider2D: {fileID: 675973646731423085}
   isMoving: 0
 --- !u!212 &4545657308285527149
 SpriteRenderer:
@@ -4250,7 +4250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 8889912239325524482}
-  _collider2d: {fileID: 7206631981339677848}
+  boxCollider2D: {fileID: 7206631981339677848}
   isMoving: 0
 --- !u!212 &8889912239325524482
 SpriteRenderer:
@@ -4428,7 +4428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 1344070834694459825}
-  _collider2d: {fileID: 5639234580117025570}
+  boxCollider2D: {fileID: 5639234580117025570}
   isMoving: 0
 --- !u!212 &1344070834694459825
 SpriteRenderer:
@@ -4575,7 +4575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 4001483909839569741}
-  _collider2d: {fileID: 7394723225236361311}
+  boxCollider2D: {fileID: 7394723225236361311}
   isMoving: 0
 --- !u!212 &4001483909839569741
 SpriteRenderer:
@@ -4722,7 +4722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 8471426761571369834}
-  _collider2d: {fileID: 7716632915867388098}
+  boxCollider2D: {fileID: 7716632915867388098}
   isMoving: 0
 --- !u!212 &8471426761571369834
 SpriteRenderer:
@@ -4869,7 +4869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 2
   spriteRenderer: {fileID: 882778983089850358}
-  _collider2d: {fileID: 2059104032711755807}
+  boxCollider2D: {fileID: 2059104032711755807}
   isMoving: 0
 --- !u!212 &882778983089850358
 SpriteRenderer:
@@ -5016,7 +5016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 1509682973780525204}
-  _collider2d: {fileID: 1389360427908721384}
+  boxCollider2D: {fileID: 1389360427908721384}
   isMoving: 0
 --- !u!212 &1509682973780525204
 SpriteRenderer:
@@ -5163,7 +5163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 2061095700510803691}
-  _collider2d: {fileID: 1117681693772822194}
+  boxCollider2D: {fileID: 1117681693772822194}
   isMoving: 0
 --- !u!212 &2061095700510803691
 SpriteRenderer:
@@ -5310,7 +5310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 674520047178458857}
-  _collider2d: {fileID: 8540672639078344930}
+  boxCollider2D: {fileID: 8540672639078344930}
   isMoving: 0
 --- !u!212 &674520047178458857
 SpriteRenderer:
@@ -5457,7 +5457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 8
   spriteRenderer: {fileID: 2794519685433838928}
-  _collider2d: {fileID: 6339161160148960343}
+  boxCollider2D: {fileID: 6339161160148960343}
   isMoving: 0
 --- !u!212 &2794519685433838928
 SpriteRenderer:
@@ -5604,7 +5604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 7831653872305793822}
-  _collider2d: {fileID: 7472854682441209305}
+  boxCollider2D: {fileID: 7472854682441209305}
   isMoving: 0
 --- !u!212 &7831653872305793822
 SpriteRenderer:
@@ -5751,7 +5751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 4
   spriteRenderer: {fileID: 6790252411828224948}
-  _collider2d: {fileID: 6582130142151609668}
+  boxCollider2D: {fileID: 6582130142151609668}
   isMoving: 0
 --- !u!212 &6790252411828224948
 SpriteRenderer:
@@ -5898,7 +5898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 4
   spriteRenderer: {fileID: 1038740500441598175}
-  _collider2d: {fileID: 5110860832352926775}
+  boxCollider2D: {fileID: 5110860832352926775}
   isMoving: 0
 --- !u!212 &1038740500441598175
 SpriteRenderer:
@@ -6076,7 +6076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 5
   spriteRenderer: {fileID: 956406642100575536}
-  _collider2d: {fileID: 867439538732810724}
+  boxCollider2D: {fileID: 867439538732810724}
   isMoving: 0
 --- !u!212 &956406642100575536
 SpriteRenderer:
@@ -6223,7 +6223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 3124006695861480432}
-  _collider2d: {fileID: 259623039118595445}
+  boxCollider2D: {fileID: 259623039118595445}
   isMoving: 0
 --- !u!212 &3124006695861480432
 SpriteRenderer:
@@ -6370,7 +6370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 8739587943495223530}
-  _collider2d: {fileID: 3133196517709030659}
+  boxCollider2D: {fileID: 3133196517709030659}
   isMoving: 0
 --- !u!212 &8739587943495223530
 SpriteRenderer:
@@ -6517,7 +6517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 5315405267236962981}
-  _collider2d: {fileID: 4633720377925514012}
+  boxCollider2D: {fileID: 4633720377925514012}
   isMoving: 0
 --- !u!212 &5315405267236962981
 SpriteRenderer:
@@ -6664,7 +6664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 3
   spriteRenderer: {fileID: 4730119894377773406}
-  _collider2d: {fileID: 4787392555406565113}
+  boxCollider2D: {fileID: 4787392555406565113}
   isMoving: 0
 --- !u!212 &4730119894377773406
 SpriteRenderer:
@@ -6811,7 +6811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 3946150969958991216}
-  _collider2d: {fileID: 8345355313629008199}
+  boxCollider2D: {fileID: 8345355313629008199}
   isMoving: 0
 --- !u!212 &3946150969958991216
 SpriteRenderer:
@@ -6958,7 +6958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   spriteRenderer: {fileID: 7298317192942367153}
-  _collider2d: {fileID: 7737244236683646974}
+  boxCollider2D: {fileID: 7737244236683646974}
   isMoving: 0
 --- !u!212 &7298317192942367153
 SpriteRenderer:
@@ -7105,7 +7105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 6
   spriteRenderer: {fileID: 709585385866811602}
-  _collider2d: {fileID: 4730171823134378312}
+  boxCollider2D: {fileID: 4730171823134378312}
   isMoving: 0
 --- !u!212 &709585385866811602
 SpriteRenderer:
@@ -7454,7 +7454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 0
   spriteRenderer: {fileID: 1378219321788903371}
-  _collider2d: {fileID: 6347348408485949207}
+  boxCollider2D: {fileID: 6347348408485949207}
   isMoving: 0
 --- !u!212 &1378219321788903371
 SpriteRenderer:
@@ -7601,7 +7601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 7
   spriteRenderer: {fileID: 846963396409017454}
-  _collider2d: {fileID: 7952402059592370355}
+  boxCollider2D: {fileID: 7952402059592370355}
   isMoving: 0
 --- !u!212 &846963396409017454
 SpriteRenderer:
