@@ -1,11 +1,11 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_63Ctrl : BaseDragController<L63_Pig>
 {
+    public AudioClip breakSound;
     public float winProgress;
     public Transform pigShadow;
     private float limitMaxPosY;
@@ -38,6 +38,7 @@ public class Level_63Ctrl : BaseDragController<L63_Pig>
     protected override void OnDragStarted()
     {
         minHeight = limitMinPosY = draggableComponent.transform.position.y;
+        GameController.Instance.musicManager.PlayPick();
     }
     float minHeight;
     float maxHeight = 4f;
@@ -70,6 +71,7 @@ public class Level_63Ctrl : BaseDragController<L63_Pig>
     {
         if(winProgress > 30)
         {
+            GameController.Instance.musicManager.PlayMultiple(breakSound,1f);
             isWin = true;
             yield return new WaitForSeconds(1f);
             WinBox.SetUp().Show();

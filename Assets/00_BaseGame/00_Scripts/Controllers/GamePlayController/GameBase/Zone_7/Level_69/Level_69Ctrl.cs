@@ -15,6 +15,7 @@ public class Level_69Ctrl : BaseDragController<L69_DryLeaf>
         {
             winProgress++;
             draggableComponent.InteractWithLeaf();
+            GameController.Instance.musicManager.PlayPick();
         }
         else
         {

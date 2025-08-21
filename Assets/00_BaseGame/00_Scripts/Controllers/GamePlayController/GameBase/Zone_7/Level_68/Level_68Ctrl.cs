@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Level_68Ctrl : MonoBehaviour
 {
-    public bool isWin = false;
+    public AudioClip detectionSound;
+    public bool isWin;
     public Transform map;
     public L68_Mouse mouse;
     public L68_Cat cat;
@@ -56,6 +57,7 @@ public class Level_68Ctrl : MonoBehaviour
         }
         mouse.StopRunningAnimation();
         timingBar.DOKill();
+        GameController.Instance.musicManager.PlayMultiple(detectionSound);
         yield return new WaitForSeconds(0.5f);
 
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);

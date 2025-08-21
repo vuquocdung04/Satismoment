@@ -1,4 +1,4 @@
-using DG.Tweening;
+
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,6 @@ public class Level_67Ctrl : BaseDragController<L67_Tab>
     public List<L67_Tab> lsTabs;
     protected override void OnDragEnded()
     {
-        
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)
@@ -21,7 +20,7 @@ public class Level_67Ctrl : BaseDragController<L67_Tab>
 
     protected override void OnDragStarted()
     {
-        Debug.LogError(draggableComponent.name);
+        GameController.Instance.musicManager.PlayPick();
         if (draggableComponent.idTab == currentIndex)
         {
             draggableComponent.DOAnimClosing();

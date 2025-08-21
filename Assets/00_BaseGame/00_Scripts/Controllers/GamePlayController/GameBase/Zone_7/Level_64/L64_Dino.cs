@@ -16,7 +16,7 @@ public class L64_Dino : MonoBehaviour
     public float groundCheckDistance = 0.1f;
 
     public bool isGrounded = true;
-    public bool isRunning = false;
+    public bool isRunning;
     private Coroutine runningCoroutine;
 
     // Biến để lưu trạng thái isGrounded của frame trước
@@ -43,11 +43,13 @@ public class L64_Dino : MonoBehaviour
         }
     }
 
-    public void Jump()
+    // ReSharper disable Unity.PerformanceAnalysis
+    public void Jump(System.Action callback = null)
     {
         // Chỉ cho phép nhảy khi đang trên mặt đất
         if (!isGrounded) return;
 
+        callback?.Invoke();
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         // Khi nhảy, dừng animation chạy và hiển thị sprite nhảy
@@ -72,6 +74,7 @@ public class L64_Dino : MonoBehaviour
             spriteIndex = (spriteIndex + 1) % lsSpriteMoves.Count;
             yield return new WaitForSeconds(0.2f);
         }
+        // ReSharper disable once IteratorNeverReturns
     }
 
     public void DoRunningAnim()

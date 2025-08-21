@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
@@ -34,7 +34,7 @@ public class Level_70Ctrl : BaseDragController<Transform>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()

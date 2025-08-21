@@ -1,12 +1,13 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Level_64Ctrl : MonoBehaviour
 {
+    public AudioClip jumpSound;
     public bool isWin;
+    public bool isLose;
     public L64_Dino dino;
     public Button btnRetry;
     public Transform map;
@@ -23,6 +24,7 @@ public class Level_64Ctrl : MonoBehaviour
 
     public void StopMoveMap()
     {
+        isLose = true;
         moveMap.Pause();
     }
 
@@ -34,9 +36,13 @@ public class Level_64Ctrl : MonoBehaviour
     void Update()
     {
         if (isWin) return;
+        if (isLose) return;
         if (Input.GetMouseButtonDown(0))
         {
-            dino.Jump();
+            dino.Jump(delegate
+            {
+                GameController.Instance.musicManager.PlaySingle(jumpSound);
+            });
         }
     }
 
@@ -52,6 +58,6 @@ public class Level_64Ctrl : MonoBehaviour
     private void OnDestroy()
     {
         if(moveMap != null && moveMap.IsActive())
-        moveMap.Kill();
+                moveMap.Kill();
     }
 }

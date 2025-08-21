@@ -36,7 +36,7 @@ public class L66_CleanerObj : MonoBehaviour
         animSequence.Append(this.transform.DOMoveY(-3.81f, 1f).SetEase(Ease.InOutQuad));
         animSequence.Join(lsMasks[1].DOMoveY(-6.72f, 1f).SetEase(Ease.InOutQuad));
 
-        animSequence.AppendInterval(0.3f);
+        animSequence.AppendInterval(0.5f);
         animSequence.OnComplete(() => HandleWinCodition());
     }
 

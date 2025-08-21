@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ public class Level_65Ctrl : BaseDragController<L65_Planet>
         if (distance < 0.5f)
         {
             draggableComponent.transform.position = draggableComponent.posCorrect;
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.transform.SetParent(grid);
             draggableComponent._collider2d.enabled = false;
             winProgress++;
@@ -33,7 +33,7 @@ public class Level_65Ctrl : BaseDragController<L65_Planet>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCodition()
@@ -41,9 +41,9 @@ public class Level_65Ctrl : BaseDragController<L65_Planet>
         if (winProgress == 5)
         {
             isWin = true;
-            Tween rotateRid =  grid.DORotate(new Vector3(0,0,-45f),2f,RotateMode.Fast);
+            Tween rotateRid =  grid.DORotate(new Vector3(0,0,-45f),2f);
             yield return rotateRid.WaitForCompletion();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
             WinBox.SetUp().Show();
         }
     }
