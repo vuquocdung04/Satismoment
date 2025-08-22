@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Level_170Ctrl : BaseDragController<L170_Btn>
 {
+    public AudioClip waterSound;
     public Transform shit;
     public Transform water;
 
@@ -14,7 +15,7 @@ public class Level_170Ctrl : BaseDragController<L170_Btn>
     protected override void OnDragStarted()
     {
         draggableComponent.objRenderer.sprite = draggableComponent.spriteHold;
-
+        GameController.Instance.musicManager.PlaySingle(waterSound);
         // Nếu chưa bắt đầu thì tạo mới
         if (waterScaleTween == null)
         {

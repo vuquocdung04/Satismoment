@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889f65ed58ea58f4295d4a73416f7366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showTransform: 0
+  pointCorrect: {fileID: 0}
   positionDefault: {x: -1.24, y: -2.93}
   angleDefault: 0
   timeSnapBack: 0.4
@@ -302,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889f65ed58ea58f4295d4a73416f7366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showTransform: 0
+  pointCorrect: {fileID: 0}
   positionDefault: {x: 1.38, y: -3.05}
   angleDefault: 0
   timeSnapBack: 0.4
@@ -424,7 +428,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.0079584, y: 10.240931, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8919539178778067044}
@@ -469,7 +473,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.31651366, g: 0.29550013, b: 0.4566037, a: 1}
   m_FlipX: 0
@@ -615,6 +619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889f65ed58ea58f4295d4a73416f7366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showTransform: 0
+  pointCorrect: {fileID: 0}
   positionDefault: {x: 0, y: 2.96}
   angleDefault: 0
   timeSnapBack: 0.4
@@ -821,6 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efce4d2d9d6c1954f9cd2ac68f38580d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWin: 0
   snapDistance: 0.2
   winProgress: 0
   lsPieces:

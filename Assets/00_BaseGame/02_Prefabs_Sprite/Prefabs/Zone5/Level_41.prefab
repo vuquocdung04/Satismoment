@@ -823,7 +823,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
-  turnAScrewSound: {fileID: 8300000, guid: c2982273fa97bfc4e92f77bb701d4ffc, type: 3}
   winProgress: 0
 --- !u!1 &5042799248430822713
 GameObject:
@@ -1720,8 +1719,8 @@ Transform:
   m_GameObject: {fileID: 8620576671979102713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0957, y: -0.0345, z: 0}
-  m_LocalScale: {x: 5.9837475, y: 10.438413, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3448169815677334521}
@@ -1766,7 +1765,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.7294118, g: 0.8980393, b: 0.96470594, a: 1}
   m_FlipX: 0

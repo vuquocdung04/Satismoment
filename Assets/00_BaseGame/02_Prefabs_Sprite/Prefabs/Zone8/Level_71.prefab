@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 1
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &143705631211864552
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -305,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 5
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &1028077106686892514
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -468,6 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 6
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &7603982755235602542
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -631,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 3
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &5891604392728900710
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -794,6 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 6
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &6330798722350517170
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -957,6 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 1
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &7313178615751857307
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1120,6 +1126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 3
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &6398106365840775517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1322,6 +1329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 4
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &1238622231962295326
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1516,6 +1524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 0
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &7748095399746919033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1763,6 +1772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 4
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &390109251394478241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1957,6 +1967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 5
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &3517975877379253392
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2120,6 +2131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 0
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &1044025988035467638
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2490,6 +2502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 3
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &6808856201767123974
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2630,8 +2643,8 @@ Transform:
   m_GameObject: {fileID: 6116782927953659179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0091, y: -0.0273, z: 0}
-  m_LocalScale: {x: 6.0375223, y: 10.401659, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 884308075664788326}
@@ -2676,7 +2689,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.20392159, g: 0.24705884, b: 0.48627454, a: 1}
   m_FlipX: 0
@@ -2802,6 +2815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 1
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &8744583543707272932
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2965,6 +2979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 2
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &5535921783778782573
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3128,6 +3143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 0
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &2615781173640989283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3291,6 +3307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 5
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &1597757768272771179
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3485,6 +3502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 4
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &620336685175450275
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3725,6 +3743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 2
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &4446125550454651524
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3888,6 +3907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 6
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &3605909501242003589
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4051,6 +4071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idFruit: 2
   rb: {fileID: 0}
+  isMoving: 0
 --- !u!212 &4556372761749223226
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4234,7 +4255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DontDestroyOnLoad: 0
-  winProgress: 0
   lsPoints:
   - {fileID: 28691220937028052}
   - {fileID: 5652861885396969188}
@@ -4244,5 +4264,7 @@ MonoBehaviour:
   - {fileID: 4902355100841879570}
   - {fileID: 1144736954976732260}
   placedFruits: []
+  winProgress: 0
+  maxPlacedFruits: 7
   hasLost: 0
   fruitsToRemove: []

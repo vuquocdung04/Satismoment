@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2878675665664741046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0282, y: 0.1125, z: 0}
-  m_LocalScale: {x: 6.2304077, y: 10.504691, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6237575856518587223}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.48235297, g: 0.5019608, b: 0.6431373, a: 1}
   m_FlipX: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   startY: 2
   spacingX: 1
   spacingY: 1.5
+  indexSpriteDefault: 2
   lsCardPrefabs:
   - {fileID: 6564539261532683349, guid: 6a644420fb2ea124c9a099d54448ce8b, type: 3}
   - {fileID: 3286820202768611233, guid: 572eb053f94d95940b613eb32f6f3e19, type: 3}

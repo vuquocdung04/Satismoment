@@ -13,6 +13,8 @@ public class ScaleBG : MonoBehaviour
         foreach (var level in this.lsLevels)
         {
             var bg = level.Find("bg");
+            var bgRenderer = bg.GetComponent<SpriteRenderer>();
+            bgRenderer.sortingOrder = -1;
             bg.localScale = new Vector3(20, 20, 20);
             bg.localPosition = Vector3.zero;
         }

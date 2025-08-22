@@ -258,7 +258,6 @@ MonoBehaviour:
   cake: {fileID: 8507074583559692042}
   ornamentBall_Left: {fileID: 8927449278516163548}
   ornamentBall_Right: {fileID: 5776050107971614221}
-  posSpawnEffect: {fileID: 4812812082658628955}
 --- !u!1 &3223443829963202809
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,8 +652,8 @@ Transform:
   m_GameObject: {fileID: 7387964399087178150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0263, y: 0.0263, z: 0}
-  m_LocalScale: {x: 5.9923067, y: 10.406325, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3966762195515132132}
@@ -699,7 +698,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.41176474, g: 0.3254902, b: 0.6156863, a: 1}
   m_FlipX: 0
