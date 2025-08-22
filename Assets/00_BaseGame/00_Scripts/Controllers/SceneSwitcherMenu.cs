@@ -1,14 +1,15 @@
-﻿using UnityEditor;
+﻿using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 
 public class SceneSwitcherMenu
 {
     // Đường dẫn tới thư mục chứa các scene của bạn.
-    // Thay đổi "Assets/Scenes/" nếu bạn lưu trữ scene ở một nơi khác.
     private const string SCENE_FOLDER_PATH = "Assets/Scenes/";
 
-    [MenuItem("Open Scene/Loading Scene",priority = 1)]
+    [MenuItem("Open Scene/Loading Scene", priority = 1)]
     static void OpenLoadingScene()
     {
         OpenScene(SCENE_FOLDER_PATH + "LoadingScene.unity");
@@ -34,12 +35,5 @@ public class SceneSwitcherMenu
             EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         }
     }
-
-    // Bạn có thể thêm các menu item khác cho các scene khác nếu cần
-    // Ví dụ:
-    // [MenuItem("Open Scene/Another Scene")]
-    // static void OpenAnotherScene()
-    // {
-    //     OpenScene(SCENE_FOLDER_PATH + "AnotherScene.unity");
-    // }
 }
+#endif

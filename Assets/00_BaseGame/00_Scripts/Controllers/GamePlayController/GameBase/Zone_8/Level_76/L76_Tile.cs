@@ -3,50 +3,119 @@ using UnityEngine;
 
 public class L76_Tile : MonoBehaviour
 {
-    public L76_AnimalType animalType; // ID loại Tile (thay cho idFruit)
+    public L76_AnimalType animalType;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider2D;
     private readonly Color originalColor = new Color32(255, 255, 255, 255);
     public bool isMoving;
+    private Tween currentTween; // Lưu reference của tween hiện tại
+
+    private void OnDestroy()
+    {
+        // Kill tất cả tweens liên quan đến tile này
+        KillAllTweens();
+    }
+
+    public void KillAllTweens()
+    {
+        // Kill tween hiện tại nếu có
+        currentTween?.Kill();
+        currentTween = null;
+        
+        // Kill tweens bằng target
+        if (transform != null)
+        {
+            transform.DOKill(complete: false);
+        }
+        
+        // Kill tweens bằng ID
+        DOTween.Kill(this, complete: false);
+    }
 
     public void Darken()
     {
-        boxCollider2D.enabled = false;
-        spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f, 1f); // Màu xám tối
+        if (boxCollider2D != null)
+            boxCollider2D.enabled = false;
+        if (spriteRenderer != null)
+            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f, 1f);
     }
 
     public void Restore()
     {
-        boxCollider2D.enabled = true;
-        spriteRenderer.color = originalColor; // Khôi phục lại màu gốc
+        if (boxCollider2D != null)
+            boxCollider2D.enabled = true;
+        if (spriteRenderer != null)
+            spriteRenderer.color = originalColor;
     }
 
-    public Tween GetMoveTween(Transform targetSlot)
+    public Tween GetMoveTween(Transform targetSlot, System.Action onComplete = null)
     {
-        // Bật trạng thái đang di chuyển
+        // Kiểm tra null và gameObject còn tồn tại
+        if (targetSlot == null || transform == null || gameObject == null)
+        {
+            onComplete?.Invoke();
+            return null; // Trả về null thay vì empty sequence
+        }
+
         isMoving = true;
         
-        // Vô hiệu hóa collider trong khi di chuyển để tránh click trong lúc đang bay
-        boxCollider2D.enabled = false;
+        if (boxCollider2D != null)
+            boxCollider2D.enabled = false;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMove(targetSlot.position, 0.5f).SetEase(Ease.OutQuad));
+        // Kill tween cũ trước khi tạo mới
+        KillAllTweens();
 
-        seq.AppendCallback(() =>
+        // Tạo tween mới và lưu reference
+        currentTween = transform.DOMove(targetSlot.position, 0.5f)
+            .SetEase(Ease.OutQuad)
+            .SetTarget(transform) // Set target để DOTween track properly
+            .SetId(this); // Set ID để có thể kill theo ID
+        
+        currentTween.OnComplete(() =>
         {
-            // Tắt trạng thái di chuyển sau khi hoàn tất
-            isMoving = false;
-            // Kích hoạt lại collider
-            boxCollider2D.enabled = true;
+            // Kiểm tra object còn tồn tại trước khi thực hiện
+            if (this != null && gameObject != null)
+            {
+                isMoving = false;
+                if (boxCollider2D != null)
+                    boxCollider2D.enabled = true;
+                
+                onComplete?.Invoke();
+            }
+            currentTween = null; // Clear reference sau khi complete
         });
 
-        return seq;
+        // Set OnKill callback để cleanup
+        currentTween.OnKill(() =>
+        {
+            if (this != null && gameObject != null)
+            {
+                isMoving = false;
+                if (boxCollider2D != null)
+                    boxCollider2D.enabled = true;
+            }
+            currentTween = null;
+        });
+
+        return currentTween;
     }
+    
     private void OnMouseDown()
     {
-        if (Level_76Ctrl.Instance.hasLost || isMoving) return;
-        boxCollider2D.enabled = false;
+        // Kiểm tra đầy đủ điều kiện
+        if (Level_76Ctrl.Instance == null || 
+            Level_76Ctrl.Instance.hasLost || 
+            Level_76Ctrl.Instance.hasWon || // Thêm check win
+            isMoving) 
+            return;
+            
+        if (boxCollider2D != null)
+            boxCollider2D.enabled = false;
+            
         Level_76Ctrl.Instance.OnTileClicked(this);
-        GameController.Instance.musicManager.PlayPick();
+        
+        // Play sound effect
+        if (GameController.Instance != null && GameController.Instance.musicManager != null)
+            GameController.Instance.musicManager.PlayPick();
     }
 }

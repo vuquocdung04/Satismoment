@@ -8,84 +8,124 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 {
     
     [Header("Slots")]
-    public List<Transform> lsPoints; // Danh sách vị trí cố định để đặt Tile
+    public List<Transform> lsPoints;
 
     [Header("Gameplay")]
-    public List<L76_Tile> placedTiles = new List<L76_Tile>(); // Những Tile đã được đặt
-    public int winProgress; // Số lần match thành công
-    public int maxPlacedTiles = 7; // Giới hạn số Tile có thể đặt trước khi thua
+    public List<L76_Tile> placedTiles = new List<L76_Tile>();
+    public List<L76_Tile> arrangedTiles = new List<L76_Tile>();
+    public int tripleRemovedCount;
+    public int maxPlacedSlots = 7;
+    public int totalPossibleTriples;
 
     [Header("Win/Lose Conditions")]
     public bool hasLost;
+    public bool hasWon;
+    private bool isRemovingTriple;
 
-    public List<L76_Tile> allTiles = new List<L76_Tile>(); // Tất cả Tile trong scene
+    public List<L76_Tile> allTiles = new List<L76_Tile>();
 
     private void Start()
     {
-        DarkenOverlappedTiles(); // Gọi ban đầu để làm tối những Tile bị che
+        totalPossibleTriples = allTiles.Count / 3;
+        Debug.Log($"Total possible triples: {totalPossibleTriples}");
+        DarkenOverlappedTiles();
     }
 
     public void OnTileClicked(L76_Tile clickedTile)
     {
-        AddTile(clickedTile); // Thêm Tile vào hàng đợi
+        if (allTiles.Contains(clickedTile))
+            allTiles.Remove(clickedTile);
+        AddTile(clickedTile);
     }
 
     public void AddTile(L76_Tile tile)
     {
-        if (placedTiles.Contains(tile) || hasLost)
+        if (tile == null || placedTiles.Contains(tile) || hasLost)
             return;
 
         int insertIndex = placedTiles.Count;
 
-        // Tìm vị trí cuối cùng của bất kỳ quả nào có cùng idFruit
         for (int i = placedTiles.Count - 1; i >= 0; i--)
         {
-            if (placedTiles[i].animalType == tile.animalType)
+            if (i < placedTiles.Count && placedTiles[i] != null && 
+                placedTiles[i].animalType == tile.animalType)
             {
                 insertIndex = i + 1;
                 break;
             }
         }
 
-        // Bật cờ isMoving cho tile được click
         tile.isMoving = true;
         placedTiles.Insert(insertIndex, tile);
-        UpdateSlots(); // Bắt đầu hiệu ứng di chuyển
+        UpdateSlots();
     }
 
     private void UpdateSlots()
     {
-        Sequence masterSequence = DOTween.Sequence();
+        arrangedTiles.Clear();
 
-        for (int i = 0; i < placedTiles.Count && i < lsPoints.Count; i++)
+        // Tạo sequence để chạy các tween di chuyển
+        Sequence moveSequence = DOTween.Sequence();
+        
+        int totalTilesToMove = Mathf.Min(placedTiles.Count, lsPoints.Count);
+        int moveCompletedCount = 0;
+        int validTweens = 0;
+
+        for (int i = 0; i < totalTilesToMove; i++)
         {
+            if (i >= placedTiles.Count || i >= lsPoints.Count) break;
+            
             L76_Tile currentTile = placedTiles[i];
             Transform targetSlot = lsPoints[i];
 
-            masterSequence.Join(currentTile.GetMoveTween(targetSlot));
+            if (currentTile == null || targetSlot == null) continue;
+
+            Tween moveTween = currentTile.GetMoveTween(targetSlot, () =>
+            {
+                if (currentTile != null && !arrangedTiles.Contains(currentTile))
+                {
+                    arrangedTiles.Add(currentTile);
+                }
+
+                moveCompletedCount++;
+                
+                if (moveCompletedCount >= totalTilesToMove)
+                {
+                    CheckAndRemoveTriple();
+                    DarkenOverlappedTiles();
+                }
+            });
+            
+            moveSequence.Join(moveTween);
+            validTweens++;
         }
 
-        masterSequence.OnComplete(() =>
+        if (validTweens > 0)
         {
-            // Sau khi tất cả tile đã di chuyển xong, mới bắt đầu kiểm tra
-            CheckAndRemoveTriple();
-            CheckLoseCondition();
-            CheckWinCodition();
-            DarkenOverlappedTiles(); // Cập nhật màu sau khi các tile đã ở vị trí mới
-        });
+            moveSequence.Play();
+        }
+        else
+        {
+            moveSequence.Kill();
+        }
     }
 
     private void CheckAndRemoveTriple()
     {
+        if (isRemovingTriple) return;
+        
         List<L76_Tile> fruitsToRemove = new List<L76_Tile>();
 
-        for (int i = 0; i < placedTiles.Count - 2; i++)
+        for (int i = 0; i < arrangedTiles.Count - 2; i++)
         {
-            L76_Tile t1 = placedTiles[i];
-            L76_Tile t2 = placedTiles[i + 1];
-            L76_Tile t3 = placedTiles[i + 2];
+            if (i >= arrangedTiles.Count - 2) break;
+            
+            L76_Tile t1 = arrangedTiles[i];
+            L76_Tile t2 = arrangedTiles[i + 1];
+            L76_Tile t3 = arrangedTiles[i + 2];
 
-            if (t1.animalType == t2.animalType && t2.animalType == t3.animalType)
+            if (t1 != null && t2 != null && t3 != null &&
+                t1.animalType == t2.animalType && t2.animalType == t3.animalType)
             {
                 fruitsToRemove.Add(t1);
                 fruitsToRemove.Add(t2);
@@ -96,102 +136,156 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
         if (fruitsToRemove.Count > 0)
         {
-            winProgress++;
+            isRemovingTriple = true;
             HandleRemoveMatch(fruitsToRemove);
+        }
+        else
+        {
+            CheckLoseCondition();
+            CheckWinCondition();
         }
     }
 
     private void HandleRemoveMatch(List<L76_Tile> toRemove)
     {
-        // Gỡ bỏ các tile khỏi danh sách ngay lập tức
+        Debug.Log($"Removing triple, current count: {tripleRemovedCount}");
+        
         foreach (var tile in toRemove)
         {
-            placedTiles.Remove(tile);
-            allTiles.Remove(tile);
+            if (tile != null)
+            {
+                tile.transform.DOKill();
+                DOTween.Kill(tile);
+                if (placedTiles.Contains(tile))
+                    placedTiles.Remove(tile);
+                if (arrangedTiles.Contains(tile))
+                    arrangedTiles.Remove(tile);
+                if (allTiles.Contains(tile))
+                    allTiles.Remove(tile);
+            }
         }
+
+        tripleRemovedCount++;
+        CheckWinCondition();
 
         Sequence destroySequence = DOTween.Sequence();
 
         foreach (var tile in toRemove)
         {
+            if (tile == null) continue;
+
+            tile.transform.DOKill();
+
             Tween scaleTween = tile.transform.DOScale(Vector3.zero, 0.35f)
-                .SetEase(Ease.InBack)
-                .OnComplete(() =>
+                .SetEase(Ease.InBack);
+
+            scaleTween.OnComplete(() =>
+            {
+                if (tile != null && tile.gameObject != null)
                 {
+                    tile.transform.DOKill();
                     Destroy(tile.gameObject);
-                });
+                }
+            });
 
             destroySequence.Join(scaleTween);
         }
 
         destroySequence.OnComplete(() =>
         {
-            // Sau khi hiệu ứng xóa hoàn tất, gọi lại UpdateSlots() để dồn các tile còn lại
+            isRemovingTriple = false;
             UpdateSlots();
         });
+
+        destroySequence.Play();
     }
 
     private void CheckLoseCondition()
     {
-        if (placedTiles.Count >= maxPlacedTiles && !hasLost)
+        if (placedTiles.Count >= maxPlacedSlots && !hasLost)
         {
-            hasLost = true;
-            StartCoroutine(HandleLose());
+            bool hasTriple = false;
+            for (int i = 0; i < placedTiles.Count - 2; i++)
+            {
+                if (i < lsPoints.Count - 2 && i < placedTiles.Count - 2)
+                {
+                    L76_Tile t1 = placedTiles[i];
+                    L76_Tile t2 = placedTiles[i + 1];
+                    L76_Tile t3 = placedTiles[i + 2];
+
+                    if (t1 != null && t2 != null && t3 != null &&
+                        t1.animalType == t2.animalType && t2.animalType == t3.animalType)
+                    {
+                        hasTriple = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!hasTriple)
+            {
+                hasLost = true;
+                StartCoroutine(HandleLose());
+            }
         }
     }
 
-    private void CheckWinCodition()
+    private void CheckWinCondition()
     {
-        if(winProgress == 16)
+        Debug.Log($"CheckWin: tripleRemovedCount={tripleRemovedCount}, totalPossibleTriples={totalPossibleTriples}");
+        if(tripleRemovedCount >= totalPossibleTriples && !hasWon)
         {
+            hasWon = true;
+            Debug.Log("Win condition met!");
             StartCoroutine(HandleWin());
         }
     }
 
     IEnumerator HandleLose()
     {
+        DOTween.KillAll();
         yield return new WaitForSeconds(0.5f);
         Debug.Log("You Lose!");
-         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+            Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
     }
 
     IEnumerator HandleWin()
     {
+        DOTween.KillAll();
         yield return new WaitForSeconds(0.5f);
         Debug.Log("You Win!");
-         WinBox.SetUp().Show();
+            WinBox.SetUp().Show();
     }
 
     private void DarkenOverlappedTiles()
     {
-        // Bước 1: Khôi phục lại màu cho tất cả Tile trước khi xét lại
         foreach (var tile in allTiles)
         {
-            if (!tile.isMoving) // Chỉ khôi phục nếu không đang di chuyển
+            if (tile != null && !tile.isMoving)
             {
                 tile.Restore();
             }
         }
 
-        // Bước 2: Duyệt từng cặp Tile để kiểm tra chồng lấp và thứ tự hiển thị
         for (int i = 0; i < allTiles.Count; i++)
         {
+            if (i >= allTiles.Count) break;
+            
             var frontTile = allTiles[i];
+            if (frontTile == null || frontTile.isMoving) continue;
 
             for (int j = 0; j < allTiles.Count; j++)
             {
                 if (i == j) continue;
+                if (j >= allTiles.Count) break;
 
                 var backTile = allTiles[j];
+                if (backTile == null || backTile.isMoving) continue;
 
-                // Bỏ qua Tile đang di chuyển
-                if (backTile.isMoving) continue;
-
-                // Kiểm tra xem hai Tile có chồng lên nhau không bằng Collider
                 if (IsOverlapping(frontTile.boxCollider2D, backTile.boxCollider2D))
                 {
-                    // Nếu backTile nằm dưới frontTile theo sortingOrder thì làm tối nó
-                    if (backTile.spriteRenderer.sortingOrder < frontTile.spriteRenderer.sortingOrder)
+                    if (backTile.spriteRenderer != null && frontTile.spriteRenderer != null &&
+                        backTile.spriteRenderer.sortingOrder < frontTile.spriteRenderer.sortingOrder)
                     {
                         backTile.Darken();
                     }
@@ -200,9 +294,9 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         }
     }
 
-    // Hàm hỗ trợ kiểm tra 2 collider có chồng nhau không
     private bool IsOverlapping(BoxCollider2D colA, BoxCollider2D colB)
     {
+        if (colA == null || colB == null) return false;
         return colA.bounds.Intersects(colB.bounds);
     }
 
@@ -211,9 +305,15 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     {
         foreach (var tile in this.allTiles)
         {
-            tile.boxCollider2D = tile.transform.GetComponent<BoxCollider2D>();
-            tile.boxCollider2D.size = new Vector2(0.54f, 0.54f);
-            tile.boxCollider2D.offset = new Vector2(-0.04218856f, 0.04073071f);
+            if (tile != null && tile.transform != null)
+            {
+                tile.boxCollider2D = tile.transform.GetComponent<BoxCollider2D>();
+                if (tile.boxCollider2D != null)
+                {
+                    tile.boxCollider2D.size = new Vector2(0.54f, 0.54f);
+                    tile.boxCollider2D.offset = new Vector2(-0.04218856f, 0.04073071f);
+                }
+            }
         }
     }
 }

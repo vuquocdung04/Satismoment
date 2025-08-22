@@ -3061,7 +3061,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 8253d238816cda847ac1a63621240276, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7263,9 +7263,12 @@ MonoBehaviour:
   - {fileID: 7419928423030786627}
   - {fileID: 1445947160571009179}
   placedTiles: []
-  winProgress: 0
-  maxPlacedTiles: 7
+  arrangedTiles: []
+  tripleRemovedCount: 0
+  maxPlacedSlots: 7
+  totalPossibleTriples: 0
   hasLost: 0
+  hasWon: 0
   allTiles:
   - {fileID: 2583712381583118627}
   - {fileID: 6445048005993845737}
@@ -7394,7 +7397,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: adf3ef90a46581445a20b291970f5128, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
