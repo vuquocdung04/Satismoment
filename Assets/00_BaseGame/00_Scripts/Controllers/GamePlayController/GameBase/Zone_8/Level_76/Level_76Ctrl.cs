@@ -6,13 +6,12 @@ using Sirenix.OdinInspector;
 
 public class Level_76Ctrl : Singleton<Level_76Ctrl>
 {
-    
     [Header("Slots")]
     public List<Transform> lsPoints;
 
     [Header("Gameplay")]
-    public List<L76_Tile> placedTiles = new List<L76_Tile>();
-    public List<L76_Tile> arrangedTiles = new List<L76_Tile>();
+    public List<L76_Tile> placedTiles = new();
+    public List<L76_Tile> arrangedTiles = new();
     public int tripleRemovedCount;
     public int maxPlacedSlots = 7;
     public int totalPossibleTriples;
@@ -21,6 +20,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     public bool hasLost;
     public bool hasWon;
     private bool isRemovingTriple;
+    private bool isCheckingOrRemoving; // Ngăn gọi CheckAndRemoveTriple nhiều lần
 
     public List<L76_Tile> allTiles = new List<L76_Tile>();
 
@@ -40,7 +40,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
     public void AddTile(L76_Tile tile)
     {
-        if (tile == null || placedTiles.Contains(tile) || hasLost)
+        if (tile == null || placedTiles.Contains(tile) || hasLost || hasWon)
             return;
 
         int insertIndex = placedTiles.Count;
@@ -64,9 +64,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     {
         arrangedTiles.Clear();
 
-        // Tạo sequence để chạy các tween di chuyển
         Sequence moveSequence = DOTween.Sequence();
-        
         int totalTilesToMove = Mathf.Min(placedTiles.Count, lsPoints.Count);
         int moveCompletedCount = 0;
         int validTweens = 0;
@@ -78,7 +76,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
             L76_Tile currentTile = placedTiles[i];
             Transform targetSlot = lsPoints[i];
 
-            if (currentTile == null || targetSlot == null) continue;
+            if (currentTile == null || targetSlot == null || currentTile.gameObject == null) continue;
 
             Tween moveTween = currentTile.GetMoveTween(targetSlot, () =>
             {
@@ -91,7 +89,10 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
                 
                 if (moveCompletedCount >= totalTilesToMove)
                 {
-                    CheckAndRemoveTriple();
+                    if (!isCheckingOrRemoving)
+                    {
+                        CheckAndRemoveTriple();
+                    }
                     DarkenOverlappedTiles();
                 }
             });
@@ -112,8 +113,9 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
     private void CheckAndRemoveTriple()
     {
-        if (isRemovingTriple) return;
-        
+        if (isCheckingOrRemoving) return;
+        isCheckingOrRemoving = true;
+
         List<L76_Tile> fruitsToRemove = new List<L76_Tile>();
 
         for (int i = 0; i < arrangedTiles.Count - 2; i++)
@@ -142,26 +144,24 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         else
         {
             CheckLoseCondition();
-            CheckWinCondition();
+            isCheckingOrRemoving = false;
         }
     }
 
     private void HandleRemoveMatch(List<L76_Tile> toRemove)
     {
         Debug.Log($"Removing triple, current count: {tripleRemovedCount}");
-        
+
+        // Dọn dẹp danh sách và kill tween
         foreach (var tile in toRemove)
         {
             if (tile != null)
             {
-                tile.transform.DOKill();
-                DOTween.Kill(tile);
-                if (placedTiles.Contains(tile))
-                    placedTiles.Remove(tile);
-                if (arrangedTiles.Contains(tile))
-                    arrangedTiles.Remove(tile);
-                if (allTiles.Contains(tile))
-                    allTiles.Remove(tile);
+                tile.KillAllTweens();
+
+                placedTiles.Remove(tile);
+                arrangedTiles.Remove(tile);
+                allTiles.Remove(tile);
             }
         }
 
@@ -172,29 +172,28 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
         foreach (var tile in toRemove)
         {
-            if (tile == null) continue;
-
-            tile.transform.DOKill();
+            if (tile == null || tile.gameObject == null) continue;
 
             Tween scaleTween = tile.transform.DOScale(Vector3.zero, 0.35f)
                 .SetEase(Ease.InBack);
-
-            scaleTween.OnComplete(() =>
-            {
-                if (tile != null && tile.gameObject != null)
-                {
-                    tile.transform.DOKill();
-                    Destroy(tile.gameObject);
-                }
-            });
 
             destroySequence.Join(scaleTween);
         }
 
         destroySequence.OnComplete(() =>
         {
+            // Destroy sau khi tween xong
+            foreach (var tile in toRemove)
+            {
+                if (tile != null && tile.gameObject != null)
+                {
+                    tile.gameObject.SetActive(false);
+                }
+            }
+
             isRemovingTriple = false;
-            UpdateSlots();
+            isCheckingOrRemoving = false;
+            UpdateSlots(); // Cập nhật lại giao diện
         });
 
         destroySequence.Play();
@@ -228,12 +227,14 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
                 StartCoroutine(HandleLose());
             }
         }
+
+        isCheckingOrRemoving = false; // Đảm bảo mở khóa nếu chưa kịp
     }
 
     private void CheckWinCondition()
     {
         Debug.Log($"CheckWin: tripleRemovedCount={tripleRemovedCount}, totalPossibleTriples={totalPossibleTriples}");
-        if(tripleRemovedCount >= totalPossibleTriples && !hasWon)
+        if (tripleRemovedCount >= totalPossibleTriples && !hasWon)
         {
             hasWon = true;
             Debug.Log("Win condition met!");
@@ -246,7 +247,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         DOTween.KillAll();
         yield return new WaitForSeconds(0.5f);
         Debug.Log("You Lose!");
-            Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
     }
 
     IEnumerator HandleWin()
@@ -254,7 +255,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         DOTween.KillAll();
         yield return new WaitForSeconds(0.5f);
         Debug.Log("You Win!");
-            WinBox.SetUp().Show();
+        WinBox.SetUp().Show();
     }
 
     private void DarkenOverlappedTiles()
@@ -300,7 +301,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         return colA.bounds.Intersects(colB.bounds);
     }
 
-    [Button("Setup",ButtonSizes.Large)]
+    [Button("Setup", ButtonSizes.Large)]
     void Setup()
     {
         foreach (var tile in this.allTiles)

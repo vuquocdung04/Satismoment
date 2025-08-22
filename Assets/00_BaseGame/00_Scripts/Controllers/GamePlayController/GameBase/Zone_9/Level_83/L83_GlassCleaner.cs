@@ -157,9 +157,9 @@ public class L83_GlassCleaner : MonoBehaviour
         foreach (var glass in lsGlasss)
         {
             if (glass.maskTexture != null)
-                DestroyImmediate(glass.maskTexture);
+                Destroy(glass.maskTexture);
             if (glass.maskSprite != null)
-                DestroyImmediate(glass.maskSprite);
+                Destroy(glass.maskSprite);
         }
     }
 }

@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class Level_82Ctrl : BaseDragController<L82_PicturePiece>
 {
-    public int winProgress = 0;
+    
+    public int winProgress;
     public Transform mask;
     public L82_BuffterFly buffterFly;
     public List<L82_PicturePiece> lsPicturePieces;
@@ -19,6 +20,7 @@ public class Level_82Ctrl : BaseDragController<L82_PicturePiece>
         {
             draggableComponent.HandleCorrectPosition();
             winProgress++;
+            GameController.Instance.musicManager.PlayPlaceMultipe();
         }
         else
         {
@@ -40,6 +42,7 @@ public class Level_82Ctrl : BaseDragController<L82_PicturePiece>
     protected override void OnDragStarted()
     {
         draggableComponent.StateStart();
+        GameController.Instance.musicManager.PlayPick();
     }
 
 

@@ -77,6 +77,11 @@ namespace _00_BaseGame._00_Scripts.Controllers.MusicManager
             PlaySingle(placeItemTrue);
         }
 
+        public void PlayPlaceMultipe()
+        {
+            PlayMultiple(placeItemTrue);
+        }
+        
         public void PlayWrong()
         {
             PlaySingle(placeItemFalse);

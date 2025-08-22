@@ -193,12 +193,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3021176872156963546}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.31, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 395684643169209895}
+  m_Father: {fileID: 1145797348914850225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7899102964527833936
 BoxCollider2D:
@@ -270,12 +270,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3547426127057064434}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.34, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 395684643169209895}
+  m_Father: {fileID: 1145797348914850225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &11396247207825317
 BoxCollider2D:
@@ -529,10 +529,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2005231438061796745}
-  - {fileID: 9189488920389358158}
-  - {fileID: 8052682777585331929}
+  m_Children: []
   m_Father: {fileID: 1145797348914850225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9129893123141726823
@@ -612,12 +609,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5176237747568536088}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 5.54, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 5.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 395684643169209895}
+  m_Father: {fileID: 1145797348914850225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &6113841052700475426
 BoxCollider2D:
@@ -825,6 +822,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 395684643169209895}
+  - {fileID: 2005231438061796745}
+  - {fileID: 9189488920389358158}
+  - {fileID: 8052682777585331929}
   - {fileID: 3565338865971584594}
   - {fileID: 5424442428727194030}
   - {fileID: 1507108217667345526}
