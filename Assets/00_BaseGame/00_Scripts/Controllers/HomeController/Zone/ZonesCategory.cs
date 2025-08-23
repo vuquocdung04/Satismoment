@@ -25,6 +25,7 @@ public class ZonesCategory : MonoBehaviour
             }
             else if (lsZoneItems[i].idLevel == maxlevel + 1)
             {
+                lsZoneItems[i].btnPlay.enabled = true;
                 lsZoneItems[i].iconLevel.sprite = dataLevel.iconLv_Lock;
             }
             else

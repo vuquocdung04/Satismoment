@@ -15,6 +15,8 @@ public class HomeController : Singleton<HomeController>
     private void Start()
     {
         homeScene.Init();
+        GameController.Instance.adsController.RequestBanner();
+        GameController.Instance.adsController.ShowBanner();
     }
     
     [Button("Test level", ButtonSizes.Large)]

@@ -42,12 +42,14 @@ public class GameController : MonoBehaviour
     public UseProfile useProfile;
     public DataContain dataContain;
     public MusicManagerBase musicManager;
+    public AdsController adsController;
     public ConfettiEffectController confettiEffectController;
     void Init()
     {
         musicManager.Init();
         dataContain.Init();
         startLoading.Init();
+        adsController.Init();
     }
 
 }

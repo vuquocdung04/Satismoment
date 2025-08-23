@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EventDispatcher;
 
 public class AdsUnlockBox : BaseBox
 {
@@ -19,6 +18,7 @@ public class AdsUnlockBox : BaseBox
 
     public Button btnClose;
     public Button btnAdsUnlock;
+
     void Init()
     {
         btnClose.onClick.AddListener(delegate
@@ -33,16 +33,37 @@ public class AdsUnlockBox : BaseBox
             OnClickAdsUnlock();
             GameController.Instance.musicManager.PlayUIClick();
         });
+
+        // Đăng ký lắng nghe event nhận thưởng
+        this.RegisterListener(EventID.REWARDED_AD_COMPLETED, OnRewardedAdCompleted);
+    }
+
+    void OnDestroy()
+    {
+        // Hủy đăng ký khi object bị hủy
+        this.RemoveListener(EventID.REWARDED_AD_COMPLETED, OnRewardedAdCompleted);
     }
 
     void InitState()
     {
-
     }
 
     void OnClickAdsUnlock()
     {
-        UseProfile.MaxUnlockedLevel++;
+        // Hiển thị quảng cáo nhận thưởng
+        if (GameController.Instance != null && GameController.Instance.adsController != null)
+        {
+            GameController.Instance.adsController.ShowRewardedAd();
+        }
     }
 
+    // Xử lý khi nhận thưởng thành công
+    private void OnRewardedAdCompleted(object param)
+    {
+        Debug.Log("Reward received! Unlocking level...");
+
+        UseProfile.MaxUnlockedLevel++;
+        HomeController.Instance.homeScene.RefreshBoard();
+        Close();
+    }
 }

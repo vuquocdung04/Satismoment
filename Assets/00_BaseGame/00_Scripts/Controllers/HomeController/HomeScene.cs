@@ -12,12 +12,18 @@ public class HomeScene : MonoBehaviour
     public ZoneCtrl zoneCtrl;
     public void Init()
     {
+        
         zoneCtrl.Init();
         btnSetting.onClick.AddListener(delegate
         {
             SettingBox.SetUp().Show();
             GameController.Instance.musicManager.PlayUIClick();
         });
+    }
+
+    public void RefreshBoard()
+    {
+        zoneCtrl.Init();
     }
 
 
