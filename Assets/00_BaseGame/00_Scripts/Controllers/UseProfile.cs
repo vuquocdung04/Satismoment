@@ -57,4 +57,17 @@ public class UseProfile : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
+    public bool IsRemoveAds
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(StringHelper.REMOVE_ADS,0) == 1;
+        }
+        set
+        {
+            PlayerPrefs.SetInt(StringHelper.REMOVE_ADS, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
 }

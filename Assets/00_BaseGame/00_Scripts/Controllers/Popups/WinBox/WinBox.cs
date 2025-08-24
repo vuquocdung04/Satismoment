@@ -35,7 +35,8 @@ public class WinBox : BaseBox
     {
 
     }
-
+    
+    
     protected override void DoAppear()
     {
         StartCoroutine(DoShowingPopup());
@@ -50,6 +51,8 @@ public class WinBox : BaseBox
         panel.color = new Color32(0, 0, 0, 215);
         GameController.Instance.musicManager.PlayWinLevelSound();
         base.DoAppear();
+        GameController.Instance.adsController.RequestInterstitial();
+        GameController.Instance.adsController.ShowInterstitial();
     }
 
 
@@ -83,4 +86,6 @@ public class WinBox : BaseBox
         GameController.Instance.musicManager.PlayUIClick();
         Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
     }
+
+    
 }

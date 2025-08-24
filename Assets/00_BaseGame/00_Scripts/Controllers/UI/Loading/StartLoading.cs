@@ -23,13 +23,17 @@ public class StartLoading : MonoBehaviour
         StartCoroutine(LoadingText());
         StartCoroutine(LoadingAnimBG());
     }
-
+    IEnumerator LoadAdsToChangeScene()
+    {
+        yield return new WaitForSeconds(1);
+        StartCoroutine(ChangeScene());
+    }
+    
     IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(1);
         progressBar.fillAmount = 0;
-        string name = "";
-        name =SceneName.HOME_SCENE;
+        var name = SceneName.HOME_SCENE;
         var _asyncOperation = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
         while (!_asyncOperation.isDone)
         {
@@ -37,12 +41,6 @@ public class StartLoading : MonoBehaviour
             Debug.LogError(progressBar.fillAmount);
             yield return null;
         }
-    }
-
-    IEnumerator LoadAdsToChangeScene()
-    {
-        yield return new WaitForSeconds(1);
-        StartCoroutine(ChangeScene());
     }
 
     IEnumerator LoadingText()

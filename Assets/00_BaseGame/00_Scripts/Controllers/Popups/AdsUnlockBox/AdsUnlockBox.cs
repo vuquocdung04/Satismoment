@@ -35,13 +35,13 @@ public class AdsUnlockBox : BaseBox
         });
 
         // Đăng ký lắng nghe event nhận thưởng
-        this.RegisterListener(EventID.REWARDED_AD_COMPLETED, OnRewardedAdCompleted);
+        this.RegisterListener(EventID.REWARDED_ADS_COMPLETED, OnRewardedAdCompleted);
     }
 
     void OnDestroy()
     {
         // Hủy đăng ký khi object bị hủy
-        this.RemoveListener(EventID.REWARDED_AD_COMPLETED, OnRewardedAdCompleted);
+        this.RemoveListener(EventID.REWARDED_ADS_COMPLETED, OnRewardedAdCompleted);
     }
 
     void InitState()
@@ -51,18 +51,14 @@ public class AdsUnlockBox : BaseBox
     void OnClickAdsUnlock()
     {
         // Hiển thị quảng cáo nhận thưởng
-        if (GameController.Instance != null && GameController.Instance.adsController != null)
-        {
-            GameController.Instance.adsController.ShowRewardedAd();
-        }
+        GameController.Instance.adsController.ShowRewardedAd();
     }
 
     // Xử lý khi nhận thưởng thành công
     private void OnRewardedAdCompleted(object param)
     {
-        Debug.Log("Reward received! Unlocking level...");
-
         UseProfile.MaxUnlockedLevel++;
+        Debug.Log("Reward received! Unlocking level..." + UseProfile.MaxUnlockedLevel);
         HomeController.Instance.homeScene.RefreshBoard();
         Close();
     }

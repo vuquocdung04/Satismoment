@@ -15,9 +15,17 @@ public class HomeController : Singleton<HomeController>
     private void Start()
     {
         homeScene.Init();
-        GameController.Instance.adsController.RequestBanner();
         GameController.Instance.adsController.ShowBanner();
     }
+    private void OnDestroy()
+    {
+        if (GameController.Instance != null && 
+            GameController.Instance.adsController != null)
+        {
+            GameController.Instance.adsController.HideBanner();
+        }
+    }
+    
     
     [Button("Test level", ButtonSizes.Large)]
     private void NextLevel(int levelID)

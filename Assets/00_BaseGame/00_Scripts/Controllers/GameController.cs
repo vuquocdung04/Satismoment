@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using _00_BaseGame._00_Scripts.Controllers.MusicManager;
 using UnityEngine;
 
@@ -13,12 +12,6 @@ public class GameController : MonoBehaviour
             if(_instance == null)
             {
                 _instance = FindAnyObjectByType<GameController>();
-                if(_instance == null)
-                {
-                    GameObject obj = new GameObject("GameController");
-                    _instance = obj.AddComponent<GameController>();
-                    DontDestroyOnLoad(obj);
-                }
             }
             return _instance;
         }
@@ -46,10 +39,10 @@ public class GameController : MonoBehaviour
     public ConfettiEffectController confettiEffectController;
     void Init()
     {
+        adsController.Init();
         musicManager.Init();
         dataContain.Init();
         startLoading.Init();
-        adsController.Init();
     }
 
 }

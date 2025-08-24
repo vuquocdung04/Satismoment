@@ -1,6 +1,5 @@
 using UnityEngine;
 using GoogleMobileAds.Api;
-using System;
 using EventDispatcher;
 
 public class AdsController : MonoBehaviour
@@ -11,19 +10,17 @@ public class AdsController : MonoBehaviour
     private AppOpenAd appOpenAd;
 
     // Ad Unit IDs của bạn
-    private string bannerId = "ca-app-pub-4739017290334481/4383883316"; // Bieu ngu
-    private string interstitialId = "ca-app-pub-4739017290334481/6239906374"; // Trung gian
-    private string rewardedId = "ca-app-pub-4739017290334481/2604716024"; // Nhan thuong
-    private string appOpenId = "ca-app-pub-4739017290334481/8079601655";
+    private const string BannerId = "ca-app-pub-4739017290334481/4383883316"; // Bieu ngu
+    private const string InterstitialId = "ca-app-pub-4739017290334481/6239906374"; // Trung gian
+    private const string RewardedId = "ca-app-pub-4739017290334481/2604716024"; // Nhan thuong
+    private const string AppOpenId = "ca-app-pub-4739017290334481/8079601655";
 
     public void Init()
     {
         // Khởi tạo SDK
-        MobileAds.Initialize(initStatus => { 
+        MobileAds.Initialize(_ => { 
             Debug.Log("AdMob SDK initialized");
         });
-
-        // KHÔNG load banner ở đây nữa
         RequestInterstitial();
         RequestRewardedAd();
         RequestAppOpenAd();
@@ -32,7 +29,7 @@ public class AdsController : MonoBehaviour
     #region BANNER ADS
     public void RequestBanner()
     {
-        this.bannerView = new BannerView(bannerId, AdSize.Banner, AdPosition.Bottom);
+        this.bannerView = new BannerView(BannerId, AdSize.Banner, AdPosition.Bottom);
         AdRequest request = new AdRequest();
         this.bannerView.LoadAd(request);
         Debug.Log("Banner requested");
@@ -40,6 +37,8 @@ public class AdsController : MonoBehaviour
 
     public void ShowBanner()
     {
+        if(GameController.Instance.useProfile.IsRemoveAds) return;
+        
         if (bannerView != null)
             bannerView.Show();
     }
@@ -63,7 +62,7 @@ public class AdsController : MonoBehaviour
     #region INTERSTITIAL ADS
     public void RequestInterstitial()
     {
-        InterstitialAd.Load(interstitialId, new AdRequest(), (InterstitialAd ad, LoadAdError error) =>
+        InterstitialAd.Load(InterstitialId, new AdRequest(), (ad, error) =>
         {
             if (error != null)
             {
@@ -79,8 +78,8 @@ public class AdsController : MonoBehaviour
                 RequestInterstitial();
             };
 
-            interstitialAd.OnAdFullScreenContentFailed += (AdError error) => {
-                Debug.LogError("Interstitial failed to show: " + error.GetMessage());
+            interstitialAd.OnAdFullScreenContentFailed += adError => {
+                Debug.LogError("Interstitial failed to show: " + adError.GetMessage());
                 RequestInterstitial();
             };
         });
@@ -88,6 +87,8 @@ public class AdsController : MonoBehaviour
 
     public void ShowInterstitial()
     {
+        if(GameController.Instance.useProfile.IsRemoveAds) return;
+        
         if (interstitialAd != null)
         {
             interstitialAd.Show();
@@ -103,7 +104,7 @@ public class AdsController : MonoBehaviour
     #region REWARDED ADS
     public void RequestRewardedAd()
     {
-        RewardedAd.Load(rewardedId, new AdRequest(), (RewardedAd ad, LoadAdError error) =>
+        RewardedAd.Load(RewardedId, new AdRequest(), (ad, error) =>
         {
             if (error != null)
             {
@@ -119,42 +120,63 @@ public class AdsController : MonoBehaviour
                 RequestRewardedAd();
             };
 
-            rewardedAd.OnAdFullScreenContentFailed += (AdError error) => {
-                Debug.LogError("Rewarded ad failed to show: " + error.GetMessage());
+            rewardedAd.OnAdFullScreenContentFailed += adError => {
+                Debug.LogError("Rewarded ad failed to show: " + adError.GetMessage());
                 RequestRewardedAd();
             };
         });
     }
 
-    private void HandleUserEarnedReward(RewardedAd sender, Reward args)
+    private void HandleUserEarnedReward(Reward args)
     {
         Debug.Log("User earned reward: " + args.Amount + " " + args.Type);
         
         // Gửi event thông báo nhận thưởng thành công
-        this.PostEvent(EventID.REWARDED_AD_COMPLETED, args);
+        this.PostEvent(EventID.REWARDED_ADS_COMPLETED, args);
     }
 
     public void ShowRewardedAd()
     {
+        if (GameController.Instance.useProfile.IsRemoveAds)
+        {
+            var fakeReward = new Reward()
+            {
+                Type = "LevelUnlock",
+                Amount = 1,
+            };
+            HandleUserEarnedReward(fakeReward);
+            return;
+        }
+        
+        // Kiểm tra xem quảng cáo đã được tải thành công chưa
         if (rewardedAd != null)
         {
-            rewardedAd.Show((Reward reward) =>
+            // Hiển thị quảng cáo và truyền vào callback để xử lý khi người dùng nhận thưởng
+            // reward => { HandleUserEarnedReward(reward); } tương đương với việc viết:
+            // void MyCallback(Reward reward) { HandleUserEarnedReward(reward); }
+            // rewaredAd.Show(MyCallBack)
+            rewardedAd.Show(reward =>
             {
-                HandleUserEarnedReward(rewardedAd, reward);
+                // Gọi hàm xử lý phần thưởng khi người dùng xem xong quảng cáo
+                HandleUserEarnedReward(reward);
             });
+        
             Debug.Log("Showing Rewarded Ad");
         }
         else
         {
+            // Quảng cáo chưa sẵn sàng để hiển thị
             Debug.Log("Rewarded ad not ready");
         }
     }
     #endregion
+    
+    
 
     #region APP OPEN ADS
     public void RequestAppOpenAd()
     {
-        AppOpenAd.Load(appOpenId, new AdRequest(), (AppOpenAd ad, LoadAdError error) =>
+        AppOpenAd.Load(AppOpenId, new AdRequest(), (ad, error) =>
         {
             if (error != null)
             {
@@ -170,8 +192,8 @@ public class AdsController : MonoBehaviour
                 RequestAppOpenAd();
             };
 
-            appOpenAd.OnAdFullScreenContentFailed += (AdError error) => {
-                Debug.LogError("AppOpen ad failed to show: " + error.GetMessage());
+            appOpenAd.OnAdFullScreenContentFailed += adError => {
+                Debug.LogError("AppOpen ad failed to show: " + adError.GetMessage());
                 RequestAppOpenAd();
             };
         });

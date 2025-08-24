@@ -1,7 +1,4 @@
 
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class GamePlayController : Singleton<GamePlayController>
 {
@@ -18,5 +15,16 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         gameScene.Init();
         levelGameCtrl.Init();
+        GameController.Instance.adsController.ShowBanner();
+    }
+    
+    private void OnDestroy()
+    {
+        if (GameController.Instance != null && 
+            GameController.Instance.adsController != null)
+        {
+            GameController.Instance.adsController.HideBanner();
+        }
     }
 }
+

@@ -19,7 +19,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
     [Header("Win/Lose Conditions")]
     public bool hasLost;
     public bool hasWon;
-    private bool isRemovingTriple;
+
     private bool isCheckingOrRemoving; // Ngăn gọi CheckAndRemoveTriple nhiều lần
 
     public List<L76_Tile> allTiles = new List<L76_Tile>();
@@ -138,7 +138,6 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
 
         if (fruitsToRemove.Count > 0)
         {
-            isRemovingTriple = true;
             HandleRemoveMatch(fruitsToRemove);
         }
         else
@@ -190,8 +189,6 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
                     tile.gameObject.SetActive(false);
                 }
             }
-
-            isRemovingTriple = false;
             isCheckingOrRemoving = false;
             UpdateSlots(); // Cập nhật lại giao diện
         });
