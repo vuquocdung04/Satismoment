@@ -32,6 +32,7 @@ public class AdsController : MonoBehaviour
         this.bannerView = new BannerView(BannerId, AdSize.Banner, AdPosition.Bottom);
         AdRequest request = new AdRequest();
         this.bannerView.LoadAd(request);
+        
         Debug.Log("Banner requested");
     }
 
@@ -74,7 +75,7 @@ public class AdsController : MonoBehaviour
             Debug.Log("Interstitial loaded");
 
             interstitialAd.OnAdFullScreenContentClosed += () => {
-                Debug.Log("Interstitial closed");
+                Debug.Log("Interstiti al closed");
                 RequestInterstitial();
             };
 

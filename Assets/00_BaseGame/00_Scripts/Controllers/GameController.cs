@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private static GameController _instance;
+    private static GameController instance;
     public static GameController Instance
     {
         get
         {
-            if(_instance == null)
+            if(instance == null)
             {
-                _instance = FindAnyObjectByType<GameController>();
+                instance = FindAnyObjectByType<GameController>();
             }
-            return _instance;
+            return instance;
         }
     }
     protected void Awake()
     {
-        if(_instance == null)
+        if(instance == null)
         {
-            _instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else if (_instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -45,4 +45,10 @@ public class GameController : MonoBehaviour
         startLoading.Init();
     }
 
+    public void ChangeScene(string sceneName, float duration = 3f)
+    {
+        adsController.DestroyBanner();
+        Initiate.Fade(sceneName, Color.black, duration);
+    }
+    
 }

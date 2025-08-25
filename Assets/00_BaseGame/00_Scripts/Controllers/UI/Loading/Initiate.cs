@@ -1,14 +1,11 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-
-
 
 public static class Initiate
 {
-    static bool areWeFading = false;
+    static bool areWeFading;
 
-    static GameObject initTemp = null;
+    static GameObject initTemp;
 
     //Create Fader object and assing the fade scripts and assign all the variables
     public static void Fade(string scene, Color col, float multiplier)

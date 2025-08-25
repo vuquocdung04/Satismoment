@@ -43,7 +43,7 @@ public class Level_81Ctrl : BaseDragController<L81_Earth>
         timmingBar.DOKill();
         spawner.StopSpawning();
         StopMoveMeteorite();
-        Initiate.Fade(SceneName.GAME_PLAY,Color.black,3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
      
     public IEnumerator HandleWinCodition()

@@ -59,8 +59,7 @@ public class Level_68Ctrl : MonoBehaviour
         timingBar.DOKill();
         GameController.Instance.musicManager.PlayMultiple(detectionSound);
         yield return new WaitForSeconds(0.5f);
-
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
     IEnumerator HandleWinCodition()

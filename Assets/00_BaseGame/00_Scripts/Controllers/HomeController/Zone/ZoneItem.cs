@@ -22,7 +22,7 @@ public class ZoneItem : LoadAutoComponents
     {
         UseProfile.CurrentLevel = idLevel;
         if (idLevel <= UseProfile.MaxUnlockedLevel)
-            Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
+            GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
         else if(idLevel == UseProfile.MaxUnlockedLevel + 1)
         {
             AdsUnlockBox.SetUp().Show();

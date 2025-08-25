@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,24 +36,25 @@ public class WinBox : BaseBox
     {
 
     }
-    
-    
-    protected override void DoAppear()
+
+    protected override void DoAppear(Action callback = null)
     {
-        StartCoroutine(DoShowingPopup());
+        StartCoroutine(DoShowingPopup(delegate
+        {
+            GameController.Instance.adsController.ShowInterstitial();
+        }));
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    IEnumerator DoShowingPopup()
+    IEnumerator DoShowingPopup(Action callback = null)
     {
         ThumbUpBox.SetUp().Show();
         yield return new WaitForSeconds(1f);
         ThumbUpBox.SetUp().Close();
         panel.color = new Color32(0, 0, 0, 215);
         GameController.Instance.musicManager.PlayWinLevelSound();
-        base.DoAppear();
-        GameController.Instance.adsController.RequestInterstitial();
-        GameController.Instance.adsController.ShowInterstitial();
+        yield return null;
+        base.DoAppear(callback);
     }
 
 
@@ -69,7 +71,7 @@ public class WinBox : BaseBox
             }
             UseProfile.CurrentLevel++;
             GameController.Instance.musicManager.PlayUIClick();
-            Initiate.Fade(SceneName.GAME_PLAY,Color.black,2f);
+            GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
         }
     }
 
@@ -77,14 +79,14 @@ public class WinBox : BaseBox
     private void OnClickHome()
     {
         GameController.Instance.musicManager.PlayUIClick();
-        Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
+        GameController.Instance.ChangeScene(SceneName.HOME_SCENE);
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void OnClickRestart()
     {
         GameController.Instance.musicManager.PlayUIClick();
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
     

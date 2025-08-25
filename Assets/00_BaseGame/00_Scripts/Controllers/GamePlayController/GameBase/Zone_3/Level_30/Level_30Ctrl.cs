@@ -56,7 +56,7 @@ public class Level_30Ctrl : MonoBehaviour
         spinLog.gameObject.SetActive(false);
         ui_Left.BreakPieces();
         yield return new WaitForSeconds(1.1f);
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
     
     IEnumerator HandleWinCondition()

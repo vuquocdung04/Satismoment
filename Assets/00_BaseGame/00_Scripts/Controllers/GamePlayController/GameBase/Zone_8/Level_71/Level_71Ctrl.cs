@@ -87,7 +87,7 @@ public class Level_71Ctrl : Singleton<Level_71Ctrl>
     private IEnumerator HandleLoseCodition()
     {
         yield return new WaitForSeconds(0.5f);
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
     public List<L71_Fruit> fruitsToRemove = new();

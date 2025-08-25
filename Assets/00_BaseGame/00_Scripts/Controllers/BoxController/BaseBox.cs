@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using Sirenix.OdinInspector;
 using DG.Tweening;
-using UnityEngine.UI;
-using UnityEngine.Events;
 
 public abstract class BaseBox : MonoBehaviour
 {
@@ -20,14 +16,16 @@ public abstract class BaseBox : MonoBehaviour
         OnStart();
     }
 
-    protected virtual void DoAppear()
+    protected virtual void DoAppear(System.Action callback = null)
     {
         if (!isAnim) return;
         if (mainPanel == null) return;
-
-        mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack);
+        mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack).OnComplete(delegate
+        {
+            callback?.Invoke();
+        });
     }
-
+    
     protected virtual void OnStart()
     {
 

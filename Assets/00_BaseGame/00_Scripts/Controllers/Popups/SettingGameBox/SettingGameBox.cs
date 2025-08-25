@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +38,7 @@ public class SettingGameBox : BaseBox
 
         btnHome.onClick.AddListener(delegate
         {
-            Initiate.Fade(SceneName.HOME_SCENE, Color.black, 2f);
+            GameController.Instance.ChangeScene(SceneName.HOME_SCENE);
             GameController.Instance.musicManager.PlayUIClick();
         });
 
@@ -52,7 +51,7 @@ public class SettingGameBox : BaseBox
 
         btnRestart.onClick.AddListener(delegate
         {
-            Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
+            GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
             GameController.Instance.musicManager.PlayUIClick();
         });
 
@@ -81,7 +80,7 @@ public class SettingGameBox : BaseBox
             UseProfile.MaxUnlockedLevel++;
         }
         UseProfile.CurrentLevel++;
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 2f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
 

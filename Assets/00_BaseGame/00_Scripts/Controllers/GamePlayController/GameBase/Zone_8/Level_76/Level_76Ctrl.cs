@@ -244,7 +244,7 @@ public class Level_76Ctrl : Singleton<Level_76Ctrl>
         DOTween.KillAll();
         yield return new WaitForSeconds(0.5f);
         Debug.Log("You Lose!");
-        Initiate.Fade(SceneName.GAME_PLAY, Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
     IEnumerator HandleWin()

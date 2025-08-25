@@ -15,17 +15,8 @@ public class HomeController : Singleton<HomeController>
     private void Start()
     {
         homeScene.Init();
-        GameController.Instance.adsController.ShowBanner();
+        GameController.Instance.adsController.RequestBanner();
     }
-    private void OnDestroy()
-    {
-        if (GameController.Instance != null && 
-            GameController.Instance.adsController != null)
-        {
-            GameController.Instance.adsController.HideBanner();
-        }
-    }
-    
     
     [Button("Test level", ButtonSizes.Large)]
     private void NextLevel(int levelID)
@@ -37,6 +28,6 @@ public class HomeController : Singleton<HomeController>
             return;
         }
         UseProfile.CurrentLevel = levelID;
-        Initiate.Fade(SceneName.GAME_PLAY,Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 }

@@ -9,41 +9,77 @@ public class StartLoading : MonoBehaviour
 {
     public TextMeshProUGUI txtLoading;
     public Image progressBar;
-    public bool wasCoolDown;
-    Coroutine coroutineLoad;
-    public int countSecond;
     public Image bgAim;
     public List<Sprite> lsAnim;
     public void Init()
     {
-        this.wasCoolDown = false;
         this.progressBar.fillAmount = 0;
-        this.countSecond = 0;
-        coroutineLoad = StartCoroutine(LoadAdsToChangeScene());
+        StartCoroutine(LoadAdsToChangeScene());
         StartCoroutine(LoadingText());
-        StartCoroutine(LoadingAnimBG());
+        StartCoroutine(LoadingAnimBg());
     }
     IEnumerator LoadAdsToChangeScene()
     {
         yield return new WaitForSeconds(1);
-        StartCoroutine(ChangeScene());
-    }
-    
-    IEnumerator ChangeScene()
-    {
-        yield return new WaitForSeconds(1);
-        progressBar.fillAmount = 0;
-        var name = SceneName.HOME_SCENE;
-        var _asyncOperation = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
-        while (!_asyncOperation.isDone)
+
+        // Bắt đầu coroutine giả lập loading bar từ 0 -> 0.9 trong 1.5s
+        StartCoroutine(SimulateLoadingProgress(1.5f, () =>
         {
-            progressBar.fillAmount = Mathf.Clamp01(_asyncOperation.progress / 0.9f);
-            Debug.LogError(progressBar.fillAmount);
-            yield return null;
-        }
+            // Khi xong 0.9, bắt đầu load scene thực sự
+            StartCoroutine(ChangeScene());
+        }));
     }
 
-    IEnumerator LoadingText()
+    // Hàm mô phỏng loading bar từ 0 đến 0.9 trong thời gian duration
+    IEnumerator SimulateLoadingProgress(float duration, System.Action onComplete)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsedTime / duration) * 0.9f;
+            progressBar.fillAmount = progress;
+            yield return null;
+        }
+
+        progressBar.fillAmount = 0.9f;
+        
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator ChangeScene()
+    {
+        var homeScene = SceneName.HOME_SCENE;
+        var asyncOperation = SceneManager.LoadSceneAsync(homeScene, LoadSceneMode.Single);
+
+        // Không cho scene active ngay lập tức
+        asyncOperation!.allowSceneActivation = false;
+
+        // Đợi cho đến khi tiến trình gần xong (0.9)
+        while (asyncOperation.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        // Fill nốt progress từ 0.9 -> 1.0 trong 0.5s
+        float elapsed = 0f;
+        float duration = 0.5f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = 0.9f + (elapsed / duration) * 0.1f;
+            progressBar.fillAmount = progress;
+            yield return null;
+        }
+
+        progressBar.fillAmount = 1f;
+        yield return new WaitForSeconds(0.2f);
+
+        // Cho phép active scene
+        asyncOperation.allowSceneActivation = true;
+    }
+
+    private IEnumerator LoadingText()
     {
         var wait = new WaitForSeconds(1);
 
@@ -58,9 +94,10 @@ public class StartLoading : MonoBehaviour
             txtLoading.text = "LOADING...";
             yield return wait;
         }
+        // ReSharper disable once IteratorNeverReturns
     }
 
-    IEnumerator LoadingAnimBG()
+    private IEnumerator LoadingAnimBg()
     {
         var wait = new WaitForSeconds(0.8f);
         while (true)
@@ -70,5 +107,6 @@ public class StartLoading : MonoBehaviour
             bgAim.sprite = lsAnim[1];
             yield return wait;
         }
+        // ReSharper disable once IteratorNeverReturns
     }
 }

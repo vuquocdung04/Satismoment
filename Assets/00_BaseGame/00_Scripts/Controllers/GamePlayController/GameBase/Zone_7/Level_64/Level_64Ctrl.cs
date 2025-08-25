@@ -30,7 +30,7 @@ public class Level_64Ctrl : MonoBehaviour
 
     void ResetGame()
     {
-        Initiate.Fade(SceneName.GAME_PLAY,Color.black, 3f);
+        GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
     void Update()
