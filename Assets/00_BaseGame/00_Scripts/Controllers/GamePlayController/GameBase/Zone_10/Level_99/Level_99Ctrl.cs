@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level_99Ctrl : BaseDragController<L99_Item>
@@ -36,6 +35,7 @@ public class Level_99Ctrl : BaseDragController<L99_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

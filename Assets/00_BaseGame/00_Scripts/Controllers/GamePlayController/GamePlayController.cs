@@ -1,9 +1,12 @@
 
 
+using UnityEngine;
+
 public class GamePlayController : Singleton<GamePlayController>
 {
     public GameScene gameScene;
     public LevelGameCtrl levelGameCtrl;
+    public CameraAspectFitter cameraAspectFitter;
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -13,6 +16,7 @@ public class GamePlayController : Singleton<GamePlayController>
 
     void Init()
     {
+        cameraAspectFitter.Init();
         gameScene.Init();
         levelGameCtrl.Init();
         GameController.Instance.adsController.RequestBanner();

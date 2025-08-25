@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Level_92Ctrl : BaseDragController<L92_Food>
 {
+    public AudioClip pickFoodSound;
     public int winProgress;
     public List<L92_Food> lsFoods;
 
@@ -32,6 +33,7 @@ public class Level_92Ctrl : BaseDragController<L92_Food>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlaySingle(pickFoodSound);
     }
 
     IEnumerator HandleWinCondition()

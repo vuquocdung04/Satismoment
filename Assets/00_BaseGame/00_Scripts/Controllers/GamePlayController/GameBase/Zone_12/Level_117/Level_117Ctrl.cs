@@ -1,14 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_117Ctrl : BaseDragControllerVer2<L117_PieceGlass>
 {
+    public AudioClip placeSound;
     protected override void OnDragEnded()
     {
         if (draggableComponent.CheckCorrectPosition())
         {
             winProgress++;
+            GameController.Instance.musicManager.PlaySingle(placeSound);
             if (CheckWin())
             {
                 StartCoroutine(HandleWinCondition());
@@ -28,6 +29,7 @@ public class Level_117Ctrl : BaseDragControllerVer2<L117_PieceGlass>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     bool CheckWin()

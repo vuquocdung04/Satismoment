@@ -17,9 +17,10 @@ public class L118_PicturePiece : MonoBehaviour
         return false;
     }
 
-    public void Rotate()
+    public void Rotate(System.Action callback = null)
     {
         if (!isReadyRotate) return;
+        callback?.Invoke();
         StartCoroutine(PictureRotating());
     }
 

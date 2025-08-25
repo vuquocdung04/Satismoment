@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using System;
+﻿
 using UnityEngine;
 
 public class L114_HeadVacuum : MonoBehaviour
@@ -11,6 +10,7 @@ public class L114_HeadVacuum : MonoBehaviour
         collision.gameObject.SetActive(false);
         if(levelCtrl.winProgress == 10)
         {
+            levelCtrl.PauseVacuumSound();
             StartCoroutine(levelCtrl.HandleWinCondition());
         }
     }

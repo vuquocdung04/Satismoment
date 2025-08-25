@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_110Ctrl : BaseDragController<L110_Diem>
 {
     public L110_Fire firePrefab;
-    public int winProgress = 0;
+    public int winProgress;
     protected override void OnDragEnded()
     {
         if (CheckWin()) isWin = true;
@@ -19,7 +18,7 @@ public class Level_110Ctrl : BaseDragController<L110_Diem>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPick();
     }
     bool CheckWin()
     {

@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_115Ctrl : MonoBehaviour
@@ -9,7 +8,7 @@ public class Level_115Ctrl : MonoBehaviour
     public float totalSaltTime;         // Tổng thời gian rắc muối
     public Transform saltContainer;     // Vị trí spawn muối
 
-    private bool isWin = false; // Trạng thái thắng
+    private bool isWin; // Trạng thái thắng
 
     public void SetIsWin()
     {

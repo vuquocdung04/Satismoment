@@ -13,6 +13,7 @@ public class Level_94Ctrl : BaseDragController<L94_PaintBucket>
         if (draggableComponent.CheckCorrectCondition())
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlace();
             if (winProgress == lsIcons.Count)
                 StartCoroutine(HandleWinCondition());
         }
@@ -28,7 +29,7 @@ public class Level_94Ctrl : BaseDragController<L94_PaintBucket>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

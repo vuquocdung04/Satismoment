@@ -1177,6 +1177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  pickSound: {fileID: 8300000, guid: 0e1771be7b45aa847830354a1b373618, type: 3}
+  placeSound: {fileID: 8300000, guid: a96d8f610f8e05f40b9476a02e7aa2c0, type: 3}
   winProgress: 0
   boxLid: {fileID: 1937339470570130763}
   lsLegos:

@@ -51,6 +51,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 6742103512186750477}
   - {fileID: 5665052134376833585}
+  levelCtrl: {fileID: 0}
 --- !u!58 &4645704846049027039
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3692b3c4d606e1c4c9b5f5af0311e4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 7eedc347ea64f054c969c7607460a10c, type: 3}
   winProgress: 0
   hitEffect: {fileID: 1279911011968244315, guid: b9e67d592f8539f49840504e935bb580, type: 3}
   bladeEffect: {fileID: 764775919815363826}
@@ -285,6 +287,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 8166234830536141209}
   - {fileID: 4610019655214014421}
+  levelCtrl: {fileID: 0}
 --- !u!58 &2836124377549683853
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -455,6 +458,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 6198359940461015900}
   - {fileID: 7449040873012975799}
+  levelCtrl: {fileID: 0}
 --- !u!58 &4289265724832002222
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -541,6 +545,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 7309891317716015900}
   - {fileID: 4743672508253113406}
+  levelCtrl: {fileID: 0}
 --- !u!58 &6266752320919043896
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -627,6 +632,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 6001410423448622750}
   - {fileID: 7707552180000588822}
+  levelCtrl: {fileID: 0}
 --- !u!58 &5538039945955444098
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1283,6 +1289,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 5049471816066645210}
   - {fileID: 1690592266250160701}
+  levelCtrl: {fileID: 0}
 --- !u!58 &7848330111749328371
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2041,6 +2048,7 @@ MonoBehaviour:
   lsChilds:
   - {fileID: 458248213590119438}
   - {fileID: 8648192552702977836}
+  levelCtrl: {fileID: 0}
 --- !u!58 &9188247531971006156
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ public class Level_120Ctrl : BaseDragController<L120_LightBulb>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

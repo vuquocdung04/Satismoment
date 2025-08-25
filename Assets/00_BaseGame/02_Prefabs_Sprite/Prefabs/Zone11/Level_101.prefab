@@ -547,6 +547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWin: 0
+  noisySound: {fileID: 8300000, guid: 8d095aed5b20b844caba06d8f23c639d, type: 3}
+  tiviDoneSound: {fileID: 8300000, guid: 5d824f4f916146946865ede6f6e4f30c, type: 3}
   noisyScreen: {fileID: 675311237780060100}
   backGround: {fileID: 5812604486934314326}
   currentRotation: 100

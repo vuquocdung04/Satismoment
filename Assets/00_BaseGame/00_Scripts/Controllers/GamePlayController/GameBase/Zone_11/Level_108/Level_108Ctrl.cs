@@ -38,17 +38,16 @@ public class Level_108Ctrl : BaseDragController<L108_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnDragStarted();
+        GameController.Instance.musicManager.PlayPick();
     }
 
-    private bool CheckWin()
+    private void CheckWin()
     {
         if(winProgress == lsItems.Count)
         {
             isWin = true;
             StartCoroutine(HandleWinCondition());
-            return true;
         }
-        return false;
     }
 
 

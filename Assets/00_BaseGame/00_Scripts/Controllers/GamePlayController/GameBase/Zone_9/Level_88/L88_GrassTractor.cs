@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class L88_GrassTractor : MonoBehaviour
@@ -9,5 +8,6 @@ public class L88_GrassTractor : MonoBehaviour
     {
         collision.gameObject.SetActive(false);
         levelCtrl.winProgress++;
+        GameController.Instance.musicManager.PlaySingle(levelCtrl.cutSound);
     }
 }

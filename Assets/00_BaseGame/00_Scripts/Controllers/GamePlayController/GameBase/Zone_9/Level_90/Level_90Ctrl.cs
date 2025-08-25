@@ -7,7 +7,9 @@ using UnityEngine;
 
 public class Level_90Ctrl : BaseDragController<L90_Lego>
 {
-    public int winProgress = 0;
+    public AudioClip pickSound;
+    public AudioClip placeSound;
+    public int winProgress;
     public Transform boxLid;
     public List<L90_Lego> lsLegos;
     protected override void OnDragEnded()
@@ -18,6 +20,7 @@ public class Level_90Ctrl : BaseDragController<L90_Lego>
             if(winProgress == lsLegos.Count)
             {
                 isWin = true;
+                GameController.Instance.musicManager.PlaySingle(placeSound);
                 StartCoroutine(HandleWinCondition());
             }
         }
@@ -31,6 +34,8 @@ public class Level_90Ctrl : BaseDragController<L90_Lego>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        
+        GameController.Instance.musicManager.PlaySingle(pickSound);
     }
     IEnumerator HandleWinCondition()
     {

@@ -23,7 +23,7 @@ public class Level_97Ctrl : BaseDragController<L97_Devices>
     {
         draggableComponent.OnEndDrag();
         if(draggableComponent.deviceType == L97_DeviceType.SteamIron)
-        draggableComponent.ApplyMaskChangesAndCheckCoverage();
+            draggableComponent.ApplyMaskChangesAndCheckCoverage();
 
         if (draggableComponent.ninetyPercentReached)
         {
@@ -58,6 +58,7 @@ public class Level_97Ctrl : BaseDragController<L97_Devices>
 
     protected override void OnDragStarted()
     {
+        GameController.Instance.musicManager.PlayPick();
         draggableComponent.OnStartDrag();
         lastApplyTime = Time.time; // Đặt lại thời gian khi bắt đầu kéo
     }

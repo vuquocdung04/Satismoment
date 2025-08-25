@@ -26,6 +26,7 @@ public class L102_ScreenshotHandler : MonoBehaviour
     {
         
         isClicked = true;
+        levelCtrl.PlayScreenShotSound();
         isCatched = levelCtrl.cat.IsPeeking();
         spriteRenderer.sprite = lsFrames[0];
         levelCtrl.FadingEffect();

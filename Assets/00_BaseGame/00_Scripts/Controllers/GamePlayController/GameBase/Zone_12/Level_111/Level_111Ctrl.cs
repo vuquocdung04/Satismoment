@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Level_111Ctrl : BaseDragController<L111_RotaryDial>
 {
+    public AudioClip correctNumberSound;
     public int currentNumber;
     public L111_Handset handset;
     public L111_CordHook hook;
@@ -26,6 +27,7 @@ public class Level_111Ctrl : BaseDragController<L111_RotaryDial>
         if (draggableComponent.CheckNumberCorrect(hook.boxCollider))
         {
             currentNumber++;
+            GameController.Instance.musicManager.PlaySingle(correctNumberSound);
             lsNumbers[currentNumber - 1].ResetColor();
         }
         else
@@ -66,21 +68,19 @@ public class Level_111Ctrl : BaseDragController<L111_RotaryDial>
 
     protected override void OnDragStarted()
     {
-        
+        GameController.Instance.musicManager.PlayPick();
     }
 
-    bool CheckWin()
+    private void CheckWin()
     {
         if (currentNumber == lsNumbers.Count)
         {
             isWin = true;
             StartCoroutine(HandleWinCondition());
-            return true;
         }
-        return false;
     }
 
-    IEnumerator HandleWinCondition()
+    private IEnumerator HandleWinCondition()
     {
         draggableComponent.OnDragEnded();
         draggableComponent.numberDial.gameObject.SetActive(false);

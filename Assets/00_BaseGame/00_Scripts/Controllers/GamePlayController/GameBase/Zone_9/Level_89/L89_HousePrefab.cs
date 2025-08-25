@@ -26,6 +26,7 @@ public class L89_HousePrefab : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         contactCount++;
+        levelCtrl.PlayFallSound();
     }
 
     void OnCollisionExit2D(Collision2D col)

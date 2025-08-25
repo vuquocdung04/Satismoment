@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using System.Collections;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
@@ -38,6 +37,7 @@ public class Level_116Ctrl : BaseDragController<L116_PiecePotato>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     public void ArrangePieces()

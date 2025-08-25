@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
 {
+    public AudioClip grillFoodSound;
     public int winProgress;
     public Transform kitchen;
     public Transform plate;
@@ -16,7 +17,7 @@ public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
     public List<L96_KitchenObj> lsKitchenObjs;
 
     private float currentRotation = 40f;
-    private bool hasFallen = false;
+    private bool hasFallen ;
 
     protected override void OnDragEnded()
     {
@@ -80,7 +81,7 @@ public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
 
         // Di chuyển bếp xuống
         yield return kitchen.DOMove(new Vector2(0, -0.51f), 1f).SetEase(Ease.Linear).WaitForCompletion();
-
+        GameController.Instance.musicManager.PlaySingle(grillFoodSound);
         // Hiệu ứng khói + màu khoai tây
         foreach (var potato in lsPiecePotatos)
         {
@@ -97,8 +98,8 @@ public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
     {
         Vector3 spawnPos = lsKitchenObjs[1].transform.position;
         float rand = Random.Range(-0.5f, 0.5f);
-        var effectGO = Instantiate(effectSmoke, new Vector2(spawnPos.x + rand, spawnPos.y + 0.5f), Quaternion.identity);
-        effectGO.SpawnEffect();
+        var effectGo = Instantiate(effectSmoke, new Vector2(spawnPos.x + rand, spawnPos.y + 0.5f), Quaternion.identity);
+        effectGo.SpawnEffect();
     }
 
     private void UpdatePlatePosition()
@@ -125,6 +126,6 @@ public class Level_96Ctrl : BaseDragController<L96_KitchenObj>
 
     protected override void OnDragStarted()
     {
-        throw new System.NotImplementedException();
+        GameController.Instance.musicManager.PlayPick();
     }
 }

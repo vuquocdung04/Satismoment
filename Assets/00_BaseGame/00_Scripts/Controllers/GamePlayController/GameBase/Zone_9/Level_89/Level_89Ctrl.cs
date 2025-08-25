@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Level_89Ctrl : MonoBehaviour
 {
+    public AudioClip fallSound;
     public int winProgress;
-    public bool isWin = false;
+    public bool isWin;
     public Transform car;
     public L89_Rod rod;
     public L89_TriggerRestHouse triggerRestHouse;
@@ -32,6 +33,8 @@ public class Level_89Ctrl : MonoBehaviour
     public void MoveCamera()
     {
         Camera.main.transform.DOMoveY(1.5f,1f).SetEase(Ease.Linear);
+        
+        transform.position += new Vector3(1,0);
     }
     public IEnumerator HandleWinCondition()
     {
@@ -48,5 +51,10 @@ public class Level_89Ctrl : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         WinBox.SetUp().Show();
+    }
+
+    public void PlayFallSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(fallSound);
     }
 }

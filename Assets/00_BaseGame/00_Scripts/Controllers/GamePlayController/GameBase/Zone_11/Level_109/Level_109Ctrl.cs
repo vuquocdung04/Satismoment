@@ -1,4 +1,4 @@
-using DG.Tweening;
+
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,17 +34,16 @@ public class Level_109Ctrl : BaseDragController<L109_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnDragStarted();
+        GameController.Instance.musicManager.PlayPick();
     }
 
-    private bool CheckWin()
+    private void CheckWin()
     {
         if (winProgress == lsItems.Count)
         {
             isWin = true;
             StartCoroutine(HandleWinCondition());
-            return true;
         }
-        return false;
     }
 
 

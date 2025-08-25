@@ -31,6 +31,7 @@ public class Level_91Ctrl : BaseDragController<L91_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

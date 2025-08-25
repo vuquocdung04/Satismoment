@@ -5,11 +5,10 @@ public class CameraAspectFitter : MonoBehaviour
     [SerializeField] private float baseHeight = 10f; // Chiều cao hiển thị mong muốn (2 * orthographicSize)
     [SerializeField] private float baseWidth = 5.625f; // Tính từ 1080/1920 * baseHeight/2 * 2 -> 1080/1920 * 10 = 5.625
 
-    private Camera cam;
+    [SerializeField] Camera cam;
 
-    void Start()
+    public void Init()
     {
-        cam = GetComponent<Camera>();
         AdjustCamera();
     }
 
@@ -33,9 +32,8 @@ public class CameraAspectFitter : MonoBehaviour
         }
     }
 
-    void Update()
+    void OnRectTransformDimensionsChange()
     {
-        // Nếu cần cập nhật khi xoay màn hình (trên mobile)
         AdjustCamera();
     }
 }

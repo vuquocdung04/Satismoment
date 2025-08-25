@@ -13,9 +13,9 @@ public class Level_121Ctrl : BaseDragController<L121_PopitButton>
     public List<L121_PopitButton> lsPopupButtons; // Danh sách các nút Pop It
 
     private List<int> randomIds; // Lưu ID của các ô được random
-    private int currentTargetIndex = 0; // Chỉ số mục tiêu hiện tại (thứ tự người chơi cần bấm)
-    bool canPlay = false;
-    public int winProgress = 0;
+    private int currentTargetIndex ; // Chỉ số mục tiêu hiện tại (thứ tự người chơi cần bấm)
+    bool canPlay ;
+    public int winProgress;
     private void Start()
     {
         InitStateGame();
@@ -101,6 +101,7 @@ public class Level_121Ctrl : BaseDragController<L121_PopitButton>
         {
             // Bấm đúng
             button.OnClicked(pressSprite); // Đổi trạng thái nút
+            GameController.Instance.musicManager.PlayUIClick();
             currentTargetIndex++; // Tiến tới mục tiêu tiếp theo
 
             if (currentTargetIndex >= randomIds.Count)

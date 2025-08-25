@@ -1,12 +1,12 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_119Ctrl : BaseDragController<L119_Tissue>
 {
-    public int tissueDropped; // Số hạt dưa đã bỏ\
+    public AudioClip pickTissueSound;
+    public int tissueDropped;
     public int totalTissuesNeeded = 15;
     public L119_Tissue tissuePrefab;
     public L119_TissueBox tissueBox;
@@ -45,7 +45,7 @@ public class Level_119Ctrl : BaseDragController<L119_Tissue>
     public void IncreaseTissueDropped()
     {
         tissueDropped++;
-
+        GameController.Instance.musicManager.PlaySingle(pickTissueSound);
         if (tissueDropped == 5 || tissueDropped == 10 || tissueDropped == 12 || tissueDropped == 15)
         {
             tissueBox.ChangeSprite();

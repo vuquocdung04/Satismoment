@@ -21,6 +21,7 @@ public class Level_112Ctrl : BaseDragController<L112_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnDragStarted();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     public IEnumerator HandleWinCondition()

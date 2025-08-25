@@ -1,11 +1,11 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_105Ctrl : BaseDragController<L105_CueBall>
 {
+    public AudioClip hitSound;
     public L105_BallArranger ballArranger;
     L105_CueBall cueBallClone;
     public int winProgress;
@@ -48,6 +48,7 @@ public class Level_105Ctrl : BaseDragController<L105_CueBall>
         cueBallClone = draggableComponent;
         yield return cueMove.WaitForCompletion();
         cueStick.gameObject.SetActive(false);
+        GameController.Instance.musicManager.PlaySingle(hitSound);
         float power = CalculatePower(currentPullBack);
         cueBallClone.ApplyStrikeForce(-directionToMouse, power);
     }

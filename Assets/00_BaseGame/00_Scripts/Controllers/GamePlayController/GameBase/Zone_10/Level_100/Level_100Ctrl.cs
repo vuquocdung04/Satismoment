@@ -29,6 +29,7 @@ public class Level_100Ctrl : BaseDragControllerVer2<L100_Item>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     protected override IEnumerator HandleWinCondition()

@@ -13,6 +13,7 @@ public class Level_93Ctrl : BaseDragController<L93_FakeMoveParent>
         if (draggableComponent.CheckDistanceCorrect())
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlace();
             if (winProgress == lsFakes.Count)
                 StartCoroutine(HandleWinCondition());
         }
@@ -28,7 +29,7 @@ public class Level_93Ctrl : BaseDragController<L93_FakeMoveParent>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

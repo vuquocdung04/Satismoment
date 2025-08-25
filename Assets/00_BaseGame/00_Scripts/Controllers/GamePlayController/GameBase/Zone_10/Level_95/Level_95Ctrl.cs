@@ -22,6 +22,7 @@ public class Level_95Ctrl : BaseDragController<L95_PieceStone>
 
     protected override void OnDragStarted()
     {
+        GameController.Instance.musicManager.PlayPick();
         draggableComponent.OnStartDrag();
         winProgress++;
         if(winProgress == lsPieceStones.Count)

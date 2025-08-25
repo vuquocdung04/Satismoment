@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+
 using System.Collections;
 using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
@@ -19,7 +19,7 @@ public class Level_86Ctrl : BaseDragController<L86_Tooth>
 
     }
 
-    bool isInteracted = false;
+    bool isInteracted;
     protected override void Update()
     {
         if (isInteracted) return;
@@ -30,7 +30,7 @@ public class Level_86Ctrl : BaseDragController<L86_Tooth>
 
     protected override void OnDragStarted()
     {
-          
+          GameController.Instance.musicManager.PlayPick();
     }
 
     protected override void OnDragLogic(Vector3 currentMousePosition, Vector3 deltaMousePosition)

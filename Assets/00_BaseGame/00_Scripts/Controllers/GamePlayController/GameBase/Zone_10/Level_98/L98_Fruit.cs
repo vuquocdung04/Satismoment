@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -10,7 +10,7 @@ public class L98_Fruit : MonoBehaviour
 
     private Sequence throwSequence; // Lưu sequence DOTween
     private Vector3 initialPosition; // Lưu vị trí ban đầu của quả táo
-
+    public Level_98Ctrl levelCtrl;
     public void Init()
     {
         initialPosition = transform.position; // Lưu vị trí ban đầu khi game bắt đầu
@@ -25,7 +25,7 @@ public class L98_Fruit : MonoBehaviour
             throwSequence.Kill(); // Hủy hiệu ứng lặp
             throwSequence = null;
         }
-
+        levelCtrl.PlayHitSound();
         // Vô hiệu hóa collider
         circleCollider2D.enabled = false;
 

@@ -34,7 +34,7 @@ public class Level_104Ctrl : BaseDragController<L104_SoftDrink>
 
     protected override void OnDragStarted()
     {
-
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

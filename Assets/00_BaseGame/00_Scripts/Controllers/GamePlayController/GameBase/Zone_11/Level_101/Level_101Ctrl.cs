@@ -1,18 +1,21 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
+using _00_BaseGame._00_Scripts.Controllers.MusicManager;
 using UnityEngine;
 
 public class Level_101Ctrl : BaseDragController<L101_Angten>
 {
+    public AudioClip noisySound;
+    public AudioClip tiviDoneSound;
     public L101_NoisyScreen noisyScreen;
     public SpriteRenderer backGround;
     public float currentRotation = -35f;
 
-    private float lastAlpha = 0f; // Biến lưu lại giá trị alpha cuối cùng
+    private float lastAlpha; // Biến lưu lại giá trị alpha cuối cùng
 
     private void Start()
     {
+        GameController.Instance.musicManager.PlaySingle(noisySound,true, MusicManagerBase.SourceAudio.SoundBackup);
         StartCoroutine(noisyScreen.PlayingAnimation());
     }
 
@@ -48,6 +51,8 @@ public class Level_101Ctrl : BaseDragController<L101_Angten>
         {
             Debug.Log("✅ Tín hiệu ổn định! Alpha gần bằng 0.");
             noisyScreen.isPlayingAnimation = true;
+            GameController.Instance.musicManager.PauseSound(false,MusicManagerBase.SourceAudio.SoundBackup);
+            GameController.Instance.musicManager.PlaySingle(tiviDoneSound);
             StartCoroutine(HandleWinCondition());
         }
         else
@@ -64,7 +69,7 @@ public class Level_101Ctrl : BaseDragController<L101_Angten>
     {
         backGround.color = new Color32(255,255,121,255);
         isWin = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         WinBox.SetUp().Show();
     }
 }

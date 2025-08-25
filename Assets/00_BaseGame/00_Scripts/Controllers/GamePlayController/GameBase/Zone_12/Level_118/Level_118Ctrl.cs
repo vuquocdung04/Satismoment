@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Level_118Ctrl : BaseDragControllerVer2<L118_PicturePiece>
 {
-    
+    public AudioClip rotateSound;
     protected override void OnDragEnded()
     {
         if (draggableComponent.IsAtZeroDegree())
@@ -22,7 +21,10 @@ public class Level_118Ctrl : BaseDragControllerVer2<L118_PicturePiece>
 
     protected override void OnDragStarted()
     {
-        draggableComponent.Rotate();
+        draggableComponent.Rotate(delegate
+        {
+            GameController.Instance.musicManager.PlaySingle(rotateSound);
+        });
     }
     protected override void SetupComponent_PositionCorrect()
     {

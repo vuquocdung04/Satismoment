@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_114Ctrl : BaseDragController<L114_HeadVacuum>
 {
+    public AudioClip vacuumSound;
     public int winProgress;
     public L114_Effect effect;
     public L114_Button btn;
@@ -97,5 +97,15 @@ public class Level_114Ctrl : BaseDragController<L114_HeadVacuum>
 
             lineRenderer.SetPosition(i, point);
         }
+    }
+
+    public void PauseVacuumSound()
+    {
+        GameController.Instance.musicManager.PauseSound();
+    }
+    
+    public void PlayVacuumSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(vacuumSound,true);
     }
 }

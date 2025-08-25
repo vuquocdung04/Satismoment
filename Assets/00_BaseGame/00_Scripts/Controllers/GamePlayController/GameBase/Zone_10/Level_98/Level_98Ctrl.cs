@@ -5,8 +5,9 @@ using System.Collections;
 
 public class Level_98Ctrl : MonoBehaviour
 {
+    public AudioClip hitSound;
     public int winProgress;
-    bool isWin = false;
+    bool isWin;
     public L98_HitEffect hitEffect;
     public L98_BladeEffect bladeEffect;
     public List<L98_Fruit> lsFruits;
@@ -15,6 +16,7 @@ public class Level_98Ctrl : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ThrowFruit());
+        foreach(var fruit in this.lsFruits) fruit.levelCtrl = this;
     }
 
     private void Update()
@@ -62,6 +64,11 @@ public class Level_98Ctrl : MonoBehaviour
         WinBox.SetUp().Show();
     }
 
+    public void PlayHitSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(hitSound);
+    }
+    
 
     [Button("Setup Fruit",ButtonSizes.Large)]
     void SetupFruit()

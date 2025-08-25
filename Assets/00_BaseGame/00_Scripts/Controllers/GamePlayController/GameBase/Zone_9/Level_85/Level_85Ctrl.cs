@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Level_85Ctrl : BaseDragController<L85_LearningTool>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public List<L85_LearningTool> lsTools;
 
     protected override void OnDragEnded()
@@ -15,6 +15,7 @@ public class Level_85Ctrl : BaseDragController<L85_LearningTool>
         if(distance < 0.2f)
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.HandleCorrectCondition();
             if(winProgress == lsTools.Count)
             {
@@ -23,6 +24,7 @@ public class Level_85Ctrl : BaseDragController<L85_LearningTool>
         }
         else
         {
+            GameController.Instance.musicManager.PlayPlace();
             draggableComponent.OnEndDrag();
         }
     }
@@ -35,6 +37,7 @@ public class Level_85Ctrl : BaseDragController<L85_LearningTool>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPlace();
     }
 
     IEnumerator HandleWinCondition()

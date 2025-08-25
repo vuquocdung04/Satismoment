@@ -14,6 +14,7 @@ public class Level_84Ctrl : BaseDragController<L84_Food>
         float distance = Vector2.Distance(draggableComponent.transform.position, draggableComponent.posCorrect);
         if(distance < 0.3f)
         {
+            GameController.Instance.musicManager.PlayPlace();
             winProgress++;
             draggableComponent.HandleConditionCorrect();
             if(winProgress == lsFoods.Count)
@@ -24,6 +25,7 @@ public class Level_84Ctrl : BaseDragController<L84_Food>
         }
         else
         {
+            GameController.Instance.musicManager.PlayWrong();
             draggableComponent.StateEndDrag();
         }
 
@@ -39,6 +41,7 @@ public class Level_84Ctrl : BaseDragController<L84_Food>
     protected override void OnDragStarted()
     {
         draggableComponent.StateStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     IEnumerator HandleWinCondition()

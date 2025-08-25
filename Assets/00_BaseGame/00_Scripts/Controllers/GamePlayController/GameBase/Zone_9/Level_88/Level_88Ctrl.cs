@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using _00_BaseGame._00_Scripts.Controllers.GamePlayController.GameBase;
 using UnityEngine;
 
 public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
 {
-    public int winProgress = 0;
+    public AudioClip cutSound;
+    public int winProgress;
     public L88_Yard yard;
     [Header("Cài đặt làm mịn")]
     [Tooltip("Tốc độ đối tượng di chuyển bám theo chuột. Càng lớn càng nhanh.")]
@@ -43,7 +43,7 @@ public class Level_88Ctrl : BaseDragController<L88_GrassTractor>
 
     protected override void OnDragStarted()
     {
-
+        
     }
 
     IEnumerator HandleWinCondition()

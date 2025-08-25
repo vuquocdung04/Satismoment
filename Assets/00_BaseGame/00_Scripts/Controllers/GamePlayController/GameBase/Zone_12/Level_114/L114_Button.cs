@@ -11,6 +11,7 @@ public class L114_Button : MonoBehaviour
     {
         if (isOpened) return;
         PlayingAnimation();
+        levelCtrl.PlayVacuumSound();
         levelCtrl.effect.StartAnimation();
         isOpened = true;
     }

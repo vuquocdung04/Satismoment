@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Level_87Ctrl : BaseDragController<L87_Stick>
 {
-    public int winProgress = 0;
+    public int winProgress;
     public Sprite stickSprite;
     public L87_Buffterfly buffterfly;
     public List<L87_Stick> lsSticks;
@@ -37,14 +37,8 @@ public class Level_87Ctrl : BaseDragController<L87_Stick>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
-
-    void AnimateBuffterfly()
-    {
-
-    }
-
-
     IEnumerator HandleWinCondition()
     {
         isWin = true;

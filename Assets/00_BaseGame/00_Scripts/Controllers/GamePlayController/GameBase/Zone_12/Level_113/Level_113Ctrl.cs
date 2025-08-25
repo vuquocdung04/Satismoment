@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
 {
+    public AudioClip carSound;
     public Transform car;
     public List<L113_GarbageCan> lsGarbageCans;
     protected override void OnDragEnded()
@@ -31,6 +32,7 @@ public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
     protected override void OnDragStarted()
     {
         draggableComponent.OnStartDrag();
+        GameController.Instance.musicManager.PlayPick();
     }
 
     public L113_GarbageCan GetGarbageCanById(int id)
@@ -41,7 +43,8 @@ public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
         }
         return null;
     }
-    public bool CheckWin()
+
+    private bool CheckWin()
     {
         if(winProgress == lsT_ItemDragables.Count)
         {
@@ -53,6 +56,8 @@ public class Level_113Ctrl : BaseDragControllerVer2<L113_Garbage>
     protected override IEnumerator HandleWinCondition()
     {
         Tween carMove = car.DOMoveX(6f,1.5f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(0.2f);
+        GameController.Instance.musicManager.PlaySingle(carSound);
         yield return carMove.WaitForCompletion();
         yield return base.HandleWinCondition();
     }

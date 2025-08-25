@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Level_102Ctrl : MonoBehaviour
 {
+    public AudioClip screenShotSound;
     public int winProgress;
-    public bool isWin = false;
+    public bool isWin;
     public Transform frame;
     public Transform timmingBar;
     public Transform maskTimingBar;
@@ -28,7 +29,7 @@ public class Level_102Ctrl : MonoBehaviour
     public void MovingMask()
     {
         if(winProgress <= 5)
-        maskTimingBar.DOMoveX(maskTimingBar.transform.position.x + 0.45f,0.2f).SetEase(Ease.Linear);
+            maskTimingBar.DOMoveX(maskTimingBar.transform.position.x + 0.45f,0.2f).SetEase(Ease.Linear);
     }
 
     public void FadingEffect()
@@ -54,5 +55,10 @@ public class Level_102Ctrl : MonoBehaviour
         yield return new WaitForSeconds(2f);
         WinBox.SetUp().Show();
 
+    }
+
+    public void PlayScreenShotSound()
+    {
+        GameController.Instance.musicManager.PlaySingle(screenShotSound);
     }
 }

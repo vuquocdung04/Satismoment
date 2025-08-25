@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
@@ -10,6 +9,7 @@ public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
         if (draggableComponent.CheckAngleCorrect())
         {
             winProgress++;
+            GameController.Instance.musicManager.PlayPlace();
             if (winProgress == lsT_ItemDragables.Count)
                 StartCoroutine(HandleWinCondition());
         }
@@ -44,6 +44,7 @@ public class Level_103Ctrl : BaseDragControllerVer2<L103_Ring>
         closestItem = null;
         minDistance = float.MaxValue;
         distance = 0;
+        GameController.Instance.musicManager.PlayPick();
         // Tìm item gần chuột nhất
         foreach (var item in this.lsT_ItemDragables)
         {

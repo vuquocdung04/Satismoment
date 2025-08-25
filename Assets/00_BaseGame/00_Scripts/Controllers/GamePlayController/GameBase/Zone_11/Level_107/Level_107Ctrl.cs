@@ -26,6 +26,7 @@ public class Level_107Ctrl : BaseDragController<L107_PieceDonut>
     {
         if(draggableComponent.neighbor != null)
         {
+            GameController.Instance.musicManager.PlayPick();
             StartCoroutine(SwapTile(draggableComponent, draggableComponent.neighbor));
         }
     }
@@ -56,7 +57,7 @@ public class Level_107Ctrl : BaseDragController<L107_PieceDonut>
 
     public bool CheckWin()
     {
-        float distance = 0;
+        float distance;
         for (int i = 0; i < lsPieceDonuts.Count - 1; i++)
         {
             distance = Vector2.Distance(lsPieceDonuts[i].transform.position, lsPosTargetDonuts[i]);
