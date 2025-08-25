@@ -42,6 +42,16 @@ public class WinBox : BaseBox
         StartCoroutine(DoShowingPopup(delegate
         {
             GameController.Instance.adsController.ShowInterstitial();
+            if (!GameController.Instance.useProfile.IsRemoveAds)
+            {
+                btnHome.enabled = true;
+                btnNext.enabled = true;
+                btnRestart.enabled = true;
+            }
+            else
+            {
+                Debug.Log("Da mua goi remove ads");
+            }
         }));
     }
 
@@ -53,8 +63,25 @@ public class WinBox : BaseBox
         ThumbUpBox.SetUp().Close();
         panel.color = new Color32(0, 0, 0, 215);
         GameController.Instance.musicManager.PlayWinLevelSound();
-        yield return null;
+        HandleStateBtn();
+        yield return new WaitForSeconds(0.3f);
         base.DoAppear(callback);
+    }
+
+    private void HandleStateBtn(bool isActive = true)
+    {
+        if (GameController.Instance.useProfile.IsRemoveAds)
+        {
+            btnHome.enabled = isActive;
+            btnNext.enabled = isActive;
+            btnRestart.enabled = isActive;
+        }
+        else
+        {
+            btnHome.enabled = !isActive;
+            btnNext.enabled = !isActive;
+            btnRestart.enabled = !isActive;
+        }
     }
 
 

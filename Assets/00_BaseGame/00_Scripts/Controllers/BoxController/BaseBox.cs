@@ -42,5 +42,6 @@ public abstract class BaseBox : MonoBehaviour
     public virtual void Close()
     {
         gameObject.SetActive(false);
+        GameController.Instance.ResetTimeScale();
     }
 }

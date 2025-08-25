@@ -64,6 +64,8 @@ public class SettingGameBox : BaseBox
 
     void InitState()
     {
+        GameController.Instance.PauseTimeScale();
+        
         if (GameController.Instance.useProfile.OnSound)
         {
             imgSound.sprite = iconSoundOn;

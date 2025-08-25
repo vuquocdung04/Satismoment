@@ -10,11 +10,16 @@ public class AdsController : MonoBehaviour
     private AppOpenAd appOpenAd;
 
     // Ad Unit IDs của bạn
-    private const string BannerId = "ca-app-pub-4739017290334481/4383883316"; // Bieu ngu
-    private const string InterstitialId = "ca-app-pub-4739017290334481/6239906374"; // Trung gian
-    private const string RewardedId = "ca-app-pub-4739017290334481/2604716024"; // Nhan thuong
-    private const string AppOpenId = "ca-app-pub-4739017290334481/8079601655";
+    //private const string BannerId = "ca-app-pub-4739017290334481/4383883316"; // Bieu ngu
+    //private const string InterstitialId = "ca-app-pub-4739017290334481/6239906374"; // Trung gian
+    //private const string RewardedId = "ca-app-pub-4739017290334481/2604716024"; // Nhan thuong
+    //private const string AppOpenId = "ca-app-pub-4739017290334481/8079601655";
 
+    //Test
+    private const string BannerId = "ca-app-pub-3940256099942544/6300978111";
+    private const string InterstitialId = "ca-app-pub-3940256099942544/1033173712";
+    private const string RewardedId = "ca-app-pub-3940256099942544/5224354917";
+    private const string AppOpenId = "ca-app-pub-3940256099942544/3419835294";
     public void Init()
     {
         // Khởi tạo SDK

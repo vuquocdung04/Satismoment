@@ -53,7 +53,7 @@ public class Level_15Ctrl : MonoBehaviour
         for (int i = 0; i < eggShellSpamCount; i++)
         {
             brokenEggShell.localScale = new Vector3(rand, rand);
-            SimplePool2.Spawn(brokenEggShell.gameObject, mask.transform.position, Quaternion.identity);
+            SimplePool2.Spawn(brokenEggShell.gameObject, mask.transform.position - Vector3.right * 2.5f, Quaternion.identity);
         }
 
     }

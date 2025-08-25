@@ -39,6 +39,9 @@ public class GameController : MonoBehaviour
     public ConfettiEffectController confettiEffectController;
     void Init()
     {
+        ResetTimeScale();
+        Application.targetFrameRate = 60;
+        useProfile.IsRemoveAds = true;
         adsController.Init();
         musicManager.Init();
         dataContain.Init();
@@ -47,8 +50,19 @@ public class GameController : MonoBehaviour
 
     public void ChangeScene(string sceneName, float duration = 3f)
     {
+        ResetTimeScale();
         adsController.DestroyBanner();
         Initiate.Fade(sceneName, Color.black, duration);
+    }
+
+    public void ResetTimeScale()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void PauseTimeScale()
+    {
+        Time.timeScale = 0;
     }
     
 }

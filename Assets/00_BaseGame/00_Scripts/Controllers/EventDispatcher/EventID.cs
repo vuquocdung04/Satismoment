@@ -2,8 +2,6 @@
 {
   
     NONE,
-    
-    
     //HOME SCRENE
     REFRESH_HOMESCENE = 100,
     

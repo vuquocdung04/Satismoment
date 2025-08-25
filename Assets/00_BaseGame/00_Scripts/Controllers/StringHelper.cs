@@ -9,6 +9,7 @@ public static class StringHelper
     public const string ONOFF_MUSIC = "ONOFF_MUSIC";
     public const string ONOFF_SOUND = "ONOFF_SOUND";
     public const string REMOVE_ADS = "REMOVE_ADS";
+    public const string PAUSE_GAME = "PAUSE_GAME";
 }
 public class SceneName
 {

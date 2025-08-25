@@ -30,7 +30,7 @@ public class HintBox : BaseBox
     }
     void InitState()
     {
-
+        GameController.Instance.PauseTimeScale();
     }
 
     void SetHintImage()

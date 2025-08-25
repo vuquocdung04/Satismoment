@@ -70,4 +70,18 @@ public class UseProfile : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
+    public bool PauseGame
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(StringHelper.PAUSE_GAME,0) == 1;
+        }
+        set
+        {
+            PlayerPrefs.SetInt(StringHelper.PAUSE_GAME,value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
+    
 }
