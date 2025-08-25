@@ -121,7 +121,9 @@ public class AdsController : MonoBehaviour
             rewardedAd = ad;
             Debug.Log("Rewarded ad loaded");
 
-            rewardedAd.OnAdFullScreenContentClosed += () => {
+            rewardedAd.OnAdFullScreenContentClosed += () =>
+            {
+                GameController.Instance.musicManager.PlayThumbsUpSound();
                 Debug.Log("Rewarded ad closed");
                 RequestRewardedAd();
             };

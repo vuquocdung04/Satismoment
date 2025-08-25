@@ -16,6 +16,7 @@ public class AdsUnlockBox : BaseBox
         return instance;
     }
 
+    public Image imgUnlocked;
     public Button btnClose;
     public Button btnAdsUnlock;
 
@@ -46,6 +47,7 @@ public class AdsUnlockBox : BaseBox
 
     void InitState()
     {
+        imgUnlocked.gameObject.SetActive(false);
     }
 
     void OnClickAdsUnlock()
@@ -60,6 +62,6 @@ public class AdsUnlockBox : BaseBox
         UseProfile.MaxUnlockedLevel++;
         Debug.Log("Reward received! Unlocking level..." + UseProfile.MaxUnlockedLevel);
         HomeController.Instance.homeScene.RefreshBoard();
-        Close();
+        imgUnlocked.gameObject.SetActive(true);
     }
 }

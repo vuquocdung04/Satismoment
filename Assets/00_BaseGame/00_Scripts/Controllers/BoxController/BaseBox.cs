@@ -16,14 +16,11 @@ public abstract class BaseBox : MonoBehaviour
         OnStart();
     }
 
-    protected virtual void DoAppear(System.Action callback = null)
+    protected virtual void DoAppear()
     {
         if (!isAnim) return;
         if (mainPanel == null) return;
-        mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack).OnComplete(delegate
-        {
-            callback?.Invoke();
-        });
+        mainPanel.DOScale(1, 0.3f).SetUpdate(true).SetEase(Ease.OutBack);
     }
     
     protected virtual void OnStart()

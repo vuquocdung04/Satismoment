@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
     {
         ResetTimeScale();
         Application.targetFrameRate = 60;
-        useProfile.IsRemoveAds = true;
         adsController.Init();
         musicManager.Init();
         dataContain.Init();

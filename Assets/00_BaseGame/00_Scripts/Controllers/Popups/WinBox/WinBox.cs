@@ -37,7 +37,7 @@ public class WinBox : BaseBox
 
     }
 
-    protected override void DoAppear(Action callback = null)
+    protected override void DoAppear()
     {
         StartCoroutine(DoShowingPopup(delegate
         {
@@ -64,8 +64,9 @@ public class WinBox : BaseBox
         panel.color = new Color32(0, 0, 0, 215);
         GameController.Instance.musicManager.PlayWinLevelSound();
         HandleStateBtn();
-        yield return new WaitForSeconds(0.3f);
-        base.DoAppear(callback);
+        base.DoAppear();
+        yield return new WaitForSeconds(0.75f);
+        callback?.Invoke();
     }
 
     private void HandleStateBtn(bool isActive = true)

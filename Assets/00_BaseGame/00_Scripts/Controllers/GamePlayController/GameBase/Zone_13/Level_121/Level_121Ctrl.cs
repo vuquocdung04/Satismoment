@@ -114,7 +114,8 @@ public class Level_121Ctrl : BaseDragController<L121_PopitButton>
                 // Khởi tạo lại game
                 ChangeColor(Color.green);
                 yield return new WaitForSeconds(0.2f);
-                InitStateGame();
+                if (winProgress < 3)
+                    InitStateGame();
             }
         }
         else
