@@ -24,6 +24,7 @@ public class Level_151Ctrl : BaseDragController<L151_PiecePenguin>
         {
             isWin = true;
             HandleStateWin();
+            StartCoroutine(HandleWinCondition());
             for (int i  =0; i < 15; i++)
             {
                 var candyClone = Instantiate(candyPrefab,Vector3.zero,Quaternion.identity);

@@ -45,6 +45,7 @@ public class L147_Cake : MonoBehaviour
             {
                 var cakeClone = SimplePool2.Spawn(levelCtrl.cakePrefab);
                 cakeClone.isDone = false;
+                cakeClone.levelCtrl = this.levelCtrl;
                 cakeClone.transform.position = levelCtrl.posSpawnStart.position + new Vector3(0, sizeY - 0.1f) * levelCtrl.currentCake;
                 cakeClone.StartMoving();
                 levelCtrl.lsCakeHolders.Add(cakeClone);

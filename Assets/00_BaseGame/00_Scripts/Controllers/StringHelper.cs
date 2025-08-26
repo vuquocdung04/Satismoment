@@ -25,5 +25,6 @@ public class PathPrefabs
     public const string ADS_UNLOCK_BOX = "UI/Popups/AdsUnlockBox";
     public const string THUMB_UP_BOX = "UI/Popups/ThumbUpBox";
     public const string HINT_BOX = "UI/Popups/HintBox";
+    public const string REMOVE_ADS_BOX = "UI/Popups/RemoveAdsBox";
     
 }

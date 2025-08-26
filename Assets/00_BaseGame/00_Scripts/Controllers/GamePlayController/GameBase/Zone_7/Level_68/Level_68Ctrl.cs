@@ -68,4 +68,6 @@ public class Level_68Ctrl : MonoBehaviour
         WinBox.SetUp().Show();
     }
     
+    
+    
 }

@@ -16150,7 +16150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnSetting: {fileID: 7044696}
-  btnNoAds: {fileID: 1908365451}
+  btnRemoveAds: {fileID: 1908365451}
   zoneCtrl: {fileID: 1965998944}
 --- !u!1 &655269832
 GameObject:
@@ -49511,7 +49511,7 @@ GameObject:
   - component: {fileID: 1908365452}
   - component: {fileID: 1908365451}
   m_Layer: 5
-  m_Name: BtnNoAds
+  m_Name: BtnRemoveAds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

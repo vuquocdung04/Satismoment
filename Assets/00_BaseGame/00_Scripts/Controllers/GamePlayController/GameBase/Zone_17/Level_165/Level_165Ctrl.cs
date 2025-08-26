@@ -35,7 +35,7 @@ public class Level_165Ctrl : MonoBehaviour
         }
     }
 
-    List<L165_Bug> bugsToRemove;
+    List<L165_Bug> bugsToRemove = new();
     IEnumerator SpawnSlipper()
     {
         var slipperClone = SimplePool2.Spawn(slipperPrefabs, mousePosition, Quaternion.identity);

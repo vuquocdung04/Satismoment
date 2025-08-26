@@ -34,7 +34,16 @@ public class WinBox : BaseBox
     }
     void InitState()
     {
-
+        //Game max
+        if (UseProfile.CurrentLevel == 185 && UseProfile.MaxUnlockedLevel == 185)
+        {
+            btnNext.gameObject.SetActive(false);
+            Debug.Log("Unlock Full Game");
+        }
+        else
+        {
+            btnNext.gameObject.SetActive(true);
+        }
     }
 
     protected override void DoAppear()

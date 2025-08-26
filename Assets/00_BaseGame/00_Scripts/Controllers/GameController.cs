@@ -58,7 +58,8 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1;
     }
-
+    
+    
     public void PauseTimeScale()
     {
         Time.timeScale = 0;
