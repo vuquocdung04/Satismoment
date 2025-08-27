@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
     public void ChangeScene(string sceneName, float duration = 3f)
     {
         ResetTimeScale();
+        levelBundleManager.PreloadLevelAsset(UseProfile.CurrentLevel);
         adsController.DestroyBanner();
         Initiate.Fade(sceneName, Color.black, duration);
     }

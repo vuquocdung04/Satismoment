@@ -35,9 +35,9 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 0b9c4574a83212642b497fee59edc2bd
+    m_Id: 435669ca4ce2e18438b2325a0ef4634c
   m_RemoteCatalogLoadPath:
-    m_Id: 9c72015c7891d604b9eb080616e98bfc
+    m_Id: 1d4a72813cf1e1c4f80f8f4117129a15
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
@@ -48,22 +48,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a51a02fa7ad4520419004739bf569ae6, type: 2}
   - {fileID: 11400000, guid: 6fbf722875c60cd42b8bf2b7320ee60f, type: 2}
   - {fileID: 11400000, guid: 7ad81858005d9124d9a1b1350c55b0f0, type: 2}
-  - {fileID: 11400000, guid: de5a7f90eaf56b4469291f3bcfbbd16a, type: 2}
-  - {fileID: 11400000, guid: 4ad1f7e21e1a9c549903ca73886d0c5a, type: 2}
-  - {fileID: 11400000, guid: 769682c7fa6b72048ba036725058f3c6, type: 2}
-  - {fileID: 11400000, guid: 82bda4b24d8b55f4b8cccca6175665d0, type: 2}
-  - {fileID: 11400000, guid: ee0a6cff7cfb82941a0c17df497e9071, type: 2}
-  - {fileID: 11400000, guid: 1cdabb30e712e344097c8e733bdafe43, type: 2}
-  - {fileID: 11400000, guid: 6f25a6850b92b4a4993e4cfd2a97b780, type: 2}
-  - {fileID: 11400000, guid: bf4483cfb1c96ac47853187e3ddd7c86, type: 2}
-  - {fileID: 11400000, guid: 8c35b47cffb50a34c86b1387f6cd7567, type: 2}
   - {fileID: 11400000, guid: 0c3adf7567f177940a43430d06290b27, type: 2}
-  - {fileID: 11400000, guid: 6316ded7758ae2c45b242d2e14c6a17d, type: 2}
+  - {fileID: 11400000, guid: 4ad1f7e21e1a9c549903ca73886d0c5a, type: 2}
+  - {fileID: 11400000, guid: 1cdabb30e712e344097c8e733bdafe43, type: 2}
   - {fileID: 11400000, guid: 94d134f73adc7d64ca050b79d4d05714, type: 2}
-  - {fileID: 11400000, guid: fbb94d23eba78b943aa24f85dfb9917b, type: 2}
-  - {fileID: 11400000, guid: 772018db31f52ac498b628fe5dc2a683, type: 2}
-  - {fileID: 11400000, guid: d7afb39454e849e4a9e4d9b049259177, type: 2}
+  - {fileID: 11400000, guid: 82bda4b24d8b55f4b8cccca6175665d0, type: 2}
+  - {fileID: 11400000, guid: 769682c7fa6b72048ba036725058f3c6, type: 2}
   - {fileID: 11400000, guid: 976bf59e5cb1e0c4dbdf46f0b341579a, type: 2}
+  - {fileID: 11400000, guid: 6316ded7758ae2c45b242d2e14c6a17d, type: 2}
+  - {fileID: 11400000, guid: fbb94d23eba78b943aa24f85dfb9917b, type: 2}
+  - {fileID: 11400000, guid: 8c35b47cffb50a34c86b1387f6cd7567, type: 2}
+  - {fileID: 11400000, guid: d7afb39454e849e4a9e4d9b049259177, type: 2}
+  - {fileID: 11400000, guid: bf4483cfb1c96ac47853187e3ddd7c86, type: 2}
+  - {fileID: 11400000, guid: 6f25a6850b92b4a4993e4cfd2a97b780, type: 2}
+  - {fileID: 11400000, guid: 772018db31f52ac498b628fe5dc2a683, type: 2}
+  - {fileID: 11400000, guid: de5a7f90eaf56b4469291f3bcfbbd16a, type: 2}
+  - {fileID: 11400000, guid: ee0a6cff7cfb82941a0c17df497e9071, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
       - m_Id: 0b9c4574a83212642b497fee59edc2bd
         m_Value: ServerData/[BuildTarget]
       - m_Id: 9c72015c7891d604b9eb080616e98bfc
-        m_Value: https://vuquocdung04.github.io/satismoment-data/Android
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: 606982b6171476e4db1186f3be7dd8b0
       m_Name: BuildTarget
