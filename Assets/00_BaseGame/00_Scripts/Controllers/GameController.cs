@@ -36,11 +36,14 @@ public class GameController : MonoBehaviour
     public DataContain dataContain;
     public MusicManagerBase musicManager;
     public AdsController adsController;
+    public LevelBundleManager levelBundleManager;
+    public RemoteLoadTest remoteLoadTest;
     public ConfettiEffectController confettiEffectController;
     void Init()
     {
         ResetTimeScale();
         Application.targetFrameRate = 60;
+        remoteLoadTest.Init();
         adsController.Init();
         musicManager.Init();
         dataContain.Init();

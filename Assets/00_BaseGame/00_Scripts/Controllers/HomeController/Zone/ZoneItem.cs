@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using UnityEngine.UI;
 
 public class ZoneItem : LoadAutoComponents
@@ -22,21 +20,16 @@ public class ZoneItem : LoadAutoComponents
     {
         UseProfile.CurrentLevel = idLevel;
         if (idLevel <= UseProfile.MaxUnlockedLevel)
+        {
             GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
+        }
         else if(idLevel == UseProfile.MaxUnlockedLevel + 1)
         {
             AdsUnlockBox.SetUp().Show();
         }
 
     }
-
-
-    public void SetStateItem()
-    {
-        
-    }
-
-
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();

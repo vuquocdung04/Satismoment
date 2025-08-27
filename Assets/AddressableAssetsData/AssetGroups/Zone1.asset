@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Zone1
+  m_EditorClassIdentifier: 
+  m_GroupName: Zone1
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8ab5a0ca80a2fb448a6a277f23c63633
+  m_SerializeEntries:
+  - m_GUID: 8e3d2823a5e729440b4a883c5c1b73c6
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79e22c8719b9a4848baa115d67cf265c
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ff77564afbda5c45941d9ab6800e502
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23831a66e24a44d45aeb68379f0b7507
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bbf252036d76734ba715d09ac0ada91
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4fdbabfdde687c4eb6e1c7c55d1a700
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 467f18e6e7ab9ca4ba52b10ae105667d
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_7.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 30f33bb405cd0914eb51b5b9bce72158
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_8.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46cb3fcfccc764345baeb490d63166ad
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_9.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3e161a4471b9394892ba2c0f83a4593
+    m_Address: Assets/00_BaseGame/02_Prefabs_Sprite/Prefabs/Zone1/Level_10.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: c5b4d602dff727e4bade3cb56f71dbd1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 36c851f189ffee548b24ddb4b403ad32, type: 2}
+    - {fileID: 11400000, guid: d95e3aa82f7a3f64aae4102bdbb0fda6, type: 2}

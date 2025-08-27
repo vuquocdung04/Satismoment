@@ -19,4 +19,10 @@ public class ScaleBG : MonoBehaviour
             bg.localPosition = Vector3.zero;
         }
     }
+
+    [Button("Clear List", ButtonSizes.Large)]
+    void ClearList()
+    {
+        lsLevels.Clear();
+    }
 }
