@@ -57,9 +57,6 @@ public class LevelBundleManager : MonoBehaviour
     {
         try
         {
-            // Giải phóng level cũ trước
-            UnloadCurrentLevel();
-
             string levelAddress = GetLevelAddress(levelNumber);
             
             if (string.IsNullOrEmpty(levelAddress))

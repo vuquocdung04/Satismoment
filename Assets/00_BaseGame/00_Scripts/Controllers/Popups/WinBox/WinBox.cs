@@ -24,17 +24,23 @@ public class WinBox : BaseBox
     public CharactorAnim anim;
     public Image panel;
     public Transform posSpawn;
+    private bool isReady;
     void Init()
     {
         anim.Init();
 
-        btnNext.onClick.AddListener(HandleNext);
-        btnRestart.onClick.AddListener(OnClickRestart);
-        btnHome.onClick.AddListener(OnClickHome);
+        btnNext.onClick.AddListener(delegate{AntiSpamBtn(GoToNextLevel);});
+        btnRestart.onClick.AddListener(delegate { AntiSpamBtn(OnClickRestart);});
+        btnHome.onClick.AddListener(delegate{AntiSpamBtn(GoToHomeScene);});
     }
     void InitState()
     {
-        //Game max
+        isReady = false;
+        //Game max 185 = max level
+        if(UseProfile.CurrentLevel == UseProfile.MaxUnlockedLevel && UseProfile.MaxUnlockedLevel <= 185)
+        {
+            UseProfile.MaxUnlockedLevel++;
+        }
         if (UseProfile.CurrentLevel == 185 && UseProfile.MaxUnlockedLevel == 185)
         {
             btnNext.gameObject.SetActive(false);
@@ -96,24 +102,21 @@ public class WinBox : BaseBox
 
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void HandleNext()
+    private void GoToNextLevel()
     {
         Next();
 
         void Next()
         {
-            if(UseProfile.CurrentLevel == UseProfile.MaxUnlockedLevel)
-            {
-                UseProfile.MaxUnlockedLevel++;
-            }
-            UseProfile.CurrentLevel++;
+            if (UseProfile.CurrentLevel <= UseProfile.MaxUnlockedLevel &&  UseProfile.CurrentLevel <= 185)
+                UseProfile.CurrentLevel++;
             GameController.Instance.musicManager.PlayUIClick();
             GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
         }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void OnClickHome()
+    private void GoToHomeScene()
     {
         GameController.Instance.musicManager.PlayUIClick();
         GameController.Instance.ChangeScene(SceneName.HOME_SCENE);
@@ -126,5 +129,18 @@ public class WinBox : BaseBox
         GameController.Instance.ChangeScene(SceneName.GAME_PLAY);
     }
 
+
+    private void AntiSpamBtn(Action callback = null)
+    {
+        if (!isReady)
+        {
+            isReady = true;
+            callback?.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Spawn it thoi =))");
+        }
+    }
     
 }

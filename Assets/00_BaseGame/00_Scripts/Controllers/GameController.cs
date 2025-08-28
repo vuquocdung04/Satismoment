@@ -9,9 +9,12 @@ public class GameController : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if(!instance)
             {
-                instance = FindAnyObjectByType<GameController>();
+                GameObject gameControllerObject = new GameObject("GameController");
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+                instance = gameControllerObject.AddComponent<GameController>();
+                Debug.Log("GameController created automatically!");
             }
             return instance;
         }
@@ -53,9 +56,11 @@ public class GameController : MonoBehaviour
     public void ChangeScene(string sceneName, float duration = 3f)
     {
         ResetTimeScale();
-        levelBundleManager.PreloadLevelAsset(UseProfile.CurrentLevel);
-        adsController.DestroyBanner();
-        Initiate.Fade(sceneName, Color.black, duration);
+        levelBundleManager.PreloadLevelAsset(UseProfile.CurrentLevel, delegate
+        {
+            adsController.DestroyBanner();
+            Initiate.Fade(sceneName, Color.black, duration);
+        });
     }
 
     public void ResetTimeScale()
