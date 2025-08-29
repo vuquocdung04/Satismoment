@@ -40,13 +40,11 @@ public class GameController : MonoBehaviour
     public MusicManagerBase musicManager;
     public AdsController adsController;
     public LevelBundleManager levelBundleManager;
-    public RemoteLoadTest remoteLoadTest;
     public ConfettiEffectController confettiEffectController;
     void Init()
     {
         ResetTimeScale();
         Application.targetFrameRate = 60;
-        remoteLoadTest.Init();
         adsController.Init();
         musicManager.Init();
         dataContain.Init();
@@ -62,7 +60,7 @@ public class GameController : MonoBehaviour
             Initiate.Fade(sceneName, Color.black, duration);
         });
     }
-
+    
     public void ResetTimeScale()
     {
         Time.timeScale = 1;
