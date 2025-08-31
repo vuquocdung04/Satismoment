@@ -9,4 +9,9 @@ public class LevelGameCtrl : MonoBehaviour
         // Không cần truyền tham số nữa và hàm này giờ trả về GameObject
         GameController.Instance.levelBundleManager.InstantiateLevelFromPreloaded();
     }
+
+    private void OnDestroy()
+    {
+        GameController.Instance.levelBundleManager.UnloadCurrentLevel();
+    }
 }
