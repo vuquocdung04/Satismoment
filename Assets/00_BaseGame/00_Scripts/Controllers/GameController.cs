@@ -1,27 +1,30 @@
-
 using _00_BaseGame._00_Scripts.Controllers.MusicManager;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     private static GameController instance;
+
     public static GameController Instance
     {
         get
         {
-            if(!instance)
+            if (!instance)
             {
                 GameObject gameControllerObject = new GameObject("GameController");
                 // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 instance = gameControllerObject.AddComponent<GameController>();
                 Debug.Log("GameController created automatically!");
             }
+
             return instance;
         }
     }
+
     protected void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -30,10 +33,12 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         Init();
 
         DontDestroyOnLoad(this);
     }
+
     public StartLoading startLoading;
     public UseProfile useProfile;
     public DataContain dataContain;
@@ -41,6 +46,7 @@ public class GameController : MonoBehaviour
     public AdsController adsController;
     public LevelBundleManager levelBundleManager;
     public ConfettiEffectController confettiEffectController;
+
     void Init()
     {
         ResetTimeScale();
@@ -60,16 +66,19 @@ public class GameController : MonoBehaviour
             Initiate.Fade(sceneName, Color.black, duration);
         });
     }
-    
+
     public void ResetTimeScale()
     {
         Time.timeScale = 1;
     }
-    
-    
+
+
     public void PauseTimeScale()
     {
         Time.timeScale = 0;
     }
-    
 }
+
+
+
+
